@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Passo 6 — Atributos</title>
+    <link rel="stylesheet" th:href="@{/css/wizard.css}" />
+</head>
+<body>
+
+<form th:action="@{/character/create/step-6}" method="post">
+
+    <div class="step-progress">
+        <div class="step-dot done">✓</div>
+        <div class="step-dot done">✓</div>
+        <div class="step-dot done">✓</div>
+        <div class="step-dot done">✓</div>
+        <div class="step-dot done">✓</div>
+        <div class="step-dot active">6</div>
+    </div>
+
+    <h1>📊 Definir Atributos</h1>
+
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem;">
+
+        <div class="field-group">
+            <label>Força (Strength)</label>
+            <input type="number" name="strength" min="1" max="20" value="10" required>
+        </div>
+
+        <div class="field-group">
+            <label>Destreza (Dexterity)</label>
+            <input type="number" name="dexterity" min="1" max="20" value="10" required>
+        </div>
+
+        <div class="field-group">
+            <label>Constituição (Constitution)</label>
+            <input type="number" name="constitution" min="1" max="20" value="10" required>
+        </div>
+
+        <div class="field-group">
+            <label>Inteligência (Intelligence)</label>
+            <input type="number" name="intelligence" min="1" max="20" value="10" required>
+        </div>
+
+        <div class="field-group">
+            <label>Sabedoria (Wisdom)</label>
+            <input type="number" name="wisdom" min="1" max="20" value="10" required>
+        </div>
+
+        <div class="field-group">
+            <label>Carisma (Charisma)</label>
+            <input type="number" name="charisma" min="1" max="20" value="10" required>
+        </div>
+
+    </div>
+
+    <div class="button-row">
+        <button type="submit">Finalizar ✔</button>
+    </div>
+
+</form>
+
+</body>
+</html>

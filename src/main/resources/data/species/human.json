@@ -1,0 +1,57 @@
+{
+  "name": "Human",
+  "creatureType": "Humanoid",
+  "size": {
+    "options": [
+      {
+        "category": "Medium"
+      },
+      {
+        "category": "Small"
+      }
+    ],
+    "selection_rule": "Choose when selecting this species"
+  },
+  "speed": {
+    "walk": 30,
+    "unit": "feet"
+  },
+  "traits": [
+    {
+      "name": "Resourceful",
+      "effects": [
+        {
+          "type": "gain_resource",
+          "resource": "Heroic Inspiration",
+          "trigger": "finish_long_rest",
+          "amount": 1
+        }
+      ],
+      "description": "You gain Heroic Inspiration whenever you finish a Long Rest."
+    },
+    {
+      "name": "Skillful",
+      "effects": [
+        {
+          "type": "gain_proficiency",
+          "category": "skill",
+          "choice": "any",
+          "amount": 1
+        }
+      ],
+      "description": "You gain proficiency in one skill of your choice."
+    },
+    {
+      "name": "Versatile",
+      "effects": [
+        {
+          "type": "gain_feat",
+          "category": "Origin",
+          "choice": "any",
+          "amount": 1
+        }
+      ],
+      "description": "You gain an Origin feat of your choice (see chapter 5). Skilled is recommended."
+    }
+  ]
+}

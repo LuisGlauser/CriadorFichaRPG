@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${character.name} + ' — Ficha'">Ficha do Personagem</title>
+    <link rel="stylesheet" th:href="@{/css/wizard.css}" />
+</head>
+<body>
+
+<div class="sheet-container">
+
+    <!-- ── CABEÇALHO ── -->
+    <div class="sheet-header">
+        <div class="sheet-name" th:text="${character.name}">Nome</div>
+        <div class="sheet-meta">
+            <div class="sheet-meta-item">
+                <span class="meta-label">Classe</span>
+                <span class="meta-value" th:text="${character.characterClass.name}">—</span>
+            </div>
+            <div class="sheet-meta-item">
+                <span class="meta-label">Nível</span>
+                <span class="meta-value" th:text="${character.level}">—</span>
+            </div>
+            <div class="sheet-meta-item">
+                <span class="meta-label">Raça</span>
+                <span class="meta-value" th:text="${character.species != null ? character.species.name : '—'}">—</span>
+            </div>
+            <div class="sheet-meta-item">
+                <span class="meta-label">Background</span>
+                <span class="meta-value" th:text="${character.background != null ? character.background.name : '—'}">—</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── CORPO DA FICHA ── -->
+    <div class="sheet-body">
+
+        <!-- COLUNA ESQUERDA: Atributos -->
+        <div class="attr-column">
+            <h2 style="text-align:center; border-bottom:none; margin-top:0;">Atributos</h2>
+
+            <div class="attr-box">
+                <span class="attr-label">Força</span>
+                <span class="attr-score" th:text="${character.attributes.strength}">10</span>
+                <span class="attr-mod"
+                      th:text="${character.attributes.getModifier(character.attributes.strength) >= 0
+                                 ? '+' + character.attributes.getModifier(character.attributes.strength)
+                                 : character.attributes.getModifier(character.attributes.strength)}">+0</span>
+            </div>
+
+            <div class="attr-box">
+                <span class="attr-label">Destreza</span>
+                <span class="attr-score" th:text="${character.attributes.dexterity}">10</span>
+                <span class="attr-mod"
+                      th:text="${character.attributes.getModifier(character.attributes.dexterity) >= 0
+                                 ? '+' + character.attributes.getModifier(character.attributes.dexterity)
+                                 : character.attributes.getModifier(character.attributes.dexterity)}">+0</span>
+            </div>
+
+            <div class="attr-box">
+                <span class="attr-label">Constituição</span>
+                <span class="attr-score" th:text="${character.attributes.constitution}">10</span>
+                <span class="attr-mod"
+                      th:text="${character.attributes.getModifier(character.attributes.constitution) >= 0
+                                 ? '+' + character.attributes.getModifier(character.attributes.constitution)
+                                 : character.attributes.getModifier(character.attributes.constitution)}">+0</span>
+            </div>
+
+            <div class="attr-box">
+                <span class="attr-label">Inteligência</span>
+                <span class="attr-score" th:text="${character.attributes.intelligence}">10</span>
+                <span class="attr-mod"
+                      th:text="${character.attributes.getModifier(character.attributes.intelligence) >= 0
+                                 ? '+' + character.attributes.getModifier(character.attributes.intelligence)
+                                 : character.attributes.getModifier(character.attributes.intelligence)}">+0</span>
+            </div>
+
+            <div class="attr-box">
+                <span class="attr-label">Sabedoria</span>
+                <span class="attr-score" th:text="${character.attributes.wisdom}">10</span>
+                <span class="attr-mod"
+                      th:text="${character.attributes.getModifier(character.attributes.wisdom) >= 0
+                                 ? '+' + character.attributes.getModifier(character.attributes.wisdom)
+                                 : character.attributes.getModifier(character.attributes.wisdom)}">+0</span>
+            </div>
+
+            <div class="attr-box">
+                <span class="attr-label">Carisma</span>
+                <span class="attr-score" th:text="${character.attributes.charisma}">10</span>
+                <span class="attr-mod"
+                      th:text="${character.attributes.getModifier(character.attributes.charisma) >= 0
+                                 ? '+' + character.attributes.getModifier(character.attributes.charisma)
+                                 : character.attributes.getModifier(character.attributes.charisma)}">+0</span>
+            </div>
+        </div>
+
+        <!-- COLUNA DIREITA: Stats de combate + Features + Traits -->
+        <div class="main-column">
+
+            <!-- Stats de combate -->
+            <div class="combat-row">
+                <div class="combat-box">
+                    <span class="combat-label">HP Atual</span>
+                    <span class="combat-value" th:text="${character.currentHp}">0</span>
+                </div>
+                <div class="combat-box">
+                    <span class="combat-label">HP Máximo</span>
+                    <span class="combat-value" th:text="${character.maxHp}">0</span>
+                </div>
+                <div class="combat-box">
+                    <span class="combat-label">Dado de Vida</span>
+                    <span class="combat-value" th:text="'d' + ${character.characterClass.hitDie}">d6</span>
+                </div>
+            </div>
+
+            <!-- Traits da Raça -->
+            <div class="section-box" th:if="${character.species != null}">
+                <h2>Traços da Raça</h2>
+                <ul class="trait-list">
+                    <li th:each="t : ${character.species.traits}" th:text="${t.name}">Traço</li>
+                </ul>
+            </div>
+
+            <!-- Features da Classe -->
+            <div class="section-box">
+                <h2>Features da Classe</h2>
+
+                <div th:if="${#lists.isEmpty(character.features)}">
+                    <p style="color:var(--ink-mid); font-style:italic;">Nenhuma feature disponível.</p>
+                </div>
+
+                <div th:each="f : ${character.features}" class="feature">
+                    <div class="feature-header">
+                        <span class="feature-level-badge"
+                              th:text="${f.level != null ? 'Nv. ' + f.level : 'Nv. 1'}">Nv. 1</span>
+                        <h3 th:text="${f.name}">Feature</h3>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Background Feat -->
+            <div class="section-box" th:if="${character.background != null}">
+                <h2>Talento (Background)</h2>
+                <p th:text="${character.background.feat}">—</p>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

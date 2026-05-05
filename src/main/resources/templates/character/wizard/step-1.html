@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Criar Personagem — Passo 1</title>
+    <link rel="stylesheet" th:href="@{/css/wizard.css}" />
+</head>
+<body>
+
+<form th:action="@{/character/create/step-1}" th:object="${character}" method="post">
+
+    <div class="step-progress">
+        <div class="step-dot active">1</div>
+        <div class="step-dot">2</div>
+        <div class="step-dot">3</div>
+        <div class="step-dot">4</div>
+        <div class="step-dot">5</div>
+        <div class="step-dot">6</div>
+    </div>
+
+    <h1>⚔ Informações Básicas</h1>
+
+    <div class="field-group">
+        <label for="name">Nome do Personagem</label>
+        <input type="text" id="name" th:field="*{name}" placeholder="Ex: Aldric Stonehammer" required />
+    </div>
+
+    <div class="field-group">
+        <label for="level">Nível Inicial</label>
+        <input type="number" id="level" th:field="*{level}" min="1" max="20" required />
+    </div>
+
+    <div class="button-row">
+        <button type="submit">Próximo →</button>
+    </div>
+
+</form>
+
+</body>
+</html>

@@ -1,0 +1,63 @@
+{
+  "name": "Orc",
+  "creatureType": "Humanoid",
+  "size": {
+    "options": [
+      {
+        "category": "Medium"
+      }
+    ]
+  },
+  "speed": {
+    "walk": 30,
+    "unit": "feet"
+  },
+  "traits": [
+    {
+      "name": "Adrenaline Rush",
+      "effects": [
+        {
+          "type": "grant_action",
+          "action": "Dash",
+          "activation": "bonus_action"
+        },
+        {
+          "type": "gain_temporary_hp",
+          "formula": "proficiency_bonus"
+        }
+      ],
+      "usage": {
+        "uses": "proficiency_bonus",
+        "recharge": ["short_rest", "long_rest"]
+      },
+      "description": "You can take the Dash action as a Bonus Action. When you do so, you gain Temporary Hit Points equal to your Proficiency Bonus. You can use this trait a number of times equal to your Proficiency Bonus, and regain all expended uses when you finish a Short or Long Rest."
+    },
+    {
+      "name": "Darkvision",
+      "effects": [
+        {
+          "type": "sense",
+          "sense": "darkvision",
+          "range": 120,
+          "unit": "feet"
+        }
+      ],
+      "description": "You have Darkvision with a range of 120 feet."
+    },
+    {
+      "name": "Relentless Endurance",
+      "effects": [
+        {
+          "type": "survive_drop_to_zero",
+          "resultHP": 1,
+          "condition": "not_killed_outright"
+        }
+      ],
+      "usage": {
+        "uses": 1,
+        "recharge": ["long_rest"]
+      },
+      "description": "When you are reduced to 0 Hit Points but not killed outright, you can drop to 1 Hit Point instead. Once you use this trait, you can’t do so again until you finish a Long Rest."
+    }
+  ]
+}

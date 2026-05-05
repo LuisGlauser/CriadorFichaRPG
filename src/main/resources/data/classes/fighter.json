@@ -1,0 +1,191 @@
+{
+  "name": "Fighter",
+  "hitDie": 10,
+  "savingThrowProficiencies": ["Strength", "Constitution"],
+  "skillProficiencies": {
+    "choose": 2,
+    "options": [
+      "Acrobatics",
+      "Animal Handling",
+      "Athletics",
+      "History",
+      "Insight",
+      "Intimidation",
+      "Perception",
+      "Persuasion",
+      "Survival"
+    ]
+  },
+  "weaponProficiencies": ["Simple", "Martial"],
+  "armorTraining": ["Light", "Medium", "Heavy", "Shields"],
+  "startingEquipment": {
+    "options": [
+      {
+        "id": "A",
+        "items": [
+          "Chain Mail",
+          "Greatsword",
+          "Flail",
+          "8 Javelins",
+          "Dungeoneer's Pack",
+          { "gold": 4 }
+        ]
+      },
+      {
+        "id": "B",
+        "items": [
+          "Studded Leather Armor",
+          "Scimitar",
+          "Shortsword",
+          "Longbow",
+          "20 Arrows",
+          "Quiver",
+          "Dungeoneer's Pack",
+          { "gold": 11 }
+        ]
+      },
+      {
+        "id": "C",
+        "items": [
+          { "gold": 155 }
+        ]
+      }
+    ]
+  },
+  "features": {
+    "Fighting Style": {
+      "level": 1,
+      "effects": [
+        {
+          "type": "gainFeatChoice",
+          "category": "fightingStyle",
+          "amount": 1
+        }
+      ]
+    },
+    "Second Wind": {
+      "level": 1,
+      "effects": [
+        {
+          "type": "heal",
+          "formula": "1d10 + fighterLevel"
+        }
+      ],
+      "activation": "bonusAction",
+      "usage": {
+        "uses": 2,
+        "recharge": ["shortRest", "longRest"]
+      }
+    },
+    "Weapon Mastery": {
+      "level": 1,
+      "effects": [
+        {
+          "type": "weaponMasteryAccess"
+        }
+      ]
+    },
+    "Action Surge": {
+      "level": 2,
+      "effects": [
+        {
+          "type": "grantAction",
+          "action": "extraAction"
+        }
+      ],
+      "usage": {
+        "usesByLevel": {
+          "2-16": 1,
+          "17-20": 2
+        },
+        "recharge": ["short_rest"]
+      }
+    },
+    "Tactical Mind": {
+      "level": 2,
+      "effects": [
+        {
+          "type": "skill_check_bonus",
+          "formula": "1d10",
+          "condition": "after_failure"
+        }
+      ],
+      "resourceInteraction": "second_wind"
+    },
+    "Ability Score Improvement": {
+      "levels": [4, 6, 8, 12, 14, 16],
+      "effects": [
+        {
+          "type": "ability_score_improvement",
+          "choice": "standard_or_feat"
+        }
+      ]
+    },
+    "Extra Attack": {
+      "levelScaling": {
+        "5": 2,
+        "11": 3,
+        "20": 4
+      },
+      "effects": [
+        {
+          "type": "extra_attack_scaling"
+        }
+      ]
+    },
+    "Tactical Shift": {
+      "level": 5,
+      "effects": [
+        {
+          "type": "movement",
+          "distance": "half_speed",
+          "noOpportunityAttacks": true
+        }
+      ],
+      "trigger": "second_wind"
+    },
+    "Indomitable": {
+      "level": 9,
+      "effects": [
+        {
+          "type": "reroll_save",
+          "bonus": "fighter_level"
+        }
+      ],
+      "usage": {
+        "usesByLevel": {
+          "9-12": 1,
+          "13-16": 2,
+          "17-20": 3
+        },
+        "recharge": ["long_rest"]
+      }
+    },
+    "Tactical Master": {
+      "level": 9,
+      "effects": [
+        {
+          "type": "weapon_mastery_replace_property"
+        }
+      ]
+    },
+    "Studied Attacks": {
+      "level": 13,
+      "effects": [
+        {
+          "type": "gain_advantage_on_miss",
+          "duration": "next_turn"
+        }
+      ]
+    },
+    "Epic Boon": {
+      "level": 19,
+      "effects": [
+        {
+          "type": "gain_feat",
+          "category": "epic_boon"
+        }
+      ]
+    }
+  }
+}

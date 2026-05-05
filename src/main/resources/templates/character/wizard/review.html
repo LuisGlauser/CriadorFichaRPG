@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Revisão do Personagem</title>
+    <link rel="stylesheet" th:href="@{/css/wizard.css}" />
+</head>
+<body>
+
+<div class="page-wrapper">
+
+    <h1>📋 Revisão Final</h1>
+
+    <div class="sheet-meta" style="margin-bottom:1.2rem;">
+        <div class="sheet-meta-item">
+            <span class="meta-label">Nome</span>
+            <span class="meta-value" th:text="${character.name}">—</span>
+        </div>
+        <div class="sheet-meta-item">
+            <span class="meta-label">Nível</span>
+            <span class="meta-value" th:text="${character.level}">—</span>
+        </div>
+        <div class="sheet-meta-item">
+            <span class="meta-label">Raça</span>
+            <span class="meta-value" th:text="${character.speciesId}">—</span>
+        </div>
+        <div class="sheet-meta-item">
+            <span class="meta-label">Classe</span>
+            <span class="meta-value" th:text="${character.classId}">—</span>
+        </div>
+        <div class="sheet-meta-item">
+            <span class="meta-label">Background</span>
+            <span class="meta-value" th:text="${character.backgroundId}">—</span>
+        </div>
+    </div>
+
+    <h2>Atributos</h2>
+
+    <div class="review-attr">
+        <span class="review-attr-name">FOR</span>
+        <span class="review-attr-score" th:text="${attr.strength}">10</span>
+        <span class="review-attr-mod"
+              th:text="${attr.getModifier(attr.strength) >= 0
+                         ? '(+' + attr.getModifier(attr.strength) + ')'
+                         : '(' + attr.getModifier(attr.strength) + ')'}">+0</span>
+    </div>
+    <div class="review-attr">
+        <span class="review-attr-name">DES</span>
+        <span class="review-attr-score" th:text="${attr.dexterity}">10</span>
+        <span class="review-attr-mod"
+              th:text="${attr.getModifier(attr.dexterity) >= 0
+                         ? '(+' + attr.getModifier(attr.dexterity) + ')'
+                         : '(' + attr.getModifier(attr.dexterity) + ')'}">+0</span>
+    </div>
+    <div class="review-attr">
+        <span class="review-attr-name">CON</span>
+        <span class="review-attr-score" th:text="${attr.constitution}">10</span>
+        <span class="review-attr-mod"
+              th:text="${attr.getModifier(attr.constitution) >= 0
+                         ? '(+' + attr.getModifier(attr.constitution) + ')'
+                         : '(' + attr.getModifier(attr.constitution) + ')'}">+0</span>
+    </div>
+    <div class="review-attr">
+        <span class="review-attr-name">INT</span>
+        <span class="review-attr-score" th:text="${attr.intelligence}">10</span>
+        <span class="review-attr-mod"
+              th:text="${attr.getModifier(attr.intelligence) >= 0
+                         ? '(+' + attr.getModifier(attr.intelligence) + ')'
+                         : '(' + attr.getModifier(attr.intelligence) + ')'}">+0</span>
+    </div>
+    <div class="review-attr">
+        <span class="review-attr-name">SAB</span>
+        <span class="review-attr-score" th:text="${attr.wisdom}">10</span>
+        <span class="review-attr-mod"
+              th:text="${attr.getModifier(attr.wisdom) >= 0
+                         ? '(+' + attr.getModifier(attr.wisdom) + ')'
+                         : '(' + attr.getModifier(attr.wisdom) + ')'}">+0</span>
+    </div>
+    <div class="review-attr">
+        <span class="review-attr-name">CAR</span>
+        <span class="review-attr-score" th:text="${attr.charisma}">10</span>
+        <span class="review-attr-mod"
+              th:text="${attr.getModifier(attr.charisma) >= 0
+                         ? '(+' + attr.getModifier(attr.charisma) + ')'
+                         : '(' + attr.getModifier(attr.charisma) + ')'}">+0</span>
+    </div>
+
+    <form th:action="@{/character/create/finish}" method="post" style="display:inline; background:none; border:none; box-shadow:none; padding:0;">
+        <button type="submit">Criar Personagem ✔</button>
+    </form>
+
+</div>
+
+</body>
+</html>

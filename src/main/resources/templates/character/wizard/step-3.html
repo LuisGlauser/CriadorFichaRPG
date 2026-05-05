@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Passo 3 — Escolher Classe</title>
+    <link rel="stylesheet" th:href="@{/css/wizard.css}" />
+</head>
+<body>
+
+<form th:action="@{/character/create/step-3}" method="post" th:object="${character}">
+
+    <div class="step-progress">
+        <div class="step-dot done">✓</div>
+        <div class="step-dot done">✓</div>
+        <div class="step-dot active">3</div>
+        <div class="step-dot">4</div>
+        <div class="step-dot">5</div>
+        <div class="step-dot">6</div>
+    </div>
+
+    <h1>⚔ Escolha sua Classe</h1>
+
+    <div class="card-container">
+        <div class="card"
+             th:each="c : ${classList}"
+             onclick="selectCard(this)">
+
+            <input type="radio"
+                   th:field="*{classId}"
+                   th:value="${c.name.toLowerCase().replace(' ', '_')}" />
+
+            <h3 th:text="${c.name}">Classe</h3>
+
+            <p><strong>Hit Die:</strong> d<span th:text="${c.hitDie}"></span></p>
+
+            <p>
+                <strong>Armas:</strong><br>
+                <span th:each="w : ${c.weaponProficiencies}" th:text="${w + ' '}"></span>
+            </p>
+
+            <p>
+                <strong>Armadura:</strong><br>
+                <span th:each="a : ${c.armorTraining}" th:text="${a + ' '}"></span>
+            </p>
+        </div>
+    </div>
+
+    <div class="button-row">
+        <button type="submit">Próximo →</button>
+    </div>
+
+</form>
+
+<script>
+    const cards = document.querySelectorAll('.card');
+    cards.forEach(card => {
+        card.addEventListener('click', () => {
+            cards.forEach(c => c.classList.remove('selected'));
+            card.classList.add('selected');
+            card.querySelector('input').checked = true;
+        });
+    });
+</script>
+
+</body>
+</html>

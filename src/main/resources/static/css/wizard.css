@@ -1,0 +1,243 @@
+/* =====================================================
+   CriadorFichaRPG — Tema Vermelho/Laranja (D&D 2024)
+   ===================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap');
+
+:root {
+  --red-dark:    #7a1515;
+  --red-mid:     #a61c1c;
+  --red-light:   #c0392b;
+  --orange-dark: #b84a00;
+  --orange-mid:  #d4600a;
+  --orange-light:#e8882a;
+  --gold:        #c9922a;
+  --gold-light:  #e8c56a;
+  --parchment:   #f5ead5;
+  --parchment-dark: #e8d5b0;
+  --ink:         #1a0a00;
+  --ink-mid:     #3d1f0a;
+  --shadow:      rgba(90,20,0,0.25);
+  --font-title:  'Cinzel', Georgia, serif;
+  --font-body:   'Crimson Text', Georgia, serif;
+  --font-label:  'Cinzel', Georgia, serif;
+}
+
+/* ── Reset & Base ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background-color: #1a0a00;
+  background-image: repeating-linear-gradient(
+    45deg,
+    rgba(180,60,0,0.04) 0px, rgba(180,60,0,0.04) 2px,
+    transparent 2px, transparent 12px
+  );
+  font-family: var(--font-body);
+  color: var(--ink);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 1rem;
+}
+
+/* ── Page container ── */
+.page-wrapper, form {
+  background-color: var(--parchment);
+  border: 3px double var(--red-dark);
+  border-radius: 4px;
+  box-shadow: 0 0 0 6px rgba(122,21,21,0.15), 0 8px 32px var(--shadow);
+  padding: 2.5rem 2rem;
+  width: 100%;
+  max-width: 900px;
+  position: relative;
+}
+
+form::before { content: '✦'; position:absolute; top:8px; left:12px; color:var(--red-mid); font-size:1rem; }
+form::after  { content: '✦'; position:absolute; bottom:8px; right:12px; color:var(--red-mid); font-size:1rem; }
+
+/* ── Step Progress ── */
+.step-progress {
+  display: flex; justify-content: center; gap: .5rem; margin-bottom: 1.8rem;
+}
+.step-dot {
+  width:32px; height:32px; border-radius:50%;
+  border:2px solid var(--red-mid);
+  background:var(--parchment-dark);
+  display:flex; align-items:center; justify-content:center;
+  font-family:var(--font-label); font-size:.72rem; color:var(--red-mid); font-weight:700;
+}
+.step-dot.active { background:var(--red-mid); color:var(--parchment); box-shadow:0 0 8px rgba(166,28,28,.5); }
+.step-dot.done   { background:var(--orange-dark); color:var(--parchment); border-color:var(--orange-dark); }
+
+/* ── Headings ── */
+h1 {
+  font-family:var(--font-title); font-size:1.75rem; color:var(--red-dark);
+  text-align:center; padding-bottom:.5rem; margin-bottom:1.2rem;
+  border-bottom:2px solid var(--red-mid); letter-spacing:.04em;
+}
+h2 {
+  font-family:var(--font-title); font-size:1.05rem; color:var(--red-mid);
+  margin:1.2rem 0 .5rem; padding-bottom:3px; border-bottom:1px solid var(--orange-light);
+}
+h3 { font-family:var(--font-title); font-size:.95rem; color:var(--orange-dark); }
+
+/* ── Divider ── */
+hr {
+  border:none; border-top:2px solid var(--parchment-dark); margin:1.2rem 0; position:relative;
+}
+hr::after {
+  content:'⚔'; position:absolute; top:-.7em; left:50%; transform:translateX(-50%);
+  background:var(--parchment); padding:0 .5rem; color:var(--red-mid); font-size:.8rem;
+}
+
+/* ── Form controls ── */
+label {
+  display:block; font-family:var(--font-label); font-size:.75rem; color:var(--red-dark);
+  font-weight:700; text-transform:uppercase; letter-spacing:.07em; margin-bottom:.25rem;
+}
+input[type="text"], input[type="number"], select, textarea {
+  width:100%; padding:.55rem .75rem;
+  background:#fffdf5; border:1px solid var(--orange-mid); border-radius:3px;
+  font-family:var(--font-body); font-size:1rem; color:var(--ink); outline:none;
+  transition:border-color .2s, box-shadow .2s;
+}
+input[type="text"]:focus, input[type="number"]:focus, select:focus {
+  border-color:var(--red-mid); box-shadow:0 0 0 3px rgba(166,28,28,.15);
+}
+input[type="radio"] { display:none; }
+
+/* ── Buttons ── */
+button[type="submit"], .btn-primary {
+  display:inline-block; margin-top:1.2rem; padding:.65rem 2rem;
+  background:linear-gradient(135deg, var(--red-dark) 0%, var(--red-light) 100%);
+  color:var(--gold-light); border:2px solid var(--gold); border-radius:3px;
+  font-family:var(--font-label); font-size:.85rem; font-weight:700; letter-spacing:.08em;
+  text-transform:uppercase; cursor:pointer; text-decoration:none;
+  transition:all .2s; box-shadow:0 3px 8px var(--shadow);
+}
+button[type="submit"]:hover, .btn-primary:hover {
+  background:linear-gradient(135deg, var(--orange-dark) 0%, var(--orange-light) 100%);
+  border-color:var(--gold-light); transform:translateY(-1px); box-shadow:0 5px 14px var(--shadow);
+}
+button[type="button"] {
+  margin-top:1.2rem; padding:.55rem 1.2rem; background:transparent;
+  color:var(--ink-mid); border:1px solid var(--parchment-dark); border-radius:3px;
+  font-family:var(--font-body); font-size:.9rem; cursor:pointer; transition:background .2s;
+}
+button[type="button"]:hover { background:var(--parchment-dark); }
+.button-row { display:flex; gap:1rem; align-items:center; flex-wrap:wrap; }
+
+/* ── Cards (raça, classe, background) ── */
+.card-container {
+  display:grid; grid-template-columns:repeat(auto-fill, minmax(160px, 1fr)); gap:1rem; margin:1rem 0;
+}
+.card, label.card {
+  border:2px solid var(--orange-mid); border-radius:6px; padding:1rem;
+  background:#fffdf5; cursor:pointer; transition:all .2s; display:block; text-align:center;
+}
+.card:hover { border-color:var(--red-mid); background:var(--parchment); transform:translateY(-3px); box-shadow:0 6px 16px var(--shadow); }
+.card.selected, label.card.selected {
+  border-color:var(--red-dark);
+  background:linear-gradient(160deg,#fff0e0 0%,var(--parchment) 100%);
+  box-shadow:0 0 0 3px rgba(122,21,21,.2), 0 6px 16px var(--shadow);
+}
+.card h3 { font-size:.95rem; color:var(--red-dark); margin-bottom:.3rem; }
+.card p  { font-size:.82rem; color:var(--ink-mid); margin:.2rem 0; }
+
+/* ── Feature Cards ── */
+.feature {
+  border:1px solid var(--parchment-dark); border-left:4px solid var(--red-mid);
+  border-radius:0 6px 6px 0; padding:.75rem 1rem; margin-bottom:.75rem; background:#fffdf5;
+}
+.feature-header { display:flex; align-items:center; gap:.6rem; margin-bottom:.25rem; }
+.feature-level-badge {
+  display:inline-flex; align-items:center; justify-content:center;
+  background:var(--red-mid); color:var(--gold-light);
+  font-family:var(--font-label); font-size:.6rem; font-weight:700;
+  padding:2px 7px; border-radius:3px; letter-spacing:.05em; white-space:nowrap;
+}
+.feature h3 { margin:0; font-size:.95rem; color:var(--ink-mid); }
+
+/* ─────────────────────────────────────────────
+   VIEW.HTML — Ficha D&D 2024
+   ───────────────────────────────────────────── */
+
+.sheet-container {
+  background-color:var(--parchment);
+  border:3px double var(--red-dark);
+  border-radius:4px;
+  box-shadow:0 0 0 6px rgba(122,21,21,.15), 0 8px 32px var(--shadow);
+  padding:2.5rem 2rem;
+  width:100%; max-width:960px; position:relative;
+}
+.sheet-container::before { content:'✦'; position:absolute; top:8px; left:12px; color:var(--red-mid); font-size:1rem; }
+.sheet-container::after  { content:'✦'; position:absolute; bottom:8px; right:12px; color:var(--red-mid); font-size:1rem; }
+
+.sheet-header { text-align:center; margin-bottom:1.5rem; }
+.sheet-name {
+  font-family:var(--font-title); font-size:2.2rem; color:var(--red-dark);
+  text-shadow:1px 1px 0 rgba(180,60,0,.2); letter-spacing:.05em; margin-bottom:.4rem;
+}
+
+.sheet-meta {
+  display:flex; justify-content:center; gap:2rem; flex-wrap:wrap;
+  border:1px solid var(--parchment-dark); border-radius:4px;
+  background:#fffdf5; padding:.6rem 1rem;
+}
+.sheet-meta-item { display:flex; flex-direction:column; align-items:center; gap:1px; }
+.sheet-meta-item .meta-label { font-family:var(--font-label); font-size:.6rem; text-transform:uppercase; letter-spacing:.1em; color:var(--red-mid); }
+.sheet-meta-item .meta-value { font-family:var(--font-title); font-size:.95rem; color:var(--ink); font-weight:700; }
+
+/* Sheet body grid */
+.sheet-body { display:grid; grid-template-columns:170px 1fr; gap:1.5rem; }
+@media (max-width:620px) { .sheet-body { grid-template-columns:1fr; } }
+
+/* Attribute column */
+.attr-column { display:flex; flex-direction:column; gap:.5rem; }
+.attr-box {
+  border:2px solid var(--red-mid); border-radius:6px; background:#fffdf5;
+  display:flex; flex-direction:column; align-items:center; padding:.5rem .3rem;
+}
+.attr-label { font-family:var(--font-label); font-size:.58rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--red-dark); }
+.attr-score { font-family:var(--font-title); font-size:1.7rem; font-weight:700; color:var(--ink); line-height:1.1; }
+.attr-mod {
+  display:inline-flex; align-items:center; justify-content:center;
+  background:var(--red-mid); color:var(--gold-light);
+  font-family:var(--font-label); font-size:.72rem; font-weight:700;
+  width:38px; height:22px; border-radius:3px; margin-top:2px;
+}
+
+/* Main column */
+.main-column { display:flex; flex-direction:column; gap:1rem; }
+
+/* Combat stats row */
+.combat-row { display:flex; gap:.75rem; flex-wrap:wrap; }
+.combat-box {
+  flex:1; min-width:75px; border:2px solid var(--orange-mid); border-radius:6px;
+  background:#fffdf5; padding:.5rem .75rem; display:flex; flex-direction:column; align-items:center; gap:2px;
+}
+.combat-label { font-family:var(--font-label); font-size:.58rem; letter-spacing:.1em; color:var(--red-mid); text-transform:uppercase; }
+.combat-value { font-family:var(--font-title); font-size:1.4rem; color:var(--ink); font-weight:700; }
+
+/* Section box */
+.section-box { border:1px solid var(--parchment-dark); border-radius:6px; padding:.8rem 1rem; background:#fffdf5; }
+.section-box h2 { margin-top:0; }
+
+/* Lists */
+.trait-list { list-style:none; padding:0; }
+.trait-list li {
+  padding:.3rem 0; border-bottom:1px dashed var(--parchment-dark);
+  font-size:.95rem; color:var(--ink-mid); display:flex; align-items:center; gap:.4rem;
+}
+.trait-list li::before { content:'◆'; color:var(--orange-mid); font-size:.6rem; }
+
+/* Review sheet */
+.review-attr { display:flex; align-items:center; gap:.6rem; padding:.3rem 0; border-bottom:1px dashed var(--parchment-dark); }
+.review-attr-name { font-family:var(--font-label); font-size:.75rem; width:40px; color:var(--red-dark); font-weight:700; }
+.review-attr-score { font-family:var(--font-title); font-size:1.1rem; font-weight:700; min-width:30px; }
+.review-attr-mod { font-family:var(--font-label); font-size:.8rem; color:var(--orange-dark); min-width:35px; }
+
+/* Form field group */
+.field-group { margin-bottom:1rem; }

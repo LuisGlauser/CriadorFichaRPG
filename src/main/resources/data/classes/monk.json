@@ -1,0 +1,203 @@
+{
+  "name": "Monk",
+  "hitDie": 8,
+  "savingThrowProficiencies": ["Strength", "Dexterity"],
+  "skillProficiencies": {
+    "choose": 2,
+    "options": [
+      "Acrobatics",
+      "Athletics",
+      "History",
+      "Insight",
+      "Religion",
+      "Stealth"
+    ]
+  },
+  "weaponProficiencies": [
+    "Simple weapons",
+    "Martial weapons with the Light property"
+  ],
+  "toolProficiencies": {
+    "choose": 1,
+    "options": ["Artisan's Tools", "Musical Instrument"]
+  },
+  "armorTraining": ["None"],
+  "startingEquipment": {
+    "options": [
+      {
+        "id": "A",
+        "items": [
+          "Spear",
+          "5 Daggers",
+          "Artisan's Tools or Musical Instrument (chosen above)",
+          "Explorer's Pack",
+          { "gold": 11 }
+        ]
+      },
+      {
+        "id": "B",
+        "items": [
+          { "gold": 50 }
+        ]
+      }
+    ]
+  },
+  "features": {
+    "Martial Arts": {
+      "level": 1,
+      "effects": [
+        {
+          "type": "bonus_unarmed_strike",
+          "activation": "bonus_action"
+        },
+        {
+          "type": "martial_arts_die",
+          "die_scaling": {
+            "1-4": "1d6",
+            "5-10": "1d8",
+            "11-16": "1d10",
+            "17-20": "1d12"
+          }
+        },
+        {
+          "type": "dexterous_attacks",
+          "description": "Use Dex instead of Str for attack/damage rolls and save DC of Unarmed Strikes and Monk weapons."
+        }
+      ]
+    },
+    "Unarmored Defense": {
+      "level": 1,
+      "effects": [
+        {
+          "type": "ac_calculation",
+          "formula": "10 + dexterity_modifier + wisdom_modifier"
+        }
+      ]
+    },
+    "Monk's Focus": {
+      "level": 2,
+      "effects": [
+        {
+          "type": "focus_points",
+          "amount": 1
+        },
+        {
+          "id": "Flurry of Blows",
+          "cost": "1 focus point",
+          "effect": "two unarmed strikes as a bonus action"
+        },
+        {
+          "id": "Patient Defense",
+          "cost": "0 or 1 focus point",
+          "effect": "Disengage as bonus action; or Disengage + Dodge for 1 point"
+        },
+        {
+          "id": "Step of the Wind",
+          "cost": "0 or 1 focus point",
+          "effect": "Dash as bonus action; or Dash + Disengage + double jump for 1 point"
+        }
+      ],
+      "recharge": ["short_rest", "long_rest"]
+    },
+    "Unarmored Movement": {
+      "level": 2,
+      "effects": [
+        {
+          "type": "speed_bonus",
+          "scaling": {
+            "2-5": 10,
+            "6-9": 15,
+            "10-13": 20,
+            "14-17": 25,
+            "18-20": 30
+          }
+        }
+      ]
+    },
+    "Uncanny Metabolism": {
+      "level": 2,
+      "effects": [
+        {
+          "type": "resource_recovery",
+          "trigger": "initiative",
+          "heal_formula": "monk_level + 1martial_arts_die"
+        }
+      ],
+      "usage": { "uses": 1, "recharge": ["long_rest"] }
+    },
+    "Deflect Attacks": {
+      "level": 3,
+      "effects": [
+        {
+          "type": "damage_reduction",
+          "formula": "1d10 + dexterity_modifier + monk_level",
+          "trigger": "hit_by_physical_attack"
+        },
+        {
+          "type": "counter_attack",
+          "cost": "1 focus point",
+          "condition": "damage_reduced_to_0"
+        }
+      ],
+      "activation": "reaction"
+    },
+    "Ability Score Improvement": {
+      "levels": [4, 8, 12, 16],
+      "effects": [
+        {
+          "type": "ability_score_improvement",
+          "choice": "standard_or_feat"
+        }
+      ]
+    },
+    "Extra Attack": {
+      "level": 5,
+      "effects": [
+        { "type": "extra_attack", "amount": 1 }
+      ]
+    },
+    "Stunning Strike": {
+      "level": 5,
+      "effects": [
+        {
+          "type": "debuff",
+          "condition": "stunned",
+          "cost": "1 focus point",
+          "save": "Constitution"
+        }
+      ],
+      "usage": { "limit": "once_per_turn" }
+    },
+    "Empowered Strikes": {
+      "level": 6,
+      "effects": [
+        { "type": "damage_type_choice", "options": ["Force", "Normal"] }
+      ]
+    },
+    "Evasion": {
+      "level": 7,
+      "effects": [
+        { "type": "dex_save_damage_reduction" }
+      ]
+    },
+    "Acrobatic Movement": {
+      "level": 9,
+      "effects": [
+        { "type": "special_movement", "surfaces": ["vertical", "liquids"] }
+      ]
+    },
+    "Disciplined Survivor": {
+      "level": 14,
+      "effects": [
+        { "type": "proficiency", "category": "all_saving_throws" },
+        { "type": "reroll_save", "cost": "1 focus point" }
+      ]
+    },
+    "Body and Mind": {
+      "level": 20,
+      "effects": [
+        { "type": "stat_boost", "stats": ["Dexterity", "Wisdom"], "amount": 4, "max": 25 }
+      ]
+    }
+  }
+}

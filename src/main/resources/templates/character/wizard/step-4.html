@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Passo 4 — Features da Classe</title>
+    <link rel="stylesheet" th:href="@{/css/wizard.css}" />
+</head>
+<body>
+
+<div class="page-wrapper">
+
+    <div class="step-progress">
+        <div class="step-dot done">✓</div>
+        <div class="step-dot done">✓</div>
+        <div class="step-dot done">✓</div>
+        <div class="step-dot active">4</div>
+        <div class="step-dot">5</div>
+        <div class="step-dot">6</div>
+    </div>
+
+    <h1 th:text="'✦ Features do ' + ${class.name}">Features</h1>
+    <h2 th:text="'Disponíveis até o Nível ' + ${character.level}">Nível</h2>
+
+    <div th:if="${#maps.isEmpty(features)}">
+        <p style="color:var(--ink-mid); font-style:italic; padding:.5rem 0;">
+            Nenhuma feature encontrada para este nível.
+        </p>
+    </div>
+
+    <div th:each="entry : ${features}" class="feature">
+        <div class="feature-header">
+            <span class="feature-level-badge"
+                  th:text="${entry.value.level != null ? 'Nv. ' + entry.value.level : 'Nv. 1'}">Nv. 1</span>
+            <h3 th:text="${entry.key}">Nome da Feature</h3>
+        </div>
+    </div>
+
+    <form th:action="@{/character/create/step-6}" method="get" style="display:inline;">
+        <button type="submit">Próximo →</button>
+    </form>
+
+</div>
+
+</body>
+</html>
