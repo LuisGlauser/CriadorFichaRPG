@@ -56,7 +56,7 @@
         },
         {
           "type": "damage_bonus",
-          "attribute": "Strength_melee_weapons",
+          "attribute": "Strength_melee_weapons"
         },
         {
           "type": "resistance",
@@ -150,8 +150,8 @@
       "levels": [4, 8, 12, 16],
       "effects": [
         {
-          "type": "ability_score_improvement",
-          "choice": "standard_or_feat"
+          "type": "ability_score_improvement"
+
         }
       ]
     },

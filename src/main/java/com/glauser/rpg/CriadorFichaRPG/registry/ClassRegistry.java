@@ -14,7 +14,11 @@ import java.util.*;
 public class ClassRegistry {
 
     private final Map<String, CharacterClass> classMap = new HashMap<>();
-    private final ObjectMapper mapper = new ObjectMapper();
+    private final ObjectMapper mapper;
+
+    public ClassRegistry(ObjectMapper mapper) {
+        this.mapper = mapper;
+    }
 
     @PostConstruct
     public void load() {

@@ -124,7 +124,7 @@ public class CharacterWizardController {
         return "character/wizard/review";
     }
 
-    // FINISH — criação do personagem delegada ao Facade
+
     @PostMapping("/finish")
     public String finish(@ModelAttribute("character") CharacterCreationDTO dto,
                          SessionStatus status) {

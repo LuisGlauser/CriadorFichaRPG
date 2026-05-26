@@ -7,13 +7,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.StringJoiner;
 
-/**
- * Adapter — adapta StringJoiner para a interface CharacterExporter.
- *
- * StringJoiner é uma classe Java padrão que monta strings com separadores.
- * Ela não sabe nada sobre CharacterSheet. Este Adapter traduz a ficha
- * para o formato CSV usando o StringJoiner como mecanismo interno.
- */
+
 @Component
 public class CSVExporterAdapter implements CharacterExporter {
 

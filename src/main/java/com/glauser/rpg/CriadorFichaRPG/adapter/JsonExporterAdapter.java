@@ -5,13 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.glauser.rpg.CriadorFichaRPG.model.character.CharacterSheet;
 import org.springframework.stereotype.Component;
 
-/**
- * Adapter — adapta o ObjectMapper do Jackson para a interface CharacterExporter.
- *
- * O ObjectMapper tem sua própria API (writeValueAsString, writerWithDefaultPrettyPrinter etc.)
- * que é incompatível com o que o sistema espera (export / getFormat).
- * Este Adapter faz a ponte entre os dois.
- */
+
 @Component
 public class JsonExporterAdapter implements CharacterExporter {
 

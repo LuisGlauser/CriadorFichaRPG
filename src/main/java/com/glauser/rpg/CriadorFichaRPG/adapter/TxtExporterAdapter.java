@@ -5,13 +5,6 @@ import com.glauser.rpg.CriadorFichaRPG.model.character.CharacterSheet;
 import com.glauser.rpg.CriadorFichaRPG.model.character.Features;
 import org.springframework.stereotype.Component;
 
-/**
- * Adapter — adapta StringBuilder para a interface CharacterExporter.
- *
- * StringBuilder é a classe "incompatível" sendo adaptada.
- * Este Adapter a usa internamente para gerar uma ficha legível em texto
- * puro, no estilo de uma ficha impressa de D&D.
- */
 @Component
 public class TxtExporterAdapter implements CharacterExporter {
 

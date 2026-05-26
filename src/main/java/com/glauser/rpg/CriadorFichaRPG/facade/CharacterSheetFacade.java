@@ -15,15 +15,7 @@ import org.springframework.stereotype.Component;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-/**
- * Facade — simplifica a criação e consulta de personagens.
- *
- * Antes, o CharacterWizardController precisava conhecer e orquestrar
- * diretamente: ClassRegistry, SpeciesRegistry, BackgroundRegistry,
- * CharacterBuilder e CharacterService.
- *
- * Agora ele chama apenas este Facade, que esconde toda essa complexidade.
- */
+
 @Component
 public class CharacterSheetFacade {
 
@@ -42,19 +34,10 @@ public class CharacterSheetFacade {
         this.backgroundRegistry = backgroundRegistry;
     }
 
-    /**
-     * Cria e salva um personagem completo a partir do DTO do wizard.
-     * Substitui as ~20 linhas espalhadas no CharacterService e no controller.
-     */
     public CharacterSheet buildAndSave(CharacterCreationDTO dto) {
         return characterService.create(dto);
     }
 
-    /**
-     * Retorna as features da classe filtradas até o nível informado.
-     * Substitui o bloco de lógica duplicado que existia no step-4
-     * do CharacterWizardController.
-     */
     public Map<String, Features> getFeaturesUpToLevel(String classId, int level) {
         CharacterClass characterClass = classRegistry.getById(classId);
 
@@ -78,16 +61,10 @@ public class CharacterSheetFacade {
         return filtered;
     }
 
-    /**
-     * Retorna o último personagem criado (comportamento atual do CharacterService).
-     */
     public CharacterSheet getLastCharacter() {
         return characterService.getLastCharacter();
     }
 
-    /**
-     * Retorna a classe pelo id — evita que controllers acessem o registry diretamente.
-     */
     public CharacterClass getClass(String classId) {
         return classRegistry.getById(classId);
     }
