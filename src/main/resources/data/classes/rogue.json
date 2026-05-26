@@ -1,0 +1,237 @@
+{
+  "name": "Rogue",
+  "hitDie": 8,
+  "savingThrowProficiencies": ["Dexterity", "Intelligence"],
+  "skillProficiencies": {
+    "choose": 4,
+    "options": [
+      "Acrobatics",
+      "Athletics",
+      "Deception",
+      "Insight",
+      "Intimidation",
+      "Investigation",
+      "Perception",
+      "Performance",
+      "Persuasion",
+      "Sleight of Hand",
+      "Stealth"
+    ]
+  },
+  "weaponProficiencies": ["Simple", "Martial_with_finesse_property"],
+  "toolProficiencies": ["Thieves' Tools"],
+  "armorTraining": ["Light"],
+  "startingEquipment": {
+    "options": [
+      {
+        "id": "A",
+        "items": [
+          "Leather Armor",
+          "2 Shortswords",
+          "Shortbow",
+          "20 Arrows",
+          "Quiver",
+          "Thieves' Tools",
+          "Burglar's Pack",
+          { "gold": 18 }
+        ]
+      },
+      {
+        "id": "B",
+        "items": [
+          "Leather Armor",
+          "Rapier",
+          "2 Daggers",
+          "Shortbow",
+          "20 Arrows",
+          "Quiver",
+          "Thieves' Tools",
+          "Burglar's Pack",
+          { "gold": 11 }
+        ]
+      },
+      {
+        "id": "C",
+        "items": [
+          { "gold": 110 }
+        ]
+      }
+    ]
+  },
+  "features": {
+    "Expertise": {
+      "levels": [1, 6],
+      "effects": [
+        {
+          "type": "double_proficiency_bonus",
+          "countByLevel": {
+            "1": 2,
+            "6": 4
+          },
+          "options": ["trained_skills", "thieves_tools"]
+        }
+      ]
+    },
+    "Sneak Attack": {
+      "level": 1,
+      "effects": [
+        {
+          "type": "extra_damage",
+          "condition": "finesse_or_ranged_weapon_with_advantage_or_adjacent_ally",
+          "restriction": "once_per_turn",
+          "formula_by_level": "sneak_attack_table"
+        }
+      ]
+    },
+    "Thieves' Cant": {
+      "level": 1,
+      "effects": [
+        {
+          "type": "learn_language",
+          "language": "Thieves' Cant"
+        }
+      ]
+    },
+    "Weapon Mastery": {
+      "level": 1,
+      "effects": [
+        {
+          "type": "weaponMasteryAccess",
+          "count": 2
+        }
+      ]
+    },
+    "Cunning Action": {
+      "level": 2,
+      "effects": [
+        {
+          "type": "grant_action",
+          "activation": "bonusAction",
+          "options": ["Dash", "Disengage", "Hide"]
+        }
+      ]
+    },
+    "Steady Aim": {
+      "level": 3,
+      "effects": [
+        {
+          "type": "gain_advantage_on_next_attack",
+          "cost": "movement_becomes_0_until_end_of_turn"
+        }
+      ],
+      "activation": "bonusAction"
+    },
+    "Ability Score Improvement": {
+      "levels": [4, 8, 10, 12, 16],
+      "effects": [
+        {
+          "type": "ability_score_improvement",
+          "choice": "standard_or_feat"
+        }
+      ]
+    },
+    "Cunning Strike": {
+      "level": 5,
+      "effects": [
+        {
+          "type": "trade_sneak_attack_damage_for_effect",
+          "options": [
+            { "name": "Disarm", "cost": "1d6" },
+            { "name": "Poison", "cost": "1d6" },
+            { "name": "Trip", "cost": "1d6" },
+            { "name": "Withdraw", "cost": "1d6" }
+          ]
+        }
+      ]
+    },
+    "Uncanny Dodge": {
+      "level": 5,
+      "effects": [
+        {
+          "type": "halve_attacker_damage"
+        }
+      ],
+      "activation": "reaction",
+      "trigger": "hit_by_attack_from_visible_attacker"
+    },
+    "Evasion": {
+      "level": 7,
+      "effects": [
+        {
+          "type": "modify_dexterity_save_damage",
+          "on_success": "no_damage",
+          "on_failure": "half_damage"
+        }
+      ]
+    },
+    "Reliable Talent": {
+      "level": 7,
+      "effects": [
+        {
+          "type": "minimum_d20_roll",
+          "value": 10,
+          "condition": "proficient_skill_or_tool_check"
+        }
+      ]
+    },
+    "Improved Cunning Strike": {
+      "level": 11,
+      "effects": [
+        {
+          "type": "use_multiple_cunning_strikes_simultaneously"
+        }
+      ]
+    },
+    "Blindsight": {
+      "level": 14,
+      "effects": [
+        {
+          "type": "sense",
+          "sense": "blindsight",
+          "range": 10,
+          "unit": "feet"
+        }
+      ]
+    },
+    "Slippery Mind": {
+      "level": 15,
+      "effects": [
+        {
+          "type": "gain_proficiency",
+          "savingThrows": ["Wisdom", "Charisma"]
+        }
+      ]
+    },
+    "Elusive": {
+      "level": 18,
+      "effects": [
+        {
+          "type": "negate_advantage_on_attacks_against_you",
+          "condition": "not_incapacitated"
+        }
+      ]
+    },
+    "Epic Boon": {
+      "level": 19,
+      "effects": [
+        {
+          "type": "gain_feat",
+          "category": "epic_boon"
+        }
+      ]
+    },
+    "Stroke of Luck": {
+      "level": 20,
+      "effects": [
+        {
+          "type": "turn_miss_into_hit",
+          "alternative": "turn_failed_ability_check_into_natural_20"
+        }
+      ],
+      "usage": {
+        "uses": 1,
+        "recharge": ["shortRest", "longRest"]
+      }
+    }
+  }
+}

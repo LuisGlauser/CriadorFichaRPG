@@ -1,0 +1,50 @@
+{
+  "name": "Goliath",
+  "creatureType": "Humanoid",
+  "size": {
+    "options": [
+      {
+        "category": "Medium"
+      }
+    ]
+  },
+  "speed": {
+    "walk": 35,
+    "unit": "feet"
+  },
+  "traits": [
+    {
+      "name": "Giant Ancestry",
+      "description": "You are descended from giants. Choose one ancestry from the Giant Ancestries table. You gain the benefit of that ancestry. You can use this benefit a number of times equal to your Proficiency Bonus, and you regain all expended uses when you finish a Long Rest."
+    },
+    {
+      "name": "Large Form",
+      "effects": [
+        {
+          "type": "change_size",
+          "targetSize": "Large",
+          "activation": "bonus_action",
+          "duration": "10 minutes",
+          "advantage": "Strength_checks"
+        }
+      ],
+      "usage": {
+        "uses": 1,
+        "recharge": [
+          "long_rest"
+        ]
+      },
+      "description": "Starting at character level 5, you can change your size to Large as a Bonus Action. This transformation lasts for 10 minutes, until you die, or until you revert to your normal size as a Bonus Action. While Large, you have Advantage on Strength checks, and your Speed increases by 10 feet. Once you use this trait, you can't use it again until you finish a Long Rest."
+    },
+    {
+      "name": "Powerful Build",
+      "effects": [
+        {
+          "type": "count_as_one_size_larger",
+          "for": "carrying_capacity"
+        }
+      ],
+      "description": "You count as one size larger when determining your carrying capacity and the weight you can push, drag, or lift."
+    }
+  ]
+}

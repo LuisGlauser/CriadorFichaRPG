@@ -1,0 +1,187 @@
+{
+  "name": "Cleric",
+  "hitDie": 8,
+  "savingThrowProficiencies": ["Wisdom", "Charisma"],
+  "skillProficiencies": {
+    "choose": 2,
+    "options": [
+      "History",
+      "Insight",
+      "Medicine",
+      "Persuasion",
+      "Religion"
+    ]
+  },
+  "weaponProficiencies": ["Simple"],
+  "armorTraining": ["Light", "Medium", "Shields"],
+  "startingEquipment": {
+    "options": [
+      {
+        "id": "A",
+        "items": [
+          "Chain Shirt",
+          "Mace",
+          "Holy Symbol"
+        ],
+        "choice": {
+          "choose": 1,
+          "options": ["Priest's Pack", "Explorer's Pack"]
+        },
+        "gold_bonus": 7
+      },
+      {
+        "id": "B",
+        "items": [
+          "Leather Armor",
+          "Light Crossbow",
+          "20 Bolts",
+          "Holy Symbol"
+        ],
+        "choice": {
+          "choose": 1,
+          "options": ["Priest's Pack", "Explorer's Pack"]
+        },
+        "gold_bonus": 19
+      },
+      {
+        "id": "C",
+        "items": [
+          { "gold": 115 }
+        ]
+      }
+    ]
+  },
+  "features": {
+    "Channel Divinity": {
+      "level": 1,
+      "effects": [
+        {
+          "type": "channel_divinity_access",
+          "baseOptions": ["Divine Spark", "Turn Undead"]
+        }
+      ],
+      "usage": {
+        "usesByLevel": {
+          "1-5": 2,
+          "6-17": 3,
+          "18-20": 4
+        },
+        "recharge": ["shortRest", "longRest"]
+      }
+    },
+    "Spellcasting": {
+      "level": 1,
+      "effects": [
+        {
+          "type": "cast_spells",
+          "spellcastingAbility": "Wisdom",
+          "cantripsKnown_formula": "cleric_table",
+          "preparedSpells_formula": "cleric_table",
+          "ritualCasting": true,
+          "spellSource": "Cleric_Spell_List"
+        }
+      ]
+    },
+    "Divine Order": {
+      "level": 1,
+      "effects": [
+        {
+          "type": "choose_holy_order",
+          "options": [
+            {
+              "name": "Protector",
+              "benefits": [
+                { "type": "gain_armor_training", "armor": "Heavy" },
+                { "type": "gain_weapon_proficiency", "weapons": ["Martial"] }
+              ]
+            },
+            {
+              "name": "Thaumaturgist",
+              "benefits": [
+                { "type": "gain_cantrip", "count": 1, "source": "Cleric_Spell_List" },
+                { "type": "skill_bonus", "skills": ["Arcana", "Religion"], "bonus_formula": "wisdom_modifier_minimum_1", "condition": "on_successful_check" }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "Ability Score Improvement": {
+      "levels": [4, 8, 12, 16],
+      "effects": [
+        {
+          "type": "ability_score_improvement",
+          "choice": "standard_or_feat"
+        }
+      ]
+    },
+    "Sear Undead": {
+      "level": 5,
+      "effects": [
+        {
+          "type": "modify_feature",
+          "targetFeature": "Turn Undead",
+          "addedEffect": "deal_radiant_damage_on_failed_save",
+          "formula": "roll_d8_count_equal_to_proficiency_bonus"
+        }
+      ]
+    },
+    "Blessed Strikes": {
+      "level": 7,
+      "effects": [
+        {
+          "type": "choose_combat_enhancement",
+          "options": [
+            {
+              "name": "Divine Strike",
+              "effect": "extra_weapon_damage",
+              "formula": "1d8",
+              "damageType": ["Radiant", "Necrotic"],
+              "restriction": "once_per_turn"
+            },
+            {
+              "name": "Potent Spellcasting",
+              "effect": "add_modifier_to_cantrip_damage",
+              "attribute": "Wisdom"
+            }
+          ]
+        }
+      ]
+    },
+    "Divine Intervention": {
+      "level": 10,
+      "effects": [
+        {
+          "type": "request_deity_assistance",
+          "mechanism": "cast_cleric_spell_no_slot_no_components",
+          "restriction": "spell_level_5_or_lower",
+          "activation": "magicAction"
+        }
+      ],
+      "usage": {
+        "uses": 1,
+        "recharge": ["longRest"]
+      }
+    },
+    "Epic Boon": {
+      "level": 19,
+      "effects": [
+        {
+          "type": "gain_feat",
+          "category": "epic_boon"
+        }
+      ]
+    },
+    "Greater Divine Intervention": {
+      "level": 20,
+      "effects": [
+        {
+          "type": "modify_feature",
+          "targetFeature": "Divine Intervention",
+          "upgrade": "allow_wish_spell_casting",
+          "recharge_penalty_if_wish_used": "2d4_days"
+        }
+      ]
+    }
+  }
+}
