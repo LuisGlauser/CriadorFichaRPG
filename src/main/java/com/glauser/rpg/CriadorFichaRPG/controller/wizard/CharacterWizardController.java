@@ -1,42 +1,43 @@
 package com.glauser.rpg.CriadorFichaRPG.controller.wizard;
 
-import com.glauser.rpg.CriadorFichaRPG.builder.CharacterBuilder;
-import com.glauser.rpg.CriadorFichaRPG.controller.view.CharacterViewController;
 import com.glauser.rpg.CriadorFichaRPG.dto.CharacterCreationDTO;
+import com.glauser.rpg.CriadorFichaRPG.facade.CharacterSheetFacade;
 import com.glauser.rpg.CriadorFichaRPG.model.character.Attributes;
-import com.glauser.rpg.CriadorFichaRPG.model.character.CharacterSheet;
-import com.glauser.rpg.CriadorFichaRPG.model.character.Features;
 import com.glauser.rpg.CriadorFichaRPG.registry.BackgroundRegistry;
 import com.glauser.rpg.CriadorFichaRPG.registry.ClassRegistry;
 import com.glauser.rpg.CriadorFichaRPG.registry.SpeciesRegistry;
-import com.glauser.rpg.CriadorFichaRPG.service.CharacterService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
-
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
 
 @Controller
 @RequestMapping("/character/create")
 @SessionAttributes("character")
 public class CharacterWizardController {
 
-    private final CharacterService characterService;
+    /*
+     * Antes: 4 dependências diretas (CharacterService, ClassRegistry,
+     *        SpeciesRegistry, BackgroundRegistry) + lógica de negócio inline.
+     *
+     * Depois: o Facade encapsula a complexidade de criação e consulta.
+     * ClassRegistry, SpeciesRegistry e BackgroundRegistry ainda são
+     * injetados apenas para popular listas dos selects — o que é
+     * responsabilidade do controller (UI), não do Facade (negócio).
+     */
+    private final CharacterSheetFacade facade;
+    private final ClassRegistry classRegistry;
     private final SpeciesRegistry speciesRegistry;
     private final BackgroundRegistry backgroundRegistry;
-    private final ClassRegistry classRegistry;
 
-    public CharacterWizardController(CharacterService characterService, SpeciesRegistry speciesRegistry,
-                                     BackgroundRegistry backgroundRegistry,
-                                     ClassRegistry classRegistry) {
-        this.characterService = characterService;
+    public CharacterWizardController(CharacterSheetFacade facade,
+                                     ClassRegistry classRegistry,
+                                     SpeciesRegistry speciesRegistry,
+                                     BackgroundRegistry backgroundRegistry) {
+        this.facade = facade;
+        this.classRegistry = classRegistry;
         this.speciesRegistry = speciesRegistry;
         this.backgroundRegistry = backgroundRegistry;
-        this.classRegistry = classRegistry;
     }
 
     @ModelAttribute("character")
@@ -65,10 +66,6 @@ public class CharacterWizardController {
 
     @PostMapping("/step-2")
     public String step2Post(@ModelAttribute("character") CharacterCreationDTO dto) {
-
-        System.out.println("Species: " + dto.getSpeciesId());
-        System.out.println("Background: " + dto.getBackgroundId());
-
         return "redirect:/character/create/step-3";
     }
 
@@ -84,33 +81,18 @@ public class CharacterWizardController {
         return "redirect:/character/create/step-4";
     }
 
+    // STEP 4 — lógica de filtro delegada ao Facade
     @GetMapping("/step-4")
-    public String step4(@ModelAttribute("character") CharacterCreationDTO dto,
-                        Model model) {
-
+    public String step4(@ModelAttribute("character") CharacterCreationDTO dto, Model model) {
         var characterClass = classRegistry.getById(dto.getClassId());
         if (characterClass == null) {
             return "redirect:/character/create/step-3";
         }
-        Map<String, Features> features = new LinkedHashMap<>();
 
-        for (var entry : characterClass.getFeatures().entrySet()) {
-
-            Features f = entry.getValue();
-
-            if ((f.getLevel() != null && f.getLevel() <= dto.getLevel()) ||
-                    (f.getLevels() != null && f.getLevels().contains(dto.getLevel()))) {
-
-                features.put(entry.getKey(), f);
-            }
-        }
-
-
-
-        model.addAttribute("features", features);
+        // Antes: ~12 linhas de loop e if aqui mesmo no controller
+        // Agora: uma chamada ao Facade
+        model.addAttribute("features", facade.getFeaturesUpToLevel(dto.getClassId(), dto.getLevel()));
         model.addAttribute("class", characterClass);
-
-
         return "character/wizard/step-4";
     }
 
@@ -130,33 +112,24 @@ public class CharacterWizardController {
         return "redirect:/character/create/review";
     }
 
+    // REVIEW
     @GetMapping("/review")
     public String review(@ModelAttribute("character") CharacterCreationDTO dto, Model model) {
-
         Attributes attributes = new Attributes(
-                dto.getStrength(),
-                dto.getDexterity(),
-                dto.getConstitution(),
-                dto.getIntelligence(),
-                dto.getWisdom(),
-                dto.getCharisma()
+                dto.getStrength(), dto.getDexterity(), dto.getConstitution(),
+                dto.getIntelligence(), dto.getWisdom(), dto.getCharisma()
         );
-
         model.addAttribute("attr", attributes);
-
         model.addAttribute("character", dto);
-
         return "character/wizard/review";
     }
+
 
     @PostMapping("/finish")
     public String finish(@ModelAttribute("character") CharacterCreationDTO dto,
                          SessionStatus status) {
-
-        characterService.create(dto);
-
+        facade.buildAndSave(dto);
         status.setComplete();
-
         return "redirect:/character/view";
     }
 }

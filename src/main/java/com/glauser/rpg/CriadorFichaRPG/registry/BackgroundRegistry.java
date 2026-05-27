@@ -14,7 +14,11 @@ import java.util.*;
 public class BackgroundRegistry {
 
     private final Map<String, Backgrounds> map = new HashMap<>();
-    private final ObjectMapper mapper = new ObjectMapper();
+    private final ObjectMapper mapper;
+
+    public BackgroundRegistry(ObjectMapper mapper) {
+        this.mapper = mapper;
+    }
 
     @PostConstruct
     public void load() {

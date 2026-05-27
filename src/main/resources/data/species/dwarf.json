@@ -1,0 +1,74 @@
+{
+  "name": "Dwarf",
+  "creatureType": "Humanoid",
+  "size": {
+    "options": [
+      {
+        "category": "Medium"
+      }
+    ]
+  },
+  "speed": {
+    "walk": 30,
+    "unit": "feet"
+  },
+  "traits": [
+    {
+      "name": "Darkvision",
+      "effects": [
+        {
+          "type": "sense",
+          "sense": "darkvision",
+          "range": 120,
+          "unit": "feet"
+        }
+      ],
+      "description": "You have Darkvision with a range of 120 feet."
+    },
+    {
+      "name": "Dwarven Resilience",
+      "effects": [
+        {
+          "type": "resistance",
+          "damageType": "Poison"
+        },
+        {
+          "type": "advantage",
+          "against": "Poisoned"
+        }
+      ],
+      "description": "You have Resistance to Poison damage. You also have Advantage on saving throws you make to avoid or end the Poisoned condition."
+    },
+    {
+      "name": "Dwarven Toughness",
+      "effects": [
+        {
+          "type": "hp_increase_per_level",
+          "value": 1
+        }
+      ],
+      "description": "Your Hit Point maximum increases by 1, and it increases by 1 again whenever you gain a level."
+    },
+    {
+      "name": "Stonecunning",
+      "effects": [
+        {
+          "type": "grant_sense",
+          "sense": "tremorsense",
+          "range": 60,
+          "unit": "feet",
+          "activation": "bonus_action",
+          "duration": "10 minutes",
+          "condition": "on_or_touching_stone_surface"
+        }
+      ],
+      "usage": {
+        "uses": "proficiency_bonus",
+        "recharge": [
+          "long_rest"
+        ]
+      },
+      "description": "As a Bonus Action, you gain Tremorsense with a range of 60 feet for 10 minutes. You must be on a stone surface or touching a stone surface to use this Tremorsense. The stone can be natural or worked. You can use this Bonus Action a number of times equal to your Proficiency Bonus, and you regain all expended uses when you finish a Long Rest."
+    }
+  ]
+}

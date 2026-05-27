@@ -13,7 +13,11 @@ import java.util.*;
 public class SpeciesRegistry {
 
     private final Map<String, Species> speciesMap = new HashMap<>();
-    private final ObjectMapper mapper = new ObjectMapper();
+    private final ObjectMapper mapper;
+
+    public SpeciesRegistry(ObjectMapper mapper) {
+        this.mapper = mapper;
+    }
 
     @PostConstruct
     public void load() {
