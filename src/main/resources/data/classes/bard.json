@@ -1,0 +1,198 @@
+{
+  "name": "Bard",
+  "hitDie": 8,
+  "savingThrowProficiencies": ["Dexterity", "Charisma"],
+  "skillProficiencies": {
+    "choose": 3,
+    "options": [
+      "Acrobatics",
+      "Animal Handling",
+      "Arcana",
+      "Athletics",
+      "Deception",
+      "History",
+      "Insight",
+      "Intimidation",
+      "Investigation",
+      "Medicine",
+      "Nature",
+      "Perception",
+      "Performance",
+      "Persuasion",
+      "Religion",
+      "Sleight of Hand",
+      "Stealth",
+      "Survival"
+    ]
+  },
+  "weaponProficiencies": ["Simple"],
+  "armorTraining": ["Light"],
+  "startingEquipment": {
+    "options": [
+      {
+        "id": "A",
+        "items": [
+          "Leather Armor",
+          "Dagger",
+          "Musical Instrument (any)",
+          "Entertainment Pack",
+          { "gold": 19 }
+        ]
+      },
+      {
+        "id": "B",
+        "items": [
+          "Leather Armor",
+          "Shortsword",
+          "Musical Instrument (any)",
+          "Entertainment Pack",
+          { "gold": 12 }
+        ]
+      },
+      {
+        "id": "C",
+        "items": [
+          { "gold": 90 }
+        ]
+      }
+    ]
+  },
+  "features": {
+    "Bardic Inspiration": {
+      "level": 1,
+      "effects": [
+        {
+          "type": "grant_inspiration_die",
+          "formula": "1d6",
+          "range": 60,
+          "unit": "feet",
+          "duration": "1 hour"
+        }
+      ],
+      "activation": "bonusAction",
+      "usage": {
+        "uses": "charisma_modifier",
+        "recharge": ["longRest"]
+      }
+    },
+    "Spellcasting": {
+      "level": 1,
+      "effects": [
+        {
+          "type": "cast_spells",
+          "spellcastingAbility": "Charisma",
+          "cantripsKnown": 2,
+          "preparedSpells": 4,
+          "ritualCasting": true
+        }
+      ]
+    },
+    "Expertise": {
+      "levels": [2, 9],
+      "effects": [
+        {
+          "type": "double_proficiency_bonus",
+          "countByLevel": {
+            "2": 2,
+            "9": 4
+          }
+        }
+      ]
+    },
+    "Jack of All Trades": {
+      "level": 2,
+      "effects": [
+        {
+          "type": "add_half_proficiency_bonus",
+          "appliesTo": "non_proficient_ability_checks"
+        }
+      ]
+    },
+    "Font of Inspiration": {
+      "level": 5,
+      "effects": [
+        {
+          "type": "modify_recharge",
+          "feature": "Bardic Inspiration",
+          "recharge": ["shortRest", "longRest"]
+        },
+        {
+          "type": "expend_spell_slot_for_inspiration",
+          "cost": "spell_slot_level_1_or_higher"
+        }
+      ]
+    },
+    "Countercharm": {
+      "level": 7,
+      "effects": [
+        {
+          "type": "grant_advantage_on_saves",
+          "against": ["Charmed", "Frightened"],
+          "range": 30,
+          "unit": "feet"
+        }
+      ],
+      "activation": "reaction",
+      "trigger": "ally_fails_saving_throw_against_charm_or_fear"
+    },
+    "Magical Secrets": {
+      "level": 10,
+      "effects": [
+        {
+          "type": "expand_spell_list",
+          "sourceLists": ["Cleric", "Druid", "Wizard"],
+          "action": "replace_or_add_prepared_spells"
+        }
+      ]
+    },
+    "Further Expertise": {
+      "level": 9,
+      "effects": [
+        {
+          "type": "add_expertise_choices",
+          "count": 2
+        }
+      ]
+    },
+    "Superior Inspiration": {
+      "level": 18,
+      "effects": [
+        {
+          "type": "regain_inspiration_on_initiative",
+          "condition": "if_zero_uses_remaining",
+          "regainCount": 2
+        }
+      ]
+    },
+    "Epic Boon": {
+      "level": 19,
+      "effects": [
+        {
+          "type": "gain_feat",
+          "category": "epic_boon"
+        }
+      ]
+    },
+    "Words of Creation": {
+      "level": 20,
+      "effects": [
+        {
+          "type": "always_prepared_spells",
+          "spells": ["Power Word Heal", "Power Word Kill"]
+        },
+        {
+          "type": "allow_two_targets_with_power_word",
+          "condition": "targets_within_10_feet_of_each_other"
+        }
+      ]
+    },
+    "Ability Score Improvement": {
+      "levels": [4, 8, 12, 16],
+      "effects": [
+        {
+          "type": "ability_score_improvement"
+        }
+      ]
+    }
+  }
+}

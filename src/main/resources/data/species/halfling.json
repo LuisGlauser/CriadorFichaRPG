@@ -1,0 +1,55 @@
+{
+  "name": "Halfling",
+  "creatureType": "Humanoid",
+  "size": {
+    "options": [
+      {
+        "category": "Small"
+      }
+    ]
+  },
+  "speed": {
+    "walk": 30,
+    "unit": "feet"
+  },
+  "traits": [
+    {
+      "name": "Brave",
+      "effects": [
+        {
+          "type": "advantage",
+          "against": "Frightened"
+        }
+      ],
+      "description": "You have Advantage on saving throws you make to avoid or end the Frightened condition."
+    },
+    {
+      "name": "Halfling Nimbleness",
+      "effects": [
+        {
+          "type": "move_through_larger_creature_space"
+        }
+      ],
+      "description": "You can move through the space of any creature that is a size larger than you, but you can’t stop in the same space."
+    },
+    {
+      "name": "Luck",
+      "effects": [
+        {
+          "type": "reroll_on_one",
+          "rollType": "D20_Test"
+        }
+      ],
+      "description": "When you roll a 1 on the d20 of a D20 Test, you can reroll the die, and you must use the new roll."
+    },
+    {
+      "name": "Naturally Stealthy",
+      "effects": [
+        {
+          "type": "allow_hide_obscured_by_larger_creature"
+        }
+      ],
+      "description": "You can take the Hide action even when you are obscured only by a creature that is at least one size larger than you."
+    }
+  ]
+}

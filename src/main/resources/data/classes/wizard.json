@@ -1,0 +1,165 @@
+{
+  "name": "Wizard",
+  "hitDie": 6,
+  "savingThrowProficiencies": ["Intelligence", "Wisdom"],
+  "skillProficiencies": {
+    "choose": 2,
+    "options": [
+      "Arcana",
+      "History",
+      "Insight",
+      "Investigation",
+      "Medicine",
+      "Religion"
+    ]
+  },
+  "weaponProficiencies": ["Simple"],
+  "armorTraining": [],
+  "startingEquipment": {
+    "options": [
+      {
+        "id": "A",
+        "items": [
+          "Quarterstaff",
+          "Arcane Focus (Orb)",
+          "Spellbook",
+          "Scholar's Pack",
+          { "gold": 6 }
+        ]
+      },
+      {
+        "id": "B",
+        "items": [
+          "Dagger",
+          "Arcane Focus (Wand)",
+          "Spellbook",
+          "Scholar's Pack",
+          { "gold": 16 }
+        ]
+      },
+      {
+        "id": "C",
+        "items": [
+          { "gold": 75 }
+        ]
+      }
+    ]
+  },
+  "features": {
+    "Arcane Recovery": {
+      "level": 1,
+      "effects": [
+        {
+          "type": "recover_spell_slots",
+          "condition": "during_short_rest",
+          "restriction": "once_per_day",
+          "max_combined_level_formula": "half_wizard_level_rounded_up",
+          "max_slot_level": 5
+        }
+      ]
+    },
+    "Spellcasting": {
+      "level": 1,
+      "effects": [
+        {
+          "type": "cast_spells",
+          "spellcastingAbility": "Intelligence",
+          "cantripsKnown": 3,
+          "preparedSpells_formula": "intelligence_modifier_plus_wizard_level",
+          "ritualCasting": true,
+          "requires_spellbook": true
+        }
+      ]
+    },
+    "Scholar": {
+      "level": 2,
+      "effects": [
+        {
+          "type": "gain_expertise_choice",
+          "count": 1,
+          "options": [
+            "Arcana",
+            "History",
+            "Insight",
+            "Investigation",
+            "Medicine",
+            "Religion"
+          ]
+        }
+      ]
+    },
+    "Ability Score Improvement": {
+      "levels": [4, 8, 12, 16],
+      "effects": [
+        {
+          "type": "ability_score_improvement"
+        }
+      ]
+    },
+    "Memorize Spell": {
+      "level": 5,
+      "effects": [
+        {
+          "type": "swap_prepared_spell",
+          "duration": "1_minute",
+          "restriction": "must_be_in_spellbook"
+        }
+      ],
+      "usage": {
+        "uses": 1,
+        "recharge": ["shortRest", "longRest"]
+      }
+    },
+    "Expert Scholar": {
+      "level": 9,
+      "effects": [
+        {
+          "type": "gain_expertise_choice",
+          "count": 1,
+          "options": [
+            "Arcana",
+            "History",
+            "Insight",
+            "Investigation",
+            "Medicine",
+            "Religion"
+          ]
+        }
+      ]
+    },
+    "Spell Mastery": {
+      "level": 18,
+      "effects": [
+        {
+          "type": "choose_low_level_spells_at_will",
+          "spell_levels": [1, 2],
+          "condition": "always_prepared_and_cast_at_lowest_level_without_slot"
+        }
+      ],
+      "modification_restriction": "after_long_rest"
+    },
+    "Epic Boon": {
+      "level": 19,
+      "effects": [
+        {
+          "type": "gain_feat",
+          "category": "epic_boon"
+        }
+      ]
+    },
+    "Signature Spells": {
+      "level": 20,
+      "effects": [
+        {
+          "type": "choose_signature_spells",
+          "count": 2,
+          "spell_level": 3,
+          "benefit": "always_prepared_and_cast_once_each_without_slot"
+        }
+      ],
+      "usage": {
+        "recharge": ["shortRest", "longRest"]
+      }
+    }
+  }
+}

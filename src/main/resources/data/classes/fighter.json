@@ -134,7 +134,7 @@
       ]
     },
     "Tactical Shift": {
-      "level": 5,
+      "level": 7,
       "effects": [
         {
           "type": "movement",

@@ -92,6 +92,15 @@ public class CharacterBuilder {
     }
 
     private int calculateHp() {
-        return characterClass.getHitDie() + attributes.getModifier(attributes.getConstitution());
+        int hitDie   = characterClass.getHitDie();
+        int conMod   = attributes.getModifier(attributes.getConstitution());
+
+        // Nível 1: valor máximo do dado + modificador de CON
+        int hpNivel1 = hitDie + conMod;
+
+        // Níveis 2+: (metade do dado + 1) + modificador de CON por nível adicional
+        int hpPorNivel = (hitDie / 2 + 1) + conMod;
+
+        return hpNivel1 + hpPorNivel * (level - 1);
     }
 }

@@ -2,8 +2,125 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title th:text="${character.name} + ' — Ficha'">Ficha do Personagem</title>
+    <title th:text="${character != null ? character.name + ' — Ficha' : 'Ficha'}">Ficha</title>
     <link rel="stylesheet" th:href="@{/css/wizard.css}" />
+    <style>
+        /* ── Painel de Efeitos (Decorator) ───────────── */
+        .effects-panel {
+            border: 2px solid var(--orange-mid);
+            border-radius: 6px;
+            background: #fffdf5;
+            padding: 1rem 1.2rem;
+            margin-bottom: 1.2rem;
+        }
+        .effects-panel h2 {
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+            gap: .5rem;
+        }
+        .effects-panel h2::before { content: '⚔'; font-size: .9rem; }
+
+        .effect-row {
+            display: flex;
+            align-items: center;
+            gap: .75rem;
+            padding: .55rem 0;
+            border-bottom: 1px dashed var(--parchment-dark);
+            flex-wrap: wrap;
+        }
+        .effect-row:last-child { border-bottom: none; }
+
+        .effect-label {
+            font-family: var(--font-label);
+            font-size: .72rem;
+            color: var(--red-dark);
+            text-transform: uppercase;
+            letter-spacing: .06em;
+            min-width: 160px;
+        }
+
+        /* botão secundário menor */
+        .btn-effect {
+            padding: .35rem 1rem;
+            font-family: var(--font-label);
+            font-size: .72rem;
+            font-weight: 700;
+            letter-spacing: .07em;
+            text-transform: uppercase;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: all .2s;
+            border: 2px solid var(--gold);
+        }
+        .btn-equip {
+            background: linear-gradient(135deg, var(--red-dark), var(--red-light));
+            color: var(--gold-light);
+        }
+        .btn-equip:hover {
+            background: linear-gradient(135deg, var(--orange-dark), var(--orange-light));
+        }
+        .btn-remove {
+            background: transparent;
+            color: var(--ink-mid);
+            border-color: var(--parchment-dark);
+        }
+        .btn-remove:hover { background: var(--parchment-dark); }
+
+        .btn-clear-all {
+            background: transparent;
+            color: var(--red-mid);
+            border: 1px solid var(--red-mid);
+            padding: .3rem .9rem;
+            font-family: var(--font-label);
+            font-size: .68rem;
+            font-weight: 700;
+            letter-spacing: .07em;
+            text-transform: uppercase;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: all .2s;
+            margin-left: auto;
+        }
+        .btn-clear-all:hover { background: var(--red-mid); color: var(--parchment); }
+
+        .temp-hp-input {
+            width: 70px !important;
+            padding: .3rem .5rem !important;
+            font-size: .9rem !important;
+            text-align: center;
+        }
+
+        /* tag de ativo */
+        .badge-active {
+            display: inline-flex;
+            align-items: center;
+            background: var(--orange-dark);
+            color: var(--gold-light);
+            font-family: var(--font-label);
+            font-size: .6rem;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 3px;
+            letter-spacing: .05em;
+        }
+
+        /* HP Temporário em azul */
+        .combat-value.temp { color: #3a7abf; }
+
+        /* Barra de efeitos ativos (resumo no topo) */
+        .effects-summary {
+            background: rgba(122,21,21,.08);
+            border-left: 4px solid var(--red-mid);
+            border-radius: 0 4px 4px 0;
+            padding: .45rem .9rem;
+            font-family: var(--font-body);
+            font-size: .88rem;
+            color: var(--ink-mid);
+            margin-bottom: 1rem;
+        }
+        .effects-summary strong { color: var(--red-dark); font-family: var(--font-label); font-size: .75rem; }
+    </style>
 </head>
 <body>
 
@@ -32,6 +149,86 @@
         </div>
     </div>
 
+    <!-- ── RESUMO DOS EFEITOS ATIVOS ── -->
+    <div class="effects-summary"
+         th:if="${activeEffects != null and activeEffects != 'Nenhum efeito ativo'}">
+        <strong>✦ Efeitos:</strong>
+        <span th:text="${activeEffects}"></span>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════
+         PAINEL DE EFEITOS — DECORATOR
+         Cada form faz POST /character/effects com uma action diferente
+    ════════════════════════════════════════════════ -->
+    <div class="effects-panel">
+        <h2>Efeitos e Itens Equipados
+            <!-- Botão Limpar Tudo: só aparece se algum efeito estiver ativo -->
+            <form th:if="${effects.glovesEquipped or effects.temporaryHp > 0}"
+                  action="/character/effects" method="post" style="margin:0">
+                <input type="hidden" name="action" value="clear_all"/>
+                <button type="submit" class="btn-clear-all">✕ Limpar tudo</button>
+            </form>
+        </h2>
+
+        <!-- ── Linha 1: Gauntlets of Ogre Power ── -->
+        <div class="effect-row">
+            <span class="effect-label">⚙ Gauntlets of Ogre Power</span>
+            <span class="badge-active" th:if="${effects.glovesEquipped}">EQUIPADO</span>
+
+            <!-- Equipar -->
+            <form th:if="${!effects.glovesEquipped}"
+                  action="/character/effects" method="post" style="margin:0">
+                <input type="hidden" name="action" value="equip_gloves"/>
+                <button type="submit" class="btn-effect btn-equip">Equipar luva</button>
+            </form>
+
+            <!-- Remover -->
+            <form th:if="${effects.glovesEquipped}"
+                  action="/character/effects" method="post" style="margin:0">
+                <input type="hidden" name="action" value="unequip_gloves"/>
+                <button type="submit" class="btn-effect btn-remove">Remover luva</button>
+            </form>
+
+            <span style="font-size:.82rem; color:var(--ink-mid); font-style:italic;"
+                  th:if="${effects.glovesEquipped}">
+                Força definida como 19
+            </span>
+            <span style="font-size:.82rem; color:var(--ink-mid); font-style:italic;"
+                  th:if="${!effects.glovesEquipped}">
+                Define Força = 19
+            </span>
+        </div>
+
+        <!-- ── Linha 2: Vida Temporária ── -->
+        <div class="effect-row">
+            <span class="effect-label">♥ Vida Temporária</span>
+            <span class="badge-active" th:if="${effects.temporaryHp > 0}"
+                  th:text="${effects.temporaryHp + ' HP temp'}">ATIVO</span>
+
+            <!-- Formulário para definir quantidade -->
+            <form action="/character/effects" method="post"
+                  style="display:flex; align-items:center; gap:.5rem; margin:0">
+                <input type="hidden" name="action" value="set_temp_hp"/>
+                <input type="number" name="tempHp" class="temp-hp-input"
+                       min="0" max="999"
+                       th:value="${effects.temporaryHp > 0 ? effects.temporaryHp : ''}"
+                       placeholder="0"/>
+                <button type="submit" class="btn-effect btn-equip">Aplicar</button>
+            </form>
+
+            <!-- Remover vida temporária -->
+            <form th:if="${effects.temporaryHp > 0}"
+                  action="/character/effects" method="post" style="margin:0">
+                <input type="hidden" name="action" value="clear_temp_hp"/>
+                <button type="submit" class="btn-effect btn-remove">Remover</button>
+            </form>
+
+            <span style="font-size:.82rem; color:var(--ink-mid); font-style:italic;">
+                Absorve dano antes do HP real
+            </span>
+        </div>
+    </div>
+
     <!-- ── CORPO DA FICHA ── -->
     <div class="sheet-body">
 
@@ -47,7 +244,6 @@
                                  ? '+' + character.attributes.getModifier(character.attributes.strength)
                                  : character.attributes.getModifier(character.attributes.strength)}">+0</span>
             </div>
-
             <div class="attr-box">
                 <span class="attr-label">Destreza</span>
                 <span class="attr-score" th:text="${character.attributes.dexterity}">10</span>
@@ -56,7 +252,6 @@
                                  ? '+' + character.attributes.getModifier(character.attributes.dexterity)
                                  : character.attributes.getModifier(character.attributes.dexterity)}">+0</span>
             </div>
-
             <div class="attr-box">
                 <span class="attr-label">Constituição</span>
                 <span class="attr-score" th:text="${character.attributes.constitution}">10</span>
@@ -65,7 +260,6 @@
                                  ? '+' + character.attributes.getModifier(character.attributes.constitution)
                                  : character.attributes.getModifier(character.attributes.constitution)}">+0</span>
             </div>
-
             <div class="attr-box">
                 <span class="attr-label">Inteligência</span>
                 <span class="attr-score" th:text="${character.attributes.intelligence}">10</span>
@@ -74,7 +268,6 @@
                                  ? '+' + character.attributes.getModifier(character.attributes.intelligence)
                                  : character.attributes.getModifier(character.attributes.intelligence)}">+0</span>
             </div>
-
             <div class="attr-box">
                 <span class="attr-label">Sabedoria</span>
                 <span class="attr-score" th:text="${character.attributes.wisdom}">10</span>
@@ -83,7 +276,6 @@
                                  ? '+' + character.attributes.getModifier(character.attributes.wisdom)
                                  : character.attributes.getModifier(character.attributes.wisdom)}">+0</span>
             </div>
-
             <div class="attr-box">
                 <span class="attr-label">Carisma</span>
                 <span class="attr-score" th:text="${character.attributes.charisma}">10</span>
@@ -94,7 +286,7 @@
             </div>
         </div>
 
-        <!-- COLUNA DIREITA: Stats de combate + Features + Traits -->
+        <!-- COLUNA DIREITA -->
         <div class="main-column">
 
             <!-- Stats de combate -->
@@ -106,6 +298,10 @@
                 <div class="combat-box">
                     <span class="combat-label">HP Máximo</span>
                     <span class="combat-value" th:text="${character.maxHp}">0</span>
+                </div>
+                <div class="combat-box" th:if="${character.temporaryHp > 0}">
+                    <span class="combat-label">HP Temporário</span>
+                    <span class="combat-value temp" th:text="${character.temporaryHp}">0</span>
                 </div>
                 <div class="combat-box">
                     <span class="combat-label">Dado de Vida</span>
@@ -124,11 +320,9 @@
             <!-- Features da Classe -->
             <div class="section-box">
                 <h2>Features da Classe</h2>
-
                 <div th:if="${#lists.isEmpty(character.features)}">
                     <p style="color:var(--ink-mid); font-style:italic;">Nenhuma feature disponível.</p>
                 </div>
-
                 <div th:each="f : ${character.features}" class="feature">
                     <div class="feature-header">
                         <span class="feature-level-badge"
