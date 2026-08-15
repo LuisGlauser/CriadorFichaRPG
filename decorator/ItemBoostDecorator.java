@@ -3,12 +3,7 @@ package com.glauser.rpg.CriadorFichaRPG.decorator;
 import com.glauser.rpg.CriadorFichaRPG.model.character.Attributes;
 import com.glauser.rpg.CriadorFichaRPG.model.character.CharacterComponent;
 
-/**
- * Decorator: simula um item mágico que define um atributo a um valor fixo.
- * Ex: "Gauntlets of Ogre Power" → Força = 19 (independente do valor base).
- *
- * Não muta o objeto original — cria uma cópia dos atributos com o valor alterado.
- */
+
 public class ItemBoostDecorator extends CharacterSheetDecorator {
 
     private final String itemName;

@@ -9,11 +9,6 @@ import com.glauser.rpg.CriadorFichaRPG.model.content.Species;
 
 import java.util.List;
 
-/**
- * Decorator base para CharacterComponent.
- * Delega tudo ao objeto encapsulado — subclasses sobrescrevem
- * apenas o que querem modificar.
- */
 public abstract class CharacterSheetDecorator implements CharacterComponent {
 
     protected final CharacterComponent wrapped;

@@ -19,15 +19,6 @@ public class CharacterViewController {
         this.characterService = characterService;
     }
 
-    /**
-     * Exibe a ficha do personagem.
-     *
-     * Parâmetros opcionais (para demonstrar o Decorator):
-     *   ?item=true        → aplica Gauntlets of Ogre Power (Força = 19)
-     *   ?tempHp=<valor>   → adiciona vida temporária
-     *
-     * Exemplo: /character/view?item=true&tempHp=10
-     */
     @GetMapping("/character/view")
     public String viewCharacter(
             @RequestParam(required = false, defaultValue = "false") boolean item,

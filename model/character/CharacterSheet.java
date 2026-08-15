@@ -21,7 +21,6 @@ public class CharacterSheet implements CharacterComponent {
     private int maxHp;
     private int currentHp;
 
-    // Valor base: zero. Decorator sobrescreve quando há vida temporária.
     private int temporaryHp = 0;
 
     private List<Features> features;
