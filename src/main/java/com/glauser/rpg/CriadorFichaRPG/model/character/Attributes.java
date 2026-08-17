@@ -1,8 +1,11 @@
 package com.glauser.rpg.CriadorFichaRPG.model.character;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 public class Attributes {
 
     private int strength;
