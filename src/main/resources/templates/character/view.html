@@ -12,6 +12,25 @@
 
     <style>
 
+
+        .form-actions {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 20px;
+            flex-wrap: nowrap;
+        }
+
+        .form-actions button,
+        .form-actions a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 150px;
+            box-sizing: border-box;
+        }
+
         .effects-panel {
             border: 2px solid var(--orange-mid);
             border-radius: 6px;
@@ -414,206 +433,6 @@
 
     <!-- EFEITOS -->
 
-    <div
-        class="effects-summary"
-        th:if="${activeEffects != null and activeEffects != 'Nenhum efeito ativo'}"
-    >
-
-        <strong>
-            ✦ Efeitos:
-        </strong>
-
-        <span th:text="${activeEffects}">
-        </span>
-
-    </div>
-
-
-    <div class="effects-panel">
-
-        <h2>
-
-            Efeitos e Itens Equipados
-
-            <form
-                th:if="${effects.glovesEquipped or effects.temporaryHp > 0}"
-                action="/character/effects"
-                method="post"
-                style="margin:0"
-            >
-
-                <input
-                    type="hidden"
-                    name="action"
-                    value="clear_all"
-                />
-
-                <button
-                    type="submit"
-                    class="btn-clear-all"
-                >
-                    ✕ Limpar tudo
-                </button>
-
-            </form>
-
-        </h2>
-
-
-        <!-- LUVAS -->
-
-        <div class="effect-row">
-
-            <span class="effect-label">
-                ⚙ Gauntlets of Ogre Power
-            </span>
-
-            <span
-                class="badge-active"
-                th:if="${effects.glovesEquipped}"
-            >
-                EQUIPADO
-            </span>
-
-            <form
-                th:if="${!effects.glovesEquipped}"
-                action="/character/effects"
-                method="post"
-                style="margin:0"
-            >
-
-                <input
-                    type="hidden"
-                    name="action"
-                    value="equip_gloves"
-                />
-
-                <button
-                    type="submit"
-                    class="btn-effect btn-equip"
-                >
-                    Equipar luva
-                </button>
-
-            </form>
-
-            <form
-                th:if="${effects.glovesEquipped}"
-                action="/character/effects"
-                method="post"
-                style="margin:0"
-            >
-
-                <input
-                    type="hidden"
-                    name="action"
-                    value="unequip_gloves"
-                />
-
-                <button
-                    type="submit"
-                    class="btn-effect btn-remove"
-                >
-                    Remover luva
-                </button>
-
-            </form>
-
-            <span
-                style="font-size:.82rem;color:var(--ink-mid);font-style:italic;"
-                th:if="${effects.glovesEquipped}"
-            >
-                Força definida como 19
-            </span>
-
-            <span
-                style="font-size:.82rem;color:var(--ink-mid);font-style:italic;"
-                th:if="${!effects.glovesEquipped}"
-            >
-                Define Força = 19
-            </span>
-
-        </div>
-
-
-        <!-- VIDA TEMPORÁRIA -->
-
-        <div class="effect-row">
-
-            <span class="effect-label">
-                ♥ Vida Temporária
-            </span>
-
-            <span
-                class="badge-active"
-                th:if="${effects.temporaryHp > 0}"
-                th:text="${effects.temporaryHp + ' HP temp'}"
-            >
-                ATIVO
-            </span>
-
-            <form
-                action="/character/effects"
-                method="post"
-                style="display:flex;align-items:center;gap:.5rem;margin:0"
-            >
-
-                <input
-                    type="hidden"
-                    name="action"
-                    value="set_temp_hp"
-                />
-
-                <input
-                    type="number"
-                    name="tempHp"
-                    class="temp-hp-input"
-                    min="0"
-                    max="999"
-                    th:value="${effects.temporaryHp > 0 ? effects.temporaryHp : ''}"
-                    placeholder="0"
-                />
-
-                <button
-                    type="submit"
-                    class="btn-effect btn-equip"
-                >
-                    Aplicar
-                </button>
-
-            </form>
-
-            <form
-                th:if="${effects.temporaryHp > 0}"
-                action="/character/effects"
-                method="post"
-                style="margin:0"
-            >
-
-                <input
-                    type="hidden"
-                    name="action"
-                    value="clear_temp_hp"
-                />
-
-                <button
-                    type="submit"
-                    class="btn-effect btn-remove"
-                >
-                    Remover
-                </button>
-
-            </form>
-
-            <span
-                style="font-size:.82rem;color:var(--ink-mid);font-style:italic;"
-            >
-                Absorve dano antes do HP real
-            </span>
-
-        </div>
-
-    </div>
 
 
     <!-- CORPO -->
@@ -825,11 +644,6 @@
                         th:value="${character.currentHp}"
                         aria-label="HP atual"
                     >
-
-                    <small>
-                        Use 30, +10 ou -10
-                    </small>
-
                 </div>
 
 
@@ -1115,31 +929,21 @@
             💾 Salvar ficha
         </button>
 
+        <div class="form-actions">
+            <button type="submit" class="btn-primary">
+                Salvar Ficha
+            </button>
+
+            <a th:href="@{/character/export/{id}(id=${character.id})}"
+            class="btn-secondary">
+                Exportar
+            </a>
+
+            <a th:href="@{/}" class="btn-secondary">
+                Retornar ao início
+            </a>
+        </div>
     </form>
-
-
-    <a
-        class="btn-effect btn-remove"
-        th:href="@{/character/export/{id}/txt(id=${character.id})}"
-    >
-        📄 Exportar TXT
-    </a>
-
-
-    <a
-        class="btn-effect btn-remove"
-        th:href="@{/character/export/{id}/json(id=${character.id})}"
-    >
-        {} Exportar JSON
-    </a>
-
-
-    <a
-        class="btn-effect btn-remove"
-        th:href="@{/}"
-    >
-        ↩ Retornar para início
-    </a>
 
 </div>
 
