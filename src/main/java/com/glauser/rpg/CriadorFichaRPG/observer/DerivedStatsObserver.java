@@ -10,20 +10,40 @@ public class DerivedStatsObserver implements CharacterObserver {
 
     private final DerivedStatsStrategy strategy;
 
-    public DerivedStatsObserver(DerivedStatsStrategy strategy) {
+    public DerivedStatsObserver(
+            DerivedStatsStrategy strategy) {
+
         this.strategy = strategy;
     }
 
     @Override
     public void update(CharacterSheet character) {
-        DerivedStats stats = strategy.calculate(character);
-        int oldMaxHp = character.getMaxHp();
 
-        character.setDerivedValues(stats.maxHp(), stats.armorClass());
+        DerivedStats stats =
+                strategy.calculate(character);
 
-        // Não cura o personagem ao subir o HP máximo; apenas limita HP atual.
-        if (oldMaxHp > 0 && character.getCurrentHp() > stats.maxHp()) {
-            character.setCurrentHp(stats.maxHp());
+        int oldMaxHp =
+                character.getMaxHp();
+
+        character.setDerivedValues(
+                stats.maxHp(),
+                stats.armorClass()
+        );
+
+        /*
+         * Não cura o personagem ao aumentar o HP máximo.
+         *
+         * Se o novo máximo ficar abaixo do HP atual,
+         * apenas reduzimos o HP atual.
+         */
+        if (oldMaxHp > 0 &&
+                character.getCurrentHp() > stats.maxHp()) {
+
+            character.setCurrentHpSilently(
+                    stats.maxHp()
+            );
         }
+
+        character.updateLifeState();
     }
 }
