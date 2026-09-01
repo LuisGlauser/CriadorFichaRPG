@@ -1,6 +1,6 @@
 {
-  "id" : "bf3b73ff-7996-44ba-91f5-5514d37ff954",
-  "name" : "Glauserlitz",
+  "id" : "fa912c70-8983-4ab8-8db8-bcd02e8bd162",
+  "name" : "caio",
   "attributes" : {
     "strength" : 10,
     "dexterity" : 10,
@@ -13,73 +13,43 @@
   "level" : 10,
   "characterClass" : {
     "id" : null,
-    "name" : "Fighter",
-    "hitDie" : 10,
-    "savingThrowProficiencies" : [ "Strength", "Constitution" ],
+    "name" : "Bard",
+    "hitDie" : 8,
+    "savingThrowProficiencies" : [ "Dexterity", "Charisma" ],
     "skillProficiencies" : {
-      "choose" : 2,
-      "options" : [ "Acrobatics", "Animal Handling", "Athletics", "History", "Insight", "Intimidation", "Perception", "Persuasion", "Survival" ]
+      "choose" : 3,
+      "options" : [ "Acrobatics", "Animal Handling", "Arcana", "Athletics", "Deception", "History", "Insight", "Intimidation", "Investigation", "Medicine", "Nature", "Perception", "Performance", "Persuasion", "Religion", "Sleight of Hand", "Stealth", "Survival" ]
     },
-    "weaponProficiencies" : [ "Simple", "Martial" ],
-    "armorTraining" : [ "Light", "Medium", "Heavy", "Shields" ],
+    "weaponProficiencies" : [ "Simple" ],
+    "armorTraining" : [ "Light" ],
     "startingEquipment" : {
       "options" : [ {
         "id" : "A",
-        "items" : [ "Chain Mail", "Greatsword", "Flail", "8 Javelins", "Dungeoneer's Pack", {
-          "gold" : 4
+        "items" : [ "Leather Armor", "Dagger", "Musical Instrument (any)", "Entertainment Pack", {
+          "gold" : 19
         } ]
       }, {
         "id" : "B",
-        "items" : [ "Studded Leather Armor", "Scimitar", "Shortsword", "Longbow", "20 Arrows", "Quiver", "Dungeoneer's Pack", {
-          "gold" : 11
+        "items" : [ "Leather Armor", "Shortsword", "Musical Instrument (any)", "Entertainment Pack", {
+          "gold" : 12
         } ]
       }, {
         "id" : "C",
         "items" : [ {
-          "gold" : 155
+          "gold" : 90
         } ]
       } ]
     },
     "features" : {
-      "Fighting Style" : {
-        "name" : "Fighting Style",
+      "Bardic Inspiration" : {
+        "name" : "Bardic Inspiration",
         "level" : 1,
         "levels" : null,
         "levelScaling" : null,
         "effects" : [ {
-          "type" : "gainFeatChoice",
+          "type" : "grant_inspiration_die",
           "resource" : null,
-          "formula" : null,
-          "category" : "fightingStyle",
-          "amount" : 1,
-          "trigger" : null,
-          "sense" : null,
-          "resultHP" : 0,
-          "activation" : null,
-          "action" : null,
-          "condition" : null,
-          "range" : 0,
-          "unit" : null,
-          "distance" : null,
-          "noOpportunityAttacks" : null,
-          "bonus" : null,
-          "duration" : null,
-          "choice" : null
-        } ],
-        "activation" : null,
-        "trigger" : null,
-        "usage" : null,
-        "resourceInteraction" : null
-      },
-      "Second Wind" : {
-        "name" : "Second Wind",
-        "level" : 1,
-        "levels" : null,
-        "levelScaling" : null,
-        "effects" : [ {
-          "type" : "heal",
-          "resource" : null,
-          "formula" : "1d10 + fighterLevel",
+          "formula" : "1d6",
           "category" : null,
           "amount" : null,
           "trigger" : null,
@@ -88,30 +58,30 @@
           "activation" : null,
           "action" : null,
           "condition" : null,
-          "range" : 0,
-          "unit" : null,
+          "range" : 60,
+          "unit" : "feet",
           "distance" : null,
           "noOpportunityAttacks" : null,
           "bonus" : null,
-          "duration" : null,
+          "duration" : "1 hour",
           "choice" : null
         } ],
         "activation" : "bonusAction",
         "trigger" : null,
         "usage" : {
-          "uses" : "2",
+          "uses" : "charisma_modifier",
           "usesByLevel" : null,
-          "recharge" : [ "shortRest", "longRest" ]
+          "recharge" : [ "longRest" ]
         },
         "resourceInteraction" : null
       },
-      "Weapon Mastery" : {
-        "name" : "Weapon Mastery",
+      "Spellcasting" : {
+        "name" : "Spellcasting",
         "level" : 1,
         "levels" : null,
         "levelScaling" : null,
         "effects" : [ {
-          "type" : "weaponMasteryAccess",
+          "type" : "cast_spells",
           "resource" : null,
           "formula" : null,
           "category" : null,
@@ -135,13 +105,43 @@
         "usage" : null,
         "resourceInteraction" : null
       },
-      "Action Surge" : {
-        "name" : "Action Surge",
+      "Expertise" : {
+        "name" : null,
+        "level" : null,
+        "levels" : [ 2, 9 ],
+        "levelScaling" : null,
+        "effects" : [ {
+          "type" : "double_proficiency_bonus",
+          "resource" : null,
+          "formula" : null,
+          "category" : null,
+          "amount" : null,
+          "trigger" : null,
+          "sense" : null,
+          "resultHP" : 0,
+          "activation" : null,
+          "action" : null,
+          "condition" : null,
+          "range" : 0,
+          "unit" : null,
+          "distance" : null,
+          "noOpportunityAttacks" : null,
+          "bonus" : null,
+          "duration" : null,
+          "choice" : null
+        } ],
+        "activation" : null,
+        "trigger" : null,
+        "usage" : null,
+        "resourceInteraction" : null
+      },
+      "Jack of All Trades" : {
+        "name" : "Jack of All Trades",
         "level" : 2,
         "levels" : null,
         "levelScaling" : null,
         "effects" : [ {
-          "type" : "grantAction",
+          "type" : "add_half_proficiency_bonus",
           "resource" : null,
           "formula" : null,
           "category" : null,
@@ -150,7 +150,7 @@
           "sense" : null,
           "resultHP" : 0,
           "activation" : null,
-          "action" : "extraAction",
+          "action" : null,
           "condition" : null,
           "range" : 0,
           "unit" : null,
@@ -162,53 +162,16 @@
         } ],
         "activation" : null,
         "trigger" : null,
-        "usage" : {
-          "uses" : null,
-          "usesByLevel" : {
-            "2-16" : 1,
-            "17-20" : 2
-          },
-          "recharge" : [ "short_rest" ]
-        },
+        "usage" : null,
         "resourceInteraction" : null
       },
-      "Tactical Mind" : {
-        "name" : "Tactical Mind",
-        "level" : 2,
+      "Font of Inspiration" : {
+        "name" : "Font of Inspiration",
+        "level" : 5,
         "levels" : null,
         "levelScaling" : null,
         "effects" : [ {
-          "type" : "skill_check_bonus",
-          "resource" : null,
-          "formula" : "1d10",
-          "category" : null,
-          "amount" : null,
-          "trigger" : null,
-          "sense" : null,
-          "resultHP" : 0,
-          "activation" : null,
-          "action" : null,
-          "condition" : "after_failure",
-          "range" : 0,
-          "unit" : null,
-          "distance" : null,
-          "noOpportunityAttacks" : null,
-          "bonus" : null,
-          "duration" : null,
-          "choice" : null
-        } ],
-        "activation" : null,
-        "trigger" : null,
-        "usage" : null,
-        "resourceInteraction" : "second_wind"
-      },
-      "Ability Score Improvement" : {
-        "name" : null,
-        "level" : null,
-        "levels" : [ 4, 6, 8, 12, 14, 16 ],
-        "levelScaling" : null,
-        "effects" : [ {
-          "type" : "ability_score_improvement",
+          "type" : "modify_recharge",
           "resource" : null,
           "formula" : null,
           "category" : null,
@@ -225,24 +188,9 @@
           "noOpportunityAttacks" : null,
           "bonus" : null,
           "duration" : null,
-          "choice" : "standard_or_feat"
-        } ],
-        "activation" : null,
-        "trigger" : null,
-        "usage" : null,
-        "resourceInteraction" : null
-      },
-      "Extra Attack" : {
-        "name" : null,
-        "level" : null,
-        "levels" : null,
-        "levelScaling" : {
-          "5" : 2,
-          "11" : 3,
-          "20" : 4
-        },
-        "effects" : [ {
-          "type" : "extra_attack_scaling",
+          "choice" : null
+        }, {
+          "type" : "expend_spell_slot_for_inspiration",
           "resource" : null,
           "formula" : null,
           "category" : null,
@@ -266,13 +214,13 @@
         "usage" : null,
         "resourceInteraction" : null
       },
-      "Tactical Shift" : {
-        "name" : "Tactical Shift",
+      "Countercharm" : {
+        "name" : "Countercharm",
         "level" : 7,
         "levels" : null,
         "levelScaling" : null,
         "effects" : [ {
-          "type" : "movement",
+          "type" : "grant_advantage_on_saves",
           "resource" : null,
           "formula" : null,
           "category" : null,
@@ -283,26 +231,26 @@
           "activation" : null,
           "action" : null,
           "condition" : null,
-          "range" : 0,
-          "unit" : null,
-          "distance" : "half_speed",
-          "noOpportunityAttacks" : true,
+          "range" : 30,
+          "unit" : "feet",
+          "distance" : null,
+          "noOpportunityAttacks" : null,
           "bonus" : null,
           "duration" : null,
           "choice" : null
         } ],
-        "activation" : null,
-        "trigger" : "second_wind",
+        "activation" : "reaction",
+        "trigger" : "ally_fails_saving_throw_against_charm_or_fear",
         "usage" : null,
         "resourceInteraction" : null
       },
-      "Indomitable" : {
-        "name" : "Indomitable",
-        "level" : 9,
+      "Magical Secrets" : {
+        "name" : "Magical Secrets",
+        "level" : 10,
         "levels" : null,
         "levelScaling" : null,
         "effects" : [ {
-          "type" : "reroll_save",
+          "type" : "expand_spell_list",
           "resource" : null,
           "formula" : null,
           "category" : null,
@@ -311,36 +259,28 @@
           "sense" : null,
           "resultHP" : 0,
           "activation" : null,
-          "action" : null,
+          "action" : "replace_or_add_prepared_spells",
           "condition" : null,
           "range" : 0,
           "unit" : null,
           "distance" : null,
           "noOpportunityAttacks" : null,
-          "bonus" : "fighter_level",
+          "bonus" : null,
           "duration" : null,
           "choice" : null
         } ],
         "activation" : null,
         "trigger" : null,
-        "usage" : {
-          "uses" : null,
-          "usesByLevel" : {
-            "9-12" : 1,
-            "13-16" : 2,
-            "17-20" : 3
-          },
-          "recharge" : [ "long_rest" ]
-        },
+        "usage" : null,
         "resourceInteraction" : null
       },
-      "Tactical Master" : {
-        "name" : "Tactical Master",
+      "Further Expertise" : {
+        "name" : "Further Expertise",
         "level" : 9,
         "levels" : null,
         "levelScaling" : null,
         "effects" : [ {
-          "type" : "weapon_mastery_replace_property",
+          "type" : "add_expertise_choices",
           "resource" : null,
           "formula" : null,
           "category" : null,
@@ -364,13 +304,13 @@
         "usage" : null,
         "resourceInteraction" : null
       },
-      "Studied Attacks" : {
+      "Superior Inspiration" : {
         "name" : null,
-        "level" : 13,
+        "level" : 18,
         "levels" : null,
         "levelScaling" : null,
         "effects" : [ {
-          "type" : "gain_advantage_on_miss",
+          "type" : "regain_inspiration_on_initiative",
           "resource" : null,
           "formula" : null,
           "category" : null,
@@ -380,13 +320,13 @@
           "resultHP" : 0,
           "activation" : null,
           "action" : null,
-          "condition" : null,
+          "condition" : "if_zero_uses_remaining",
           "range" : 0,
           "unit" : null,
           "distance" : null,
           "noOpportunityAttacks" : null,
           "bonus" : null,
-          "duration" : "next_turn",
+          "duration" : null,
           "choice" : null
         } ],
         "activation" : null,
@@ -404,6 +344,85 @@
           "resource" : null,
           "formula" : null,
           "category" : "epic_boon",
+          "amount" : null,
+          "trigger" : null,
+          "sense" : null,
+          "resultHP" : 0,
+          "activation" : null,
+          "action" : null,
+          "condition" : null,
+          "range" : 0,
+          "unit" : null,
+          "distance" : null,
+          "noOpportunityAttacks" : null,
+          "bonus" : null,
+          "duration" : null,
+          "choice" : null
+        } ],
+        "activation" : null,
+        "trigger" : null,
+        "usage" : null,
+        "resourceInteraction" : null
+      },
+      "Words of Creation" : {
+        "name" : null,
+        "level" : 20,
+        "levels" : null,
+        "levelScaling" : null,
+        "effects" : [ {
+          "type" : "always_prepared_spells",
+          "resource" : null,
+          "formula" : null,
+          "category" : null,
+          "amount" : null,
+          "trigger" : null,
+          "sense" : null,
+          "resultHP" : 0,
+          "activation" : null,
+          "action" : null,
+          "condition" : null,
+          "range" : 0,
+          "unit" : null,
+          "distance" : null,
+          "noOpportunityAttacks" : null,
+          "bonus" : null,
+          "duration" : null,
+          "choice" : null
+        }, {
+          "type" : "allow_two_targets_with_power_word",
+          "resource" : null,
+          "formula" : null,
+          "category" : null,
+          "amount" : null,
+          "trigger" : null,
+          "sense" : null,
+          "resultHP" : 0,
+          "activation" : null,
+          "action" : null,
+          "condition" : "targets_within_10_feet_of_each_other",
+          "range" : 0,
+          "unit" : null,
+          "distance" : null,
+          "noOpportunityAttacks" : null,
+          "bonus" : null,
+          "duration" : null,
+          "choice" : null
+        } ],
+        "activation" : null,
+        "trigger" : null,
+        "usage" : null,
+        "resourceInteraction" : null
+      },
+      "Ability Score Improvement" : {
+        "name" : null,
+        "level" : null,
+        "levels" : [ 4, 8, 12, 16 ],
+        "levelScaling" : null,
+        "effects" : [ {
+          "type" : "ability_score_improvement",
+          "resource" : null,
+          "formula" : null,
+          "category" : null,
           "amount" : null,
           "trigger" : null,
           "sense" : null,
@@ -557,18 +576,18 @@
     } ]
   },
   "background" : {
-    "id" : "acolyte",
-    "name" : "Acolyte",
-    "description" : "You devoted yourself to service in a temple, either nestled in a town or secluded in a sacred grove. There you performed rites in honor of a god or pantheon. You served under a priest and studied religion. Thanks to your priest's instruction and your own devotion, you also learned how to channel a modicum of divine power in service to your place of worship and the people who prayed there.",
-    "primaryAbilities" : [ "Intelligence", "Wisdom", "Charisma" ],
-    "feat" : "Magic Initiate (Cleric)",
-    "skillProficiencies" : [ "Insight", "Religion" ],
-    "toolProficiencies" : [ "Calligrapher's Supplies" ],
+    "id" : "charlatan",
+    "name" : "Charlatan",
+    "description" : "Once you were old enough to order an ale, you soon had a favorite stool in every tavern within ten miles of where you were born. As you traveled the circuit from public house to watering hole, you learned to prey on unfortunates who were in the market for a comforting lie or two—perhaps a sham potion or forged ancestry records.",
+    "primaryAbilities" : [ "Dexterity", "Constitution", "Charisma" ],
+    "feat" : "Skilled",
+    "skillProficiencies" : [ "Deception", "Sleight of Hand" ],
+    "toolProficiencies" : [ "Forgery Kit" ],
     "startingEquipment" : {
       "options" : [ {
         "id" : "A",
-        "items" : [ "Calligrapher's Supplies", "Book (prayers)", "Holy Symbol", "10 sheets of Parchment", "Robe", {
-          "gold" : 8
+        "items" : [ "Forgery Kit", "Costume", "Fine Clothes", {
+          "gold" : 15
         } ]
       }, {
         "id" : "B",
@@ -578,8 +597,8 @@
       } ]
     }
   },
-  "maxHp" : 64,
-  "currentHp" : 41,
+  "maxHp" : 53,
+  "currentHp" : 32,
   "armorClass" : 10,
   "temporaryHp" : 0,
   "notes" : "",
@@ -587,43 +606,14 @@
   "armorBase" : 10,
   "shieldBonus" : 0,
   "features" : [ {
-    "name" : "Fighting Style",
+    "name" : "Bardic Inspiration",
     "level" : 1,
     "levels" : null,
     "levelScaling" : null,
     "effects" : [ {
-      "type" : "gainFeatChoice",
+      "type" : "grant_inspiration_die",
       "resource" : null,
-      "formula" : null,
-      "category" : "fightingStyle",
-      "amount" : 1,
-      "trigger" : null,
-      "sense" : null,
-      "resultHP" : 0,
-      "activation" : null,
-      "action" : null,
-      "condition" : null,
-      "range" : 0,
-      "unit" : null,
-      "distance" : null,
-      "noOpportunityAttacks" : null,
-      "bonus" : null,
-      "duration" : null,
-      "choice" : null
-    } ],
-    "activation" : null,
-    "trigger" : null,
-    "usage" : null,
-    "resourceInteraction" : null
-  }, {
-    "name" : "Second Wind",
-    "level" : 1,
-    "levels" : null,
-    "levelScaling" : null,
-    "effects" : [ {
-      "type" : "heal",
-      "resource" : null,
-      "formula" : "1d10 + fighterLevel",
+      "formula" : "1d6",
       "category" : null,
       "amount" : null,
       "trigger" : null,
@@ -632,29 +622,29 @@
       "activation" : null,
       "action" : null,
       "condition" : null,
-      "range" : 0,
-      "unit" : null,
+      "range" : 60,
+      "unit" : "feet",
       "distance" : null,
       "noOpportunityAttacks" : null,
       "bonus" : null,
-      "duration" : null,
+      "duration" : "1 hour",
       "choice" : null
     } ],
     "activation" : "bonusAction",
     "trigger" : null,
     "usage" : {
-      "uses" : "2",
+      "uses" : "charisma_modifier",
       "usesByLevel" : null,
-      "recharge" : [ "shortRest", "longRest" ]
+      "recharge" : [ "longRest" ]
     },
     "resourceInteraction" : null
   }, {
-    "name" : "Weapon Mastery",
+    "name" : "Spellcasting",
     "level" : 1,
     "levels" : null,
     "levelScaling" : null,
     "effects" : [ {
-      "type" : "weaponMasteryAccess",
+      "type" : "cast_spells",
       "resource" : null,
       "formula" : null,
       "category" : null,
@@ -678,12 +668,12 @@
     "usage" : null,
     "resourceInteraction" : null
   }, {
-    "name" : "Action Surge",
+    "name" : "Jack of All Trades",
     "level" : 2,
     "levels" : null,
     "levelScaling" : null,
     "effects" : [ {
-      "type" : "grantAction",
+      "type" : "add_half_proficiency_bonus",
       "resource" : null,
       "formula" : null,
       "category" : null,
@@ -692,7 +682,7 @@
       "sense" : null,
       "resultHP" : 0,
       "activation" : null,
-      "action" : "extraAction",
+      "action" : null,
       "condition" : null,
       "range" : 0,
       "unit" : null,
@@ -704,24 +694,17 @@
     } ],
     "activation" : null,
     "trigger" : null,
-    "usage" : {
-      "uses" : null,
-      "usesByLevel" : {
-        "2-16" : 1,
-        "17-20" : 2
-      },
-      "recharge" : [ "short_rest" ]
-    },
+    "usage" : null,
     "resourceInteraction" : null
   }, {
-    "name" : "Tactical Mind",
-    "level" : 2,
+    "name" : "Font of Inspiration",
+    "level" : 5,
     "levels" : null,
     "levelScaling" : null,
     "effects" : [ {
-      "type" : "skill_check_bonus",
+      "type" : "modify_recharge",
       "resource" : null,
-      "formula" : "1d10",
+      "formula" : null,
       "category" : null,
       "amount" : null,
       "trigger" : null,
@@ -729,7 +712,26 @@
       "resultHP" : 0,
       "activation" : null,
       "action" : null,
-      "condition" : "after_failure",
+      "condition" : null,
+      "range" : 0,
+      "unit" : null,
+      "distance" : null,
+      "noOpportunityAttacks" : null,
+      "bonus" : null,
+      "duration" : null,
+      "choice" : null
+    }, {
+      "type" : "expend_spell_slot_for_inspiration",
+      "resource" : null,
+      "formula" : null,
+      "category" : null,
+      "amount" : null,
+      "trigger" : null,
+      "sense" : null,
+      "resultHP" : 0,
+      "activation" : null,
+      "action" : null,
+      "condition" : null,
       "range" : 0,
       "unit" : null,
       "distance" : null,
@@ -741,14 +743,14 @@
     "activation" : null,
     "trigger" : null,
     "usage" : null,
-    "resourceInteraction" : "second_wind"
+    "resourceInteraction" : null
   }, {
-    "name" : "Tactical Shift",
+    "name" : "Countercharm",
     "level" : 7,
     "levels" : null,
     "levelScaling" : null,
     "effects" : [ {
-      "type" : "movement",
+      "type" : "grant_advantage_on_saves",
       "resource" : null,
       "formula" : null,
       "category" : null,
@@ -759,25 +761,25 @@
       "activation" : null,
       "action" : null,
       "condition" : null,
-      "range" : 0,
-      "unit" : null,
-      "distance" : "half_speed",
-      "noOpportunityAttacks" : true,
+      "range" : 30,
+      "unit" : "feet",
+      "distance" : null,
+      "noOpportunityAttacks" : null,
       "bonus" : null,
       "duration" : null,
       "choice" : null
     } ],
-    "activation" : null,
-    "trigger" : "second_wind",
+    "activation" : "reaction",
+    "trigger" : "ally_fails_saving_throw_against_charm_or_fear",
     "usage" : null,
     "resourceInteraction" : null
   }, {
-    "name" : "Indomitable",
-    "level" : 9,
+    "name" : "Magical Secrets",
+    "level" : 10,
     "levels" : null,
     "levelScaling" : null,
     "effects" : [ {
-      "type" : "reroll_save",
+      "type" : "expand_spell_list",
       "resource" : null,
       "formula" : null,
       "category" : null,
@@ -786,35 +788,27 @@
       "sense" : null,
       "resultHP" : 0,
       "activation" : null,
-      "action" : null,
+      "action" : "replace_or_add_prepared_spells",
       "condition" : null,
       "range" : 0,
       "unit" : null,
       "distance" : null,
       "noOpportunityAttacks" : null,
-      "bonus" : "fighter_level",
+      "bonus" : null,
       "duration" : null,
       "choice" : null
     } ],
     "activation" : null,
     "trigger" : null,
-    "usage" : {
-      "uses" : null,
-      "usesByLevel" : {
-        "9-12" : 1,
-        "13-16" : 2,
-        "17-20" : 3
-      },
-      "recharge" : [ "long_rest" ]
-    },
+    "usage" : null,
     "resourceInteraction" : null
   }, {
-    "name" : "Tactical Master",
+    "name" : "Further Expertise",
     "level" : 9,
     "levels" : null,
     "levelScaling" : null,
     "effects" : [ {
-      "type" : "weapon_mastery_replace_property",
+      "type" : "add_expertise_choices",
       "resource" : null,
       "formula" : null,
       "category" : null,
@@ -838,7 +832,7 @@
     "usage" : null,
     "resourceInteraction" : null
   } ],
-  "updatedAt" : [ 2026, 9, 1, 15, 3, 18, 994829300 ],
+  "updatedAt" : [ 2026, 9, 1, 15, 10, 2, 355133400 ],
   "activeEffects" : "Nenhum efeito ativo",
   "lifeStateName" : "Normal"
 }

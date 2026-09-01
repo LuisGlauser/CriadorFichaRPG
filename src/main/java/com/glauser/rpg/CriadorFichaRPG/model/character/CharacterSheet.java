@@ -44,12 +44,6 @@ public class CharacterSheet implements CharacterComponent, CharacterSubject {
 
     private LocalDateTime updatedAt;
 
-    /*
-     * STATE
-     *
-     * O estado não é salvo no JSON porque ele pode ser
-     * reconstruído automaticamente a partir do HP.
-     */
     @JsonIgnore
     private transient LifeState lifeState;
 
