@@ -1061,22 +1061,17 @@
         style="margin:0;"
     >
 
-        <div class="form-actions">
-            <button type="submit" class="btn-primary">
-                Salvar Ficha
-            </button>
-
-            <a th:href="@{/character/export/{id}(id=${character.id})}"
-            class="btn-secondary">
-                Exportar
-            </a>
-
-            <a th:href="@{/}" class="btn-secondary">
-                Retornar ao início
-            </a>
-        </div>
-    </form>
-
+<div class="form-actions"> 
+    <!-- SALVAR --> 
+     <form th:action="@{/character/save/{id}(id=${character.id})}" method="post" >
+         <button class="btn-effect btn-equip" type="submit" > 💾 Salvar ficha </button>
+    </form> 
+    <!-- EXPORTAR TXT --> 
+    <a class="btn-effect btn-remove" th:href="@{/character/export/{id}/txt(id=${character.id})}" > 📄 Exportar TXT </a>
+    <!-- EXPORTAR JSON -->
+    <a class="btn-effect btn-remove" th:href="@{/character/export/{id}/json(id=${character.id})}" > {} Exportar JSON </a>
+    <!-- RETORNAR --> 
+    <a class="btn-effect btn-remove" th:href="@{/}" > ↩ Retornar ao início </a> 
 </div>
 
 </body>

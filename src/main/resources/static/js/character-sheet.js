@@ -288,57 +288,59 @@
     }
 
     async function heal() {
-
         if (!id) {
             return;
         }
 
-        status.textContent =
-            "Curando...";
+        /*
+         * Impede múltiplos cliques enquanto a requisição
+         * atual ainda está sendo processada.
+         */
+        if (healButton && healButton.disabled) {
+            return;
+        }
 
-        status.dataset.state =
-            "saving";
+        if (healButton) {
+            healButton.disabled = true;
+            healButton.textContent = "♥ Curando...";
+        }
+
+        status.textContent = "Curando...";
+        status.dataset.state = "saving";
 
         try {
-
-            const response =
-                await fetch(
-                    `/api/characters/${encodeURIComponent(id)}/heal`,
-                    {
-                        method: "POST",
-                        headers: {
-                            "Accept":
-                                "application/json"
-                        }
+            const response = await fetch(
+                `/api/characters/${encodeURIComponent(id)}/heal`,
+                {
+                    method: "POST",
+                    headers: {
+                        "Accept": "application/json"
                     }
-                );
+                }
+            );
 
             if (!response.ok) {
-                throw new Error(
-                    `HTTP ${response.status}`
-                );
+                throw new Error(`HTTP ${response.status}`);
             }
 
-            const data =
-                await response.json();
-
+            const data = await response.json();
             updateDerived(data);
 
-            status.textContent =
-                "Curado ✓";
-
-            status.dataset.state =
-                "saved";
-
+            status.textContent = "Curado ✓";
+            status.dataset.state = "saved";
         } catch (error) {
-
-            console.error(error);
-
-            status.textContent =
-                "Erro ao curar";
-
-            status.dataset.state =
-                "error";
+            console.error("Erro ao curar:", error);
+            status.textContent = "Erro ao curar";
+            status.dataset.state = "error";
+        } finally {
+            /*
+             * Só libera o botão depois que a requisição
+             * terminou, seja com sucesso ou erro.
+             */
+            if (healButton) {
+                healButton.disabled = false;
+                healButton.textContent = "♥ Curar";
+            }
         }
     }
 
