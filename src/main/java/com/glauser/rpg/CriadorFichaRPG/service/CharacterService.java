@@ -1,6 +1,10 @@
 package com.glauser.rpg.CriadorFichaRPG.service;
 
 import com.glauser.rpg.CriadorFichaRPG.builder.CharacterBuilder;
+import com.glauser.rpg.CriadorFichaRPG.command.CharacterCommandInvoker;
+import com.glauser.rpg.CriadorFichaRPG.command.HealCommand;
+import com.glauser.rpg.CriadorFichaRPG.command.SetTemporaryHpCommand;
+import com.glauser.rpg.CriadorFichaRPG.command.TakeDamageCommand;
 import com.glauser.rpg.CriadorFichaRPG.dto.CharacterCreationDTO;
 import com.glauser.rpg.CriadorFichaRPG.model.character.Attributes;
 import com.glauser.rpg.CriadorFichaRPG.model.character.CharacterSheet;
@@ -26,13 +30,16 @@ public class CharacterService {
 
     private final CharacterPersistenceService persistenceService;
 
+    private final CharacterCommandInvoker commandInvoker;
+
     public CharacterService(
             SpeciesRegistry speciesRegistry,
             BackgroundRegistry backgroundRegistry,
             ClassRegistry classRegistry,
             DerivedStatsObserver derivedStatsObserver,
             AutoSaveObserver autoSaveObserver,
-            CharacterPersistenceService persistenceService) {
+            CharacterPersistenceService persistenceService,
+            CharacterCommandInvoker commandInvoker) {
 
         this.speciesRegistry = speciesRegistry;
         this.backgroundRegistry = backgroundRegistry;
@@ -40,6 +47,7 @@ public class CharacterService {
         this.derivedStatsObserver = derivedStatsObserver;
         this.autoSaveObserver = autoSaveObserver;
         this.persistenceService = persistenceService;
+        this.commandInvoker = commandInvoker;
     }
 
     public CharacterSheet create(CharacterCreationDTO dto) {
@@ -112,6 +120,9 @@ public class CharacterService {
 
     /**
      * Cura o personagem utilizando o State atual.
+     *
+     * Agora executado como um Command (HealCommand), o que
+     * permite desfazer a cura depois via undoLast(id).
      */
     public CharacterSheet heal(String id) {
 
@@ -121,7 +132,7 @@ public class CharacterService {
             return null;
         }
 
-        character.healByCurrentState();
+        commandInvoker.execute(id, new HealCommand(), character);
 
         /*
          * O heal() já dispara o Observer,
@@ -129,6 +140,67 @@ public class CharacterService {
          * a persistência antes de retornar a resposta.
          */
         persistenceService.save(character);
+
+        return character;
+    }
+
+    /**
+     * Aplica dano ao personagem via TakeDamageCommand.
+     *
+     * A regra "primeiro tira do HP temporário, depois do HP atual"
+     * está encapsulada em CharacterSheet#takeDamage, chamada de
+     * dentro do comando.
+     */
+    public CharacterSheet damage(String id, int amount) {
+
+        CharacterSheet character = getById(id);
+
+        if (character == null) {
+            return null;
+        }
+
+        commandInvoker.execute(id, new TakeDamageCommand(amount), character);
+
+        persistenceService.save(character);
+
+        return character;
+    }
+
+    /**
+     * Define o HP temporário do personagem via SetTemporaryHpCommand.
+     */
+    public CharacterSheet setTemporaryHp(String id, int value) {
+
+        CharacterSheet character = getById(id);
+
+        if (character == null) {
+            return null;
+        }
+
+        commandInvoker.execute(id, new SetTemporaryHpCommand(value), character);
+
+        persistenceService.save(character);
+
+        return character;
+    }
+
+    /**
+     * Desfaz a última ação de combate (dano/cura/HP temporário)
+     * executada para este personagem.
+     */
+    public CharacterSheet undoLast(String id) {
+
+        CharacterSheet character = getById(id);
+
+        if (character == null) {
+            return null;
+        }
+
+        boolean undone = commandInvoker.undoLast(id, character);
+
+        if (undone) {
+            persistenceService.save(character);
+        }
 
         return character;
     }

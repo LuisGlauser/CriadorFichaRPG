@@ -90,6 +90,50 @@ public class CharacterSheetRestController {
         );
     }
 
+    /**
+     * Prova de conceito do Command.
+     *
+     * O controller não sabe COMO o dano é aplicado (se desconta
+     * do HP temporário antes, etc.) — ele só pede para o Service
+     * executar a ação. Quem decide isso é o TakeDamageCommand.
+     */
+    @PostMapping("/{id}/damage")
+    public ResponseEntity<CharacterSheetResponseDTO> damage(
+            @PathVariable String id,
+            @RequestParam("amount") int amount) {
+
+        CharacterSheet character =
+                characterService.damage(id, amount);
+
+        if (character == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok(
+                CharacterSheetResponseDTO.from(character)
+        );
+    }
+
+    /**
+     * Desfaz a última ação de combate (dano, cura ou HP temporário)
+     * executada para este personagem.
+     */
+    @PostMapping("/{id}/undo")
+    public ResponseEntity<CharacterSheetResponseDTO> undo(
+            @PathVariable String id) {
+
+        CharacterSheet character =
+                characterService.undoLast(id);
+
+        if (character == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok(
+                CharacterSheetResponseDTO.from(character)
+        );
+    }
+
     private void applyPatch(
             CharacterSheet c,
             CharacterPatchDTO p) {

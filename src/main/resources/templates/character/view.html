@@ -302,10 +302,164 @@
             margin-top: .6rem;
         }
 
+        /* ================================
+           LAYOUT (ficha + painel lateral)
+           ================================ */
+
+        .page-layout {
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            gap: 1.2rem;
+            flex-wrap: wrap;
+            max-width: 1220px;
+            margin: 0 auto;
+        }
+
+        .page-layout > .sheet-container {
+            flex: 1 1 0;
+            min-width: 0;
+        }
+
+        .combat-actions-panel {
+            width: 230px;
+            flex-shrink: 0;
+            border: 2px solid var(--gold);
+            border-radius: 6px;
+            background: var(--parchment);
+            padding: 1rem 1.1rem;
+            position: sticky;
+            top: 1rem;
+        }
+
+        .combat-actions-panel h2 {
+            margin-top: 0;
+            font-size: 1rem;
+            border-bottom: 1px solid var(--orange-light);
+            padding-bottom: .4rem;
+        }
+
+        .action-group {
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px dashed var(--parchment-dark);
+        }
+
+        .action-group:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .action-group label {
+            display: block;
+            font-family: var(--font-label);
+            font-size: .72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .05em;
+            color: var(--ink-mid);
+            margin-bottom: .35rem;
+        }
+
+        .action-group input[type="number"] {
+            width: 100%;
+            box-sizing: border-box;
+            padding: .35rem .5rem;
+            font: inherit;
+            border: 1px solid var(--parchment-dark);
+            border-radius: 3px;
+            background: rgba(255,255,255,.7);
+            color: var(--ink);
+            margin-bottom: .5rem;
+        }
+
+        .btn-action {
+            width: 100%;
+            box-sizing: border-box;
+            padding: .45rem .5rem;
+            font-family: var(--font-label);
+            font-size: .72rem;
+            font-weight: 700;
+            letter-spacing: .06em;
+            text-transform: uppercase;
+            border-radius: 3px;
+            cursor: pointer;
+            border: 2px solid var(--gold);
+        }
+
+        .btn-damage {
+            background: linear-gradient(135deg, var(--red-dark), var(--red-light));
+            color: var(--gold-light);
+        }
+
+        .btn-damage:hover {
+            background: linear-gradient(135deg, var(--orange-dark), var(--orange-light));
+        }
+
+        .btn-undo {
+            background: transparent;
+            color: var(--ink-mid);
+            border-color: var(--parchment-dark);
+        }
+
+        .btn-undo:hover {
+            background: var(--parchment-dark);
+        }
+
+        @media (max-width: 900px) {
+            .combat-actions-panel {
+                width: 100%;
+                position: static;
+                order: -1;
+            }
+        }
+
     </style>
 </head>
 
 <body>
+
+<div class="page-layout">
+
+<!-- PAINEL DE AÇÕES DE COMBATE (Command) -->
+<aside class="combat-actions-panel" th:if="${character != null}">
+
+    <h2>⚔ Ações de Combate</h2>
+
+    <div class="action-group">
+        <label for="field-temporary-hp">HP Temporário</label>
+        <input
+            id="field-temporary-hp"
+            type="number"
+            min="0"
+            th:value="${character.temporaryHp}"
+        >
+    </div>
+
+    <div class="action-group">
+        <label for="field-damage-amount">Tomar Dano</label>
+        <input
+            id="field-damage-amount"
+            type="number"
+            min="0"
+            placeholder="Quantidade"
+        >
+        <button id="btn-apply-damage" class="btn-action btn-damage" type="button">
+            🗡 Aplicar Dano
+        </button>
+        <small style="display:block;margin-top:.4rem;color:var(--ink-mid);font-size:.68rem;">
+            Desconta primeiro do HP temporário e só depois do HP atual.
+        </small>
+    </div>
+
+    <div class="action-group">
+        <button id="btn-undo" class="btn-action btn-undo" type="button">
+            ↺ Desfazer última ação
+        </button>
+    </div>
+
+</aside>
 
 <div
     class="sheet-container"
@@ -667,23 +821,6 @@
                 <div class="combat-box">
 
                     <span class="combat-label">
-                        HP Temporário
-                    </span>
-
-                    <input
-                        id="field-temporary-hp"
-                        class="combat-input"
-                        type="number"
-                        min="0"
-                        th:value="${character.temporaryHp}"
-                    >
-
-                </div>
-
-
-                <div class="combat-box">
-
-                    <span class="combat-label">
                         Classe de Armadura
                     </span>
 
@@ -907,6 +1044,8 @@
 
 </div>
 
+</div> <!-- fecha .page-layout -->
+
 
 <script th:src="@{/js/character-sheet.js}">
 </script>
@@ -921,13 +1060,6 @@
         method="post"
         style="margin:0;"
     >
-
-        <button
-            class="btn-effect btn-equip"
-            type="submit"
-        >
-            💾 Salvar ficha
-        </button>
 
         <div class="form-actions">
             <button type="submit" class="btn-primary">

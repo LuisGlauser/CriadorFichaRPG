@@ -1,117 +1,49 @@
 {
-  "id" : "bf3b73ff-7996-44ba-91f5-5514d37ff954",
-  "name" : "Glauserlitz",
+  "id" : "5a05d722-70da-435f-8156-4c354c3fa290",
+  "name" : "caio",
   "attributes" : {
     "strength" : 10,
     "dexterity" : 10,
     "constitution" : 10,
     "intelligence" : 10,
-    "wisdom" : 10,
+    "wisdom" : 20,
     "charisma" : 10,
     "conModifier" : 0
   },
   "level" : 10,
   "characterClass" : {
     "id" : null,
-    "name" : "Fighter",
-    "hitDie" : 10,
-    "savingThrowProficiencies" : [ "Strength", "Constitution" ],
+    "name" : "Cleric",
+    "hitDie" : 8,
+    "savingThrowProficiencies" : [ "Wisdom", "Charisma" ],
     "skillProficiencies" : {
       "choose" : 2,
-      "options" : [ "Acrobatics", "Animal Handling", "Athletics", "History", "Insight", "Intimidation", "Perception", "Persuasion", "Survival" ]
+      "options" : [ "History", "Insight", "Medicine", "Persuasion", "Religion" ]
     },
-    "weaponProficiencies" : [ "Simple", "Martial" ],
-    "armorTraining" : [ "Light", "Medium", "Heavy", "Shields" ],
+    "weaponProficiencies" : [ "Simple" ],
+    "armorTraining" : [ "Light", "Medium", "Shields" ],
     "startingEquipment" : {
       "options" : [ {
         "id" : "A",
-        "items" : [ "Chain Mail", "Greatsword", "Flail", "8 Javelins", "Dungeoneer's Pack", {
-          "gold" : 4
-        } ]
+        "items" : [ "Chain Shirt", "Mace", "Holy Symbol" ]
       }, {
         "id" : "B",
-        "items" : [ "Studded Leather Armor", "Scimitar", "Shortsword", "Longbow", "20 Arrows", "Quiver", "Dungeoneer's Pack", {
-          "gold" : 11
-        } ]
+        "items" : [ "Leather Armor", "Light Crossbow", "20 Bolts", "Holy Symbol" ]
       }, {
         "id" : "C",
         "items" : [ {
-          "gold" : 155
+          "gold" : 115
         } ]
       } ]
     },
     "features" : {
-      "Fighting Style" : {
-        "name" : "Fighting Style",
+      "Channel Divinity" : {
+        "name" : "Channel Divinity",
         "level" : 1,
         "levels" : null,
         "levelScaling" : null,
         "effects" : [ {
-          "type" : "gainFeatChoice",
-          "resource" : null,
-          "formula" : null,
-          "category" : "fightingStyle",
-          "amount" : 1,
-          "trigger" : null,
-          "sense" : null,
-          "resultHP" : 0,
-          "activation" : null,
-          "action" : null,
-          "condition" : null,
-          "range" : 0,
-          "unit" : null,
-          "distance" : null,
-          "noOpportunityAttacks" : null,
-          "bonus" : null,
-          "duration" : null,
-          "choice" : null
-        } ],
-        "activation" : null,
-        "trigger" : null,
-        "usage" : null,
-        "resourceInteraction" : null
-      },
-      "Second Wind" : {
-        "name" : "Second Wind",
-        "level" : 1,
-        "levels" : null,
-        "levelScaling" : null,
-        "effects" : [ {
-          "type" : "heal",
-          "resource" : null,
-          "formula" : "1d10 + fighterLevel",
-          "category" : null,
-          "amount" : null,
-          "trigger" : null,
-          "sense" : null,
-          "resultHP" : 0,
-          "activation" : null,
-          "action" : null,
-          "condition" : null,
-          "range" : 0,
-          "unit" : null,
-          "distance" : null,
-          "noOpportunityAttacks" : null,
-          "bonus" : null,
-          "duration" : null,
-          "choice" : null
-        } ],
-        "activation" : "bonusAction",
-        "trigger" : null,
-        "usage" : {
-          "uses" : "2",
-          "usesByLevel" : null,
-          "recharge" : [ "shortRest", "longRest" ]
-        },
-        "resourceInteraction" : null
-      },
-      "Weapon Mastery" : {
-        "name" : "Weapon Mastery",
-        "level" : 1,
-        "levels" : null,
-        "levelScaling" : null,
-        "effects" : [ {
-          "type" : "weaponMasteryAccess",
+          "type" : "channel_divinity_access",
           "resource" : null,
           "formula" : null,
           "category" : null,
@@ -121,36 +53,6 @@
           "resultHP" : 0,
           "activation" : null,
           "action" : null,
-          "condition" : null,
-          "range" : 0,
-          "unit" : null,
-          "distance" : null,
-          "noOpportunityAttacks" : null,
-          "bonus" : null,
-          "duration" : null,
-          "choice" : null
-        } ],
-        "activation" : null,
-        "trigger" : null,
-        "usage" : null,
-        "resourceInteraction" : null
-      },
-      "Action Surge" : {
-        "name" : "Action Surge",
-        "level" : 2,
-        "levels" : null,
-        "levelScaling" : null,
-        "effects" : [ {
-          "type" : "grantAction",
-          "resource" : null,
-          "formula" : null,
-          "category" : null,
-          "amount" : null,
-          "trigger" : null,
-          "sense" : null,
-          "resultHP" : 0,
-          "activation" : null,
-          "action" : "extraAction",
           "condition" : null,
           "range" : 0,
           "unit" : null,
@@ -165,22 +67,23 @@
         "usage" : {
           "uses" : null,
           "usesByLevel" : {
-            "2-16" : 1,
-            "17-20" : 2
+            "1-5" : 2,
+            "6-17" : 3,
+            "18-20" : 4
           },
-          "recharge" : [ "short_rest" ]
+          "recharge" : [ "shortRest", "longRest" ]
         },
         "resourceInteraction" : null
       },
-      "Tactical Mind" : {
-        "name" : "Tactical Mind",
-        "level" : 2,
+      "Spellcasting" : {
+        "name" : "Spellcasting",
+        "level" : 1,
         "levels" : null,
         "levelScaling" : null,
         "effects" : [ {
-          "type" : "skill_check_bonus",
+          "type" : "cast_spells",
           "resource" : null,
-          "formula" : "1d10",
+          "formula" : null,
           "category" : null,
           "amount" : null,
           "trigger" : null,
@@ -188,7 +91,7 @@
           "resultHP" : 0,
           "activation" : null,
           "action" : null,
-          "condition" : "after_failure",
+          "condition" : null,
           "range" : 0,
           "unit" : null,
           "distance" : null,
@@ -200,12 +103,42 @@
         "activation" : null,
         "trigger" : null,
         "usage" : null,
-        "resourceInteraction" : "second_wind"
+        "resourceInteraction" : null
+      },
+      "Divine Order" : {
+        "name" : "Divine Order",
+        "level" : 1,
+        "levels" : null,
+        "levelScaling" : null,
+        "effects" : [ {
+          "type" : "choose_holy_order",
+          "resource" : null,
+          "formula" : null,
+          "category" : null,
+          "amount" : null,
+          "trigger" : null,
+          "sense" : null,
+          "resultHP" : 0,
+          "activation" : null,
+          "action" : null,
+          "condition" : null,
+          "range" : 0,
+          "unit" : null,
+          "distance" : null,
+          "noOpportunityAttacks" : null,
+          "bonus" : null,
+          "duration" : null,
+          "choice" : null
+        } ],
+        "activation" : null,
+        "trigger" : null,
+        "usage" : null,
+        "resourceInteraction" : null
       },
       "Ability Score Improvement" : {
         "name" : null,
         "level" : null,
-        "levels" : [ 4, 6, 8, 12, 14, 16 ],
+        "levels" : [ 4, 8, 12, 16 ],
         "levelScaling" : null,
         "effects" : [ {
           "type" : "ability_score_improvement",
@@ -225,26 +158,22 @@
           "noOpportunityAttacks" : null,
           "bonus" : null,
           "duration" : null,
-          "choice" : "standard_or_feat"
+          "choice" : null
         } ],
         "activation" : null,
         "trigger" : null,
         "usage" : null,
         "resourceInteraction" : null
       },
-      "Extra Attack" : {
-        "name" : null,
-        "level" : null,
+      "Sear Undead" : {
+        "name" : "Sear Undead",
+        "level" : 5,
         "levels" : null,
-        "levelScaling" : {
-          "5" : 2,
-          "11" : 3,
-          "20" : 4
-        },
+        "levelScaling" : null,
         "effects" : [ {
-          "type" : "extra_attack_scaling",
+          "type" : "modify_feature",
           "resource" : null,
-          "formula" : null,
+          "formula" : "roll_d8_count_equal_to_proficiency_bonus",
           "category" : null,
           "amount" : null,
           "trigger" : null,
@@ -266,43 +195,13 @@
         "usage" : null,
         "resourceInteraction" : null
       },
-      "Tactical Shift" : {
-        "name" : "Tactical Shift",
+      "Blessed Strikes" : {
+        "name" : "Blessed Strikes",
         "level" : 7,
         "levels" : null,
         "levelScaling" : null,
         "effects" : [ {
-          "type" : "movement",
-          "resource" : null,
-          "formula" : null,
-          "category" : null,
-          "amount" : null,
-          "trigger" : null,
-          "sense" : null,
-          "resultHP" : 0,
-          "activation" : null,
-          "action" : null,
-          "condition" : null,
-          "range" : 0,
-          "unit" : null,
-          "distance" : "half_speed",
-          "noOpportunityAttacks" : true,
-          "bonus" : null,
-          "duration" : null,
-          "choice" : null
-        } ],
-        "activation" : null,
-        "trigger" : "second_wind",
-        "usage" : null,
-        "resourceInteraction" : null
-      },
-      "Indomitable" : {
-        "name" : "Indomitable",
-        "level" : 9,
-        "levels" : null,
-        "levelScaling" : null,
-        "effects" : [ {
-          "type" : "reroll_save",
+          "type" : "choose_combat_enhancement",
           "resource" : null,
           "formula" : null,
           "category" : null,
@@ -317,81 +216,47 @@
           "unit" : null,
           "distance" : null,
           "noOpportunityAttacks" : null,
-          "bonus" : "fighter_level",
+          "bonus" : null,
+          "duration" : null,
+          "choice" : null
+        } ],
+        "activation" : null,
+        "trigger" : null,
+        "usage" : null,
+        "resourceInteraction" : null
+      },
+      "Divine Intervention" : {
+        "name" : "Divine Intervention",
+        "level" : 10,
+        "levels" : null,
+        "levelScaling" : null,
+        "effects" : [ {
+          "type" : "request_deity_assistance",
+          "resource" : null,
+          "formula" : null,
+          "category" : null,
+          "amount" : null,
+          "trigger" : null,
+          "sense" : null,
+          "resultHP" : 0,
+          "activation" : "magicAction",
+          "action" : null,
+          "condition" : null,
+          "range" : 0,
+          "unit" : null,
+          "distance" : null,
+          "noOpportunityAttacks" : null,
+          "bonus" : null,
           "duration" : null,
           "choice" : null
         } ],
         "activation" : null,
         "trigger" : null,
         "usage" : {
-          "uses" : null,
-          "usesByLevel" : {
-            "9-12" : 1,
-            "13-16" : 2,
-            "17-20" : 3
-          },
-          "recharge" : [ "long_rest" ]
+          "uses" : "1",
+          "usesByLevel" : null,
+          "recharge" : [ "longRest" ]
         },
-        "resourceInteraction" : null
-      },
-      "Tactical Master" : {
-        "name" : "Tactical Master",
-        "level" : 9,
-        "levels" : null,
-        "levelScaling" : null,
-        "effects" : [ {
-          "type" : "weapon_mastery_replace_property",
-          "resource" : null,
-          "formula" : null,
-          "category" : null,
-          "amount" : null,
-          "trigger" : null,
-          "sense" : null,
-          "resultHP" : 0,
-          "activation" : null,
-          "action" : null,
-          "condition" : null,
-          "range" : 0,
-          "unit" : null,
-          "distance" : null,
-          "noOpportunityAttacks" : null,
-          "bonus" : null,
-          "duration" : null,
-          "choice" : null
-        } ],
-        "activation" : null,
-        "trigger" : null,
-        "usage" : null,
-        "resourceInteraction" : null
-      },
-      "Studied Attacks" : {
-        "name" : null,
-        "level" : 13,
-        "levels" : null,
-        "levelScaling" : null,
-        "effects" : [ {
-          "type" : "gain_advantage_on_miss",
-          "resource" : null,
-          "formula" : null,
-          "category" : null,
-          "amount" : null,
-          "trigger" : null,
-          "sense" : null,
-          "resultHP" : 0,
-          "activation" : null,
-          "action" : null,
-          "condition" : null,
-          "range" : 0,
-          "unit" : null,
-          "distance" : null,
-          "noOpportunityAttacks" : null,
-          "bonus" : null,
-          "duration" : "next_turn",
-          "choice" : null
-        } ],
-        "activation" : null,
-        "trigger" : null,
-        "usage" : null,
         "resourceInteraction" : null
       },
       "Epic Boon" : {
@@ -423,12 +288,42 @@
         "trigger" : null,
         "usage" : null,
         "resourceInteraction" : null
+      },
+      "Greater Divine Intervention" : {
+        "name" : null,
+        "level" : 20,
+        "levels" : null,
+        "levelScaling" : null,
+        "effects" : [ {
+          "type" : "modify_feature",
+          "resource" : null,
+          "formula" : null,
+          "category" : null,
+          "amount" : null,
+          "trigger" : null,
+          "sense" : null,
+          "resultHP" : 0,
+          "activation" : null,
+          "action" : null,
+          "condition" : null,
+          "range" : 0,
+          "unit" : null,
+          "distance" : null,
+          "noOpportunityAttacks" : null,
+          "bonus" : null,
+          "duration" : null,
+          "choice" : null
+        } ],
+        "activation" : null,
+        "trigger" : null,
+        "usage" : null,
+        "resourceInteraction" : null
       }
     }
   },
   "species" : {
-    "id" : "orc",
-    "name" : "Orc",
+    "id" : "goliath",
+    "name" : "Goliath",
     "creatureType" : "Humanoid",
     "size" : {
       "options" : [ {
@@ -437,16 +332,26 @@
       "selection_rule" : null
     },
     "speed" : {
-      "walk" : 30,
+      "walk" : 35,
       "unit" : "feet"
     },
     "traits" : [ {
-      "name" : "Adrenaline Rush",
+      "name" : "Giant Ancestry",
+      "level" : null,
+      "levels" : null,
+      "levelScaling" : null,
+      "effects" : null,
+      "activation" : null,
+      "trigger" : null,
+      "usage" : null,
+      "resourceInteraction" : null
+    }, {
+      "name" : "Large Form",
       "level" : null,
       "levels" : null,
       "levelScaling" : null,
       "effects" : [ {
-        "type" : "grant_action",
+        "type" : "change_size",
         "resource" : null,
         "formula" : null,
         "category" : null,
@@ -455,25 +360,6 @@
         "sense" : null,
         "resultHP" : 0,
         "activation" : "bonus_action",
-        "action" : "Dash",
-        "condition" : null,
-        "range" : 0,
-        "unit" : null,
-        "distance" : null,
-        "noOpportunityAttacks" : null,
-        "bonus" : null,
-        "duration" : null,
-        "choice" : null
-      }, {
-        "type" : "gain_temporary_hp",
-        "resource" : null,
-        "formula" : "proficiency_bonus",
-        "category" : null,
-        "amount" : null,
-        "trigger" : null,
-        "sense" : null,
-        "resultHP" : 0,
-        "activation" : null,
         "action" : null,
         "condition" : null,
         "range" : 0,
@@ -481,69 +367,7 @@
         "distance" : null,
         "noOpportunityAttacks" : null,
         "bonus" : null,
-        "duration" : null,
-        "choice" : null
-      } ],
-      "activation" : null,
-      "trigger" : null,
-      "usage" : {
-        "uses" : "proficiency_bonus",
-        "usesByLevel" : null,
-        "recharge" : [ "short_rest", "long_rest" ]
-      },
-      "resourceInteraction" : null
-    }, {
-      "name" : "Darkvision",
-      "level" : null,
-      "levels" : null,
-      "levelScaling" : null,
-      "effects" : [ {
-        "type" : "sense",
-        "resource" : null,
-        "formula" : null,
-        "category" : null,
-        "amount" : null,
-        "trigger" : null,
-        "sense" : "darkvision",
-        "resultHP" : 0,
-        "activation" : null,
-        "action" : null,
-        "condition" : null,
-        "range" : 120,
-        "unit" : "feet",
-        "distance" : null,
-        "noOpportunityAttacks" : null,
-        "bonus" : null,
-        "duration" : null,
-        "choice" : null
-      } ],
-      "activation" : null,
-      "trigger" : null,
-      "usage" : null,
-      "resourceInteraction" : null
-    }, {
-      "name" : "Relentless Endurance",
-      "level" : null,
-      "levels" : null,
-      "levelScaling" : null,
-      "effects" : [ {
-        "type" : "survive_drop_to_zero",
-        "resource" : null,
-        "formula" : null,
-        "category" : null,
-        "amount" : null,
-        "trigger" : null,
-        "sense" : null,
-        "resultHP" : 1,
-        "activation" : null,
-        "action" : null,
-        "condition" : "not_killed_outright",
-        "range" : 0,
-        "unit" : null,
-        "distance" : null,
-        "noOpportunityAttacks" : null,
-        "bonus" : null,
-        "duration" : null,
+        "duration" : "10 minutes",
         "choice" : null
       } ],
       "activation" : null,
@@ -554,21 +378,50 @@
         "recharge" : [ "long_rest" ]
       },
       "resourceInteraction" : null
+    }, {
+      "name" : "Powerful Build",
+      "level" : null,
+      "levels" : null,
+      "levelScaling" : null,
+      "effects" : [ {
+        "type" : "count_as_one_size_larger",
+        "resource" : null,
+        "formula" : null,
+        "category" : null,
+        "amount" : null,
+        "trigger" : null,
+        "sense" : null,
+        "resultHP" : 0,
+        "activation" : null,
+        "action" : null,
+        "condition" : null,
+        "range" : 0,
+        "unit" : null,
+        "distance" : null,
+        "noOpportunityAttacks" : null,
+        "bonus" : null,
+        "duration" : null,
+        "choice" : null
+      } ],
+      "activation" : null,
+      "trigger" : null,
+      "usage" : null,
+      "resourceInteraction" : null
     } ]
   },
   "background" : {
-    "id" : "acolyte",
-    "name" : "Acolyte",
-    "description" : "You devoted yourself to service in a temple, either nestled in a town or secluded in a sacred grove. There you performed rites in honor of a god or pantheon. You served under a priest and studied religion. Thanks to your priest's instruction and your own devotion, you also learned how to channel a modicum of divine power in service to your place of worship and the people who prayed there.",
-    "primaryAbilities" : [ "Intelligence", "Wisdom", "Charisma" ],
-    "feat" : "Magic Initiate (Cleric)",
-    "skillProficiencies" : [ "Insight", "Religion" ],
-    "toolProficiencies" : [ "Calligrapher's Supplies" ],
+    "id" : "entertainer",
+    "name" : "Entertainer",
+    "description" : "You spent much of your youth following roving fairs and carnivals, performing odd jobs for musicians and acrobats in exchange for lessons. You may have learned how to walk a tightrope, how to play a lute in a distinct style, or how to recite poetry with impeccable diction. To this day, you thrive on applause and long for the stage.",
+    "primaryAbilities" : [ "Strength", "Dexterity", "Charisma" ],
+    "feat" : "Musician",
+    "skillProficiencies" : [ "Acrobatics", "Performance" ],
+    "toolProficiencies" : [ "Musical Instrument" ],
     "startingEquipment" : {
       "options" : [ {
         "id" : "A",
-        "items" : [ "Calligrapher's Supplies", "Book (prayers)", "Holy Symbol", "10 sheets of Parchment", "Robe", {
-          "gold" : 8
+        "items" : [ "Musical Instrument", "2 Costumes", "Mirror", "Perfume", "Traveler's Clothes", {
+          "gold" : 11
         } ]
       }, {
         "id" : "B",
@@ -578,8 +431,8 @@
       } ]
     }
   },
-  "maxHp" : 64,
-  "currentHp" : 48,
+  "maxHp" : 53,
+  "currentHp" : 53,
   "armorClass" : 10,
   "temporaryHp" : 0,
   "notes" : "",
@@ -587,43 +440,14 @@
   "armorBase" : 10,
   "shieldBonus" : 0,
   "features" : [ {
-    "name" : "Fighting Style",
+    "name" : "Channel Divinity",
     "level" : 1,
     "levels" : null,
     "levelScaling" : null,
     "effects" : [ {
-      "type" : "gainFeatChoice",
+      "type" : "channel_divinity_access",
       "resource" : null,
       "formula" : null,
-      "category" : "fightingStyle",
-      "amount" : 1,
-      "trigger" : null,
-      "sense" : null,
-      "resultHP" : 0,
-      "activation" : null,
-      "action" : null,
-      "condition" : null,
-      "range" : 0,
-      "unit" : null,
-      "distance" : null,
-      "noOpportunityAttacks" : null,
-      "bonus" : null,
-      "duration" : null,
-      "choice" : null
-    } ],
-    "activation" : null,
-    "trigger" : null,
-    "usage" : null,
-    "resourceInteraction" : null
-  }, {
-    "name" : "Second Wind",
-    "level" : 1,
-    "levels" : null,
-    "levelScaling" : null,
-    "effects" : [ {
-      "type" : "heal",
-      "resource" : null,
-      "formula" : "1d10 + fighterLevel",
       "category" : null,
       "amount" : null,
       "trigger" : null,
@@ -640,21 +464,25 @@
       "duration" : null,
       "choice" : null
     } ],
-    "activation" : "bonusAction",
+    "activation" : null,
     "trigger" : null,
     "usage" : {
-      "uses" : "2",
-      "usesByLevel" : null,
+      "uses" : null,
+      "usesByLevel" : {
+        "1-5" : 2,
+        "6-17" : 3,
+        "18-20" : 4
+      },
       "recharge" : [ "shortRest", "longRest" ]
     },
     "resourceInteraction" : null
   }, {
-    "name" : "Weapon Mastery",
+    "name" : "Spellcasting",
     "level" : 1,
     "levels" : null,
     "levelScaling" : null,
     "effects" : [ {
-      "type" : "weaponMasteryAccess",
+      "type" : "cast_spells",
       "resource" : null,
       "formula" : null,
       "category" : null,
@@ -678,12 +506,12 @@
     "usage" : null,
     "resourceInteraction" : null
   }, {
-    "name" : "Action Surge",
-    "level" : 2,
+    "name" : "Divine Order",
+    "level" : 1,
     "levels" : null,
     "levelScaling" : null,
     "effects" : [ {
-      "type" : "grantAction",
+      "type" : "choose_holy_order",
       "resource" : null,
       "formula" : null,
       "category" : null,
@@ -692,7 +520,7 @@
       "sense" : null,
       "resultHP" : 0,
       "activation" : null,
-      "action" : "extraAction",
+      "action" : null,
       "condition" : null,
       "range" : 0,
       "unit" : null,
@@ -704,24 +532,17 @@
     } ],
     "activation" : null,
     "trigger" : null,
-    "usage" : {
-      "uses" : null,
-      "usesByLevel" : {
-        "2-16" : 1,
-        "17-20" : 2
-      },
-      "recharge" : [ "short_rest" ]
-    },
+    "usage" : null,
     "resourceInteraction" : null
   }, {
-    "name" : "Tactical Mind",
-    "level" : 2,
+    "name" : "Sear Undead",
+    "level" : 5,
     "levels" : null,
     "levelScaling" : null,
     "effects" : [ {
-      "type" : "skill_check_bonus",
+      "type" : "modify_feature",
       "resource" : null,
-      "formula" : "1d10",
+      "formula" : "roll_d8_count_equal_to_proficiency_bonus",
       "category" : null,
       "amount" : null,
       "trigger" : null,
@@ -729,7 +550,7 @@
       "resultHP" : 0,
       "activation" : null,
       "action" : null,
-      "condition" : "after_failure",
+      "condition" : null,
       "range" : 0,
       "unit" : null,
       "distance" : null,
@@ -741,43 +562,14 @@
     "activation" : null,
     "trigger" : null,
     "usage" : null,
-    "resourceInteraction" : "second_wind"
+    "resourceInteraction" : null
   }, {
-    "name" : "Tactical Shift",
+    "name" : "Blessed Strikes",
     "level" : 7,
     "levels" : null,
     "levelScaling" : null,
     "effects" : [ {
-      "type" : "movement",
-      "resource" : null,
-      "formula" : null,
-      "category" : null,
-      "amount" : null,
-      "trigger" : null,
-      "sense" : null,
-      "resultHP" : 0,
-      "activation" : null,
-      "action" : null,
-      "condition" : null,
-      "range" : 0,
-      "unit" : null,
-      "distance" : "half_speed",
-      "noOpportunityAttacks" : true,
-      "bonus" : null,
-      "duration" : null,
-      "choice" : null
-    } ],
-    "activation" : null,
-    "trigger" : "second_wind",
-    "usage" : null,
-    "resourceInteraction" : null
-  }, {
-    "name" : "Indomitable",
-    "level" : 9,
-    "levels" : null,
-    "levelScaling" : null,
-    "effects" : [ {
-      "type" : "reroll_save",
+      "type" : "choose_combat_enhancement",
       "resource" : null,
       "formula" : null,
       "category" : null,
@@ -792,53 +584,49 @@
       "unit" : null,
       "distance" : null,
       "noOpportunityAttacks" : null,
-      "bonus" : "fighter_level",
+      "bonus" : null,
+      "duration" : null,
+      "choice" : null
+    } ],
+    "activation" : null,
+    "trigger" : null,
+    "usage" : null,
+    "resourceInteraction" : null
+  }, {
+    "name" : "Divine Intervention",
+    "level" : 10,
+    "levels" : null,
+    "levelScaling" : null,
+    "effects" : [ {
+      "type" : "request_deity_assistance",
+      "resource" : null,
+      "formula" : null,
+      "category" : null,
+      "amount" : null,
+      "trigger" : null,
+      "sense" : null,
+      "resultHP" : 0,
+      "activation" : "magicAction",
+      "action" : null,
+      "condition" : null,
+      "range" : 0,
+      "unit" : null,
+      "distance" : null,
+      "noOpportunityAttacks" : null,
+      "bonus" : null,
       "duration" : null,
       "choice" : null
     } ],
     "activation" : null,
     "trigger" : null,
     "usage" : {
-      "uses" : null,
-      "usesByLevel" : {
-        "9-12" : 1,
-        "13-16" : 2,
-        "17-20" : 3
-      },
-      "recharge" : [ "long_rest" ]
+      "uses" : "1",
+      "usesByLevel" : null,
+      "recharge" : [ "longRest" ]
     },
     "resourceInteraction" : null
-  }, {
-    "name" : "Tactical Master",
-    "level" : 9,
-    "levels" : null,
-    "levelScaling" : null,
-    "effects" : [ {
-      "type" : "weapon_mastery_replace_property",
-      "resource" : null,
-      "formula" : null,
-      "category" : null,
-      "amount" : null,
-      "trigger" : null,
-      "sense" : null,
-      "resultHP" : 0,
-      "activation" : null,
-      "action" : null,
-      "condition" : null,
-      "range" : 0,
-      "unit" : null,
-      "distance" : null,
-      "noOpportunityAttacks" : null,
-      "bonus" : null,
-      "duration" : null,
-      "choice" : null
-    } ],
-    "activation" : null,
-    "trigger" : null,
-    "usage" : null,
-    "resourceInteraction" : null
   } ],
-  "updatedAt" : [ 2026, 9, 19, 14, 23, 46, 810813300 ],
-  "activeEffects" : "Nenhum efeito ativo",
-  "lifeStateName" : "Normal"
+  "updatedAt" : [ 2026, 9, 19, 17, 51, 53, 112424600 ],
+  "lifeStateName" : "Normal",
+  "activeEffects" : "Nenhum efeito ativo"
 }

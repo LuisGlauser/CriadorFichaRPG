@@ -352,6 +352,146 @@
         );
     }
 
+    /*
+     * Tomar dano (Command: TakeDamageCommand).
+     *
+     * O front-end só manda a quantidade; quem decide se o dano
+     * desconta do HP temporário antes do HP atual é o comando,
+     * no back-end.
+     */
+    async function applyDamage() {
+
+        if (!id) {
+            return;
+        }
+
+        const input =
+            document.querySelector("#field-damage-amount");
+
+        const amount =
+            Number(input?.value || 0);
+
+        if (!amount || amount <= 0) {
+            return;
+        }
+
+        status.textContent = "Aplicando dano...";
+        status.dataset.state = "saving";
+
+        try {
+
+            const response =
+                await fetch(
+                    `/api/characters/${encodeURIComponent(id)}/damage?amount=${encodeURIComponent(amount)}`,
+                    {
+                        method: "POST",
+                        headers: {
+                            "Accept": "application/json"
+                        }
+                    }
+                );
+
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}`);
+            }
+
+            const data = await response.json();
+
+            updateDerived(data);
+            updateTemporaryHp(data);
+
+            if (input) {
+                input.value = "";
+            }
+
+            status.textContent = "Dano aplicado ✓";
+            status.dataset.state = "saved";
+
+        } catch (error) {
+
+            console.error(error);
+
+            status.textContent = "Erro ao aplicar dano";
+            status.dataset.state = "error";
+        }
+    }
+
+    /*
+     * Desfazer última ação de combate (Command: undo()).
+     */
+    async function undoLast() {
+
+        if (!id) {
+            return;
+        }
+
+        status.textContent = "Desfazendo...";
+        status.dataset.state = "saving";
+
+        try {
+
+            const response =
+                await fetch(
+                    `/api/characters/${encodeURIComponent(id)}/undo`,
+                    {
+                        method: "POST",
+                        headers: {
+                            "Accept": "application/json"
+                        }
+                    }
+                );
+
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}`);
+            }
+
+            const data = await response.json();
+
+            updateDerived(data);
+            updateTemporaryHp(data);
+
+            status.textContent = "Ação desfeita ✓";
+            status.dataset.state = "saved";
+
+        } catch (error) {
+
+            console.error(error);
+
+            status.textContent = "Erro ao desfazer";
+            status.dataset.state = "error";
+        }
+    }
+
+    function updateTemporaryHp(data) {
+
+        const temporaryHp =
+            document.querySelector("#field-temporary-hp");
+
+        if (temporaryHp && data.temporaryHp !== undefined) {
+            temporaryHp.value = data.temporaryHp;
+        }
+    }
+
+    const damageButton =
+        document.querySelector("#btn-apply-damage");
+
+    if (damageButton) {
+        damageButton.addEventListener(
+            "click",
+            applyDamage
+        );
+    }
+
+    const undoButton =
+        document.querySelector("#btn-undo");
+
+    if (undoButton) {
+        undoButton.addEventListener(
+            "click",
+            undoLast
+        );
+    }
+
     Object.entries(fields).forEach(
         ([field, selector]) => {
 

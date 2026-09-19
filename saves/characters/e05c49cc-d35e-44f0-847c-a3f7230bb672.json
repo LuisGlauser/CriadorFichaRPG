@@ -1,57 +1,57 @@
 {
-  "id" : "bf3b73ff-7996-44ba-91f5-5514d37ff954",
-  "name" : "Glauserlitz",
+  "id" : "e05c49cc-d35e-44f0-847c-a3f7230bb672",
+  "name" : "Marvin",
   "attributes" : {
     "strength" : 10,
     "dexterity" : 10,
-    "constitution" : 10,
+    "constitution" : 14,
     "intelligence" : 10,
     "wisdom" : 10,
     "charisma" : 10,
-    "conModifier" : 0
+    "conModifier" : 2
   },
   "level" : 10,
   "characterClass" : {
     "id" : null,
-    "name" : "Fighter",
-    "hitDie" : 10,
-    "savingThrowProficiencies" : [ "Strength", "Constitution" ],
+    "name" : "Rogue",
+    "hitDie" : 8,
+    "savingThrowProficiencies" : [ "Dexterity", "Intelligence" ],
     "skillProficiencies" : {
-      "choose" : 2,
-      "options" : [ "Acrobatics", "Animal Handling", "Athletics", "History", "Insight", "Intimidation", "Perception", "Persuasion", "Survival" ]
+      "choose" : 4,
+      "options" : [ "Acrobatics", "Athletics", "Deception", "Insight", "Intimidation", "Investigation", "Perception", "Performance", "Persuasion", "Sleight of Hand", "Stealth" ]
     },
-    "weaponProficiencies" : [ "Simple", "Martial" ],
-    "armorTraining" : [ "Light", "Medium", "Heavy", "Shields" ],
+    "weaponProficiencies" : [ "Simple", "Martial_with_finesse_property" ],
+    "armorTraining" : [ "Light" ],
     "startingEquipment" : {
       "options" : [ {
         "id" : "A",
-        "items" : [ "Chain Mail", "Greatsword", "Flail", "8 Javelins", "Dungeoneer's Pack", {
-          "gold" : 4
+        "items" : [ "Leather Armor", "2 Shortswords", "Shortbow", "20 Arrows", "Quiver", "Thieves' Tools", "Burglar's Pack", {
+          "gold" : 18
         } ]
       }, {
         "id" : "B",
-        "items" : [ "Studded Leather Armor", "Scimitar", "Shortsword", "Longbow", "20 Arrows", "Quiver", "Dungeoneer's Pack", {
+        "items" : [ "Leather Armor", "Rapier", "2 Daggers", "Shortbow", "20 Arrows", "Quiver", "Thieves' Tools", "Burglar's Pack", {
           "gold" : 11
         } ]
       }, {
         "id" : "C",
         "items" : [ {
-          "gold" : 155
+          "gold" : 110
         } ]
       } ]
     },
     "features" : {
-      "Fighting Style" : {
-        "name" : "Fighting Style",
-        "level" : 1,
-        "levels" : null,
+      "Expertise" : {
+        "name" : null,
+        "level" : null,
+        "levels" : [ 1, 6 ],
         "levelScaling" : null,
         "effects" : [ {
-          "type" : "gainFeatChoice",
+          "type" : "double_proficiency_bonus",
           "resource" : null,
           "formula" : null,
-          "category" : "fightingStyle",
-          "amount" : 1,
+          "category" : null,
+          "amount" : null,
           "trigger" : null,
           "sense" : null,
           "resultHP" : 0,
@@ -71,15 +71,45 @@
         "usage" : null,
         "resourceInteraction" : null
       },
-      "Second Wind" : {
-        "name" : "Second Wind",
+      "Sneak Attack" : {
+        "name" : "Sneak Attack",
         "level" : 1,
         "levels" : null,
         "levelScaling" : null,
         "effects" : [ {
-          "type" : "heal",
+          "type" : "extra_damage",
           "resource" : null,
-          "formula" : "1d10 + fighterLevel",
+          "formula" : null,
+          "category" : null,
+          "amount" : null,
+          "trigger" : null,
+          "sense" : null,
+          "resultHP" : 0,
+          "activation" : null,
+          "action" : null,
+          "condition" : "finesse_or_ranged_weapon_with_advantage_or_adjacent_ally",
+          "range" : 0,
+          "unit" : null,
+          "distance" : null,
+          "noOpportunityAttacks" : null,
+          "bonus" : null,
+          "duration" : null,
+          "choice" : null
+        } ],
+        "activation" : null,
+        "trigger" : null,
+        "usage" : null,
+        "resourceInteraction" : null
+      },
+      "Thieves' Cant" : {
+        "name" : "Thieves' Cant",
+        "level" : 1,
+        "levels" : null,
+        "levelScaling" : null,
+        "effects" : [ {
+          "type" : "learn_language",
+          "resource" : null,
+          "formula" : null,
           "category" : null,
           "amount" : null,
           "trigger" : null,
@@ -96,13 +126,9 @@
           "duration" : null,
           "choice" : null
         } ],
-        "activation" : "bonusAction",
+        "activation" : null,
         "trigger" : null,
-        "usage" : {
-          "uses" : "2",
-          "usesByLevel" : null,
-          "recharge" : [ "shortRest", "longRest" ]
-        },
+        "usage" : null,
         "resourceInteraction" : null
       },
       "Weapon Mastery" : {
@@ -135,13 +161,13 @@
         "usage" : null,
         "resourceInteraction" : null
       },
-      "Action Surge" : {
-        "name" : "Action Surge",
+      "Cunning Action" : {
+        "name" : "Cunning Action",
         "level" : 2,
         "levels" : null,
         "levelScaling" : null,
         "effects" : [ {
-          "type" : "grantAction",
+          "type" : "grant_action",
           "resource" : null,
           "formula" : null,
           "category" : null,
@@ -149,8 +175,8 @@
           "trigger" : null,
           "sense" : null,
           "resultHP" : 0,
-          "activation" : null,
-          "action" : "extraAction",
+          "activation" : "bonusAction",
+          "action" : null,
           "condition" : null,
           "range" : 0,
           "unit" : null,
@@ -162,25 +188,18 @@
         } ],
         "activation" : null,
         "trigger" : null,
-        "usage" : {
-          "uses" : null,
-          "usesByLevel" : {
-            "2-16" : 1,
-            "17-20" : 2
-          },
-          "recharge" : [ "short_rest" ]
-        },
+        "usage" : null,
         "resourceInteraction" : null
       },
-      "Tactical Mind" : {
-        "name" : "Tactical Mind",
-        "level" : 2,
+      "Steady Aim" : {
+        "name" : "Steady Aim",
+        "level" : 3,
         "levels" : null,
         "levelScaling" : null,
         "effects" : [ {
-          "type" : "skill_check_bonus",
+          "type" : "gain_advantage_on_next_attack",
           "resource" : null,
-          "formula" : "1d10",
+          "formula" : null,
           "category" : null,
           "amount" : null,
           "trigger" : null,
@@ -188,7 +207,7 @@
           "resultHP" : 0,
           "activation" : null,
           "action" : null,
-          "condition" : "after_failure",
+          "condition" : null,
           "range" : 0,
           "unit" : null,
           "distance" : null,
@@ -197,15 +216,15 @@
           "duration" : null,
           "choice" : null
         } ],
-        "activation" : null,
+        "activation" : "bonusAction",
         "trigger" : null,
         "usage" : null,
-        "resourceInteraction" : "second_wind"
+        "resourceInteraction" : null
       },
       "Ability Score Improvement" : {
-        "name" : null,
+        "name" : "Ability Score Improvement",
         "level" : null,
-        "levels" : [ 4, 6, 8, 12, 14, 16 ],
+        "levels" : [ 4, 8, 10, 12, 16 ],
         "levelScaling" : null,
         "effects" : [ {
           "type" : "ability_score_improvement",
@@ -225,24 +244,20 @@
           "noOpportunityAttacks" : null,
           "bonus" : null,
           "duration" : null,
-          "choice" : "standard_or_feat"
+          "choice" : null
         } ],
         "activation" : null,
         "trigger" : null,
         "usage" : null,
         "resourceInteraction" : null
       },
-      "Extra Attack" : {
-        "name" : null,
-        "level" : null,
+      "Cunning Strike" : {
+        "name" : "Cunning Strike",
+        "level" : 5,
         "levels" : null,
-        "levelScaling" : {
-          "5" : 2,
-          "11" : 3,
-          "20" : 4
-        },
+        "levelScaling" : null,
         "effects" : [ {
-          "type" : "extra_attack_scaling",
+          "type" : "trade_sneak_attack_damage_for_effect",
           "resource" : null,
           "formula" : null,
           "category" : null,
@@ -266,81 +281,43 @@
         "usage" : null,
         "resourceInteraction" : null
       },
-      "Tactical Shift" : {
-        "name" : "Tactical Shift",
+      "Uncanny Dodge" : {
+        "name" : "Uncanny Dodge",
+        "level" : 5,
+        "levels" : null,
+        "levelScaling" : null,
+        "effects" : [ {
+          "type" : "halve_attacker_damage",
+          "resource" : null,
+          "formula" : null,
+          "category" : null,
+          "amount" : null,
+          "trigger" : null,
+          "sense" : null,
+          "resultHP" : 0,
+          "activation" : null,
+          "action" : null,
+          "condition" : null,
+          "range" : 0,
+          "unit" : null,
+          "distance" : null,
+          "noOpportunityAttacks" : null,
+          "bonus" : null,
+          "duration" : null,
+          "choice" : null
+        } ],
+        "activation" : "reaction",
+        "trigger" : "hit_by_attack_from_visible_attacker",
+        "usage" : null,
+        "resourceInteraction" : null
+      },
+      "Evasion" : {
+        "name" : "Evasion",
         "level" : 7,
         "levels" : null,
         "levelScaling" : null,
         "effects" : [ {
-          "type" : "movement",
-          "resource" : null,
-          "formula" : null,
-          "category" : null,
-          "amount" : null,
-          "trigger" : null,
-          "sense" : null,
-          "resultHP" : 0,
-          "activation" : null,
-          "action" : null,
-          "condition" : null,
-          "range" : 0,
-          "unit" : null,
-          "distance" : "half_speed",
-          "noOpportunityAttacks" : true,
-          "bonus" : null,
-          "duration" : null,
-          "choice" : null
-        } ],
-        "activation" : null,
-        "trigger" : "second_wind",
-        "usage" : null,
-        "resourceInteraction" : null
-      },
-      "Indomitable" : {
-        "name" : "Indomitable",
-        "level" : 9,
-        "levels" : null,
-        "levelScaling" : null,
-        "effects" : [ {
-          "type" : "reroll_save",
-          "resource" : null,
-          "formula" : null,
-          "category" : null,
-          "amount" : null,
-          "trigger" : null,
-          "sense" : null,
-          "resultHP" : 0,
-          "activation" : null,
-          "action" : null,
-          "condition" : null,
-          "range" : 0,
-          "unit" : null,
-          "distance" : null,
-          "noOpportunityAttacks" : null,
-          "bonus" : "fighter_level",
-          "duration" : null,
-          "choice" : null
-        } ],
-        "activation" : null,
-        "trigger" : null,
-        "usage" : {
-          "uses" : null,
-          "usesByLevel" : {
-            "9-12" : 1,
-            "13-16" : 2,
-            "17-20" : 3
-          },
-          "recharge" : [ "long_rest" ]
-        },
-        "resourceInteraction" : null
-      },
-      "Tactical Master" : {
-        "name" : "Tactical Master",
-        "level" : 9,
-        "levels" : null,
-        "levelScaling" : null,
-        "effects" : [ {
-          "type" : "weapon_mastery_replace_property",
+          "type" : "modify_dexterity_save_damage",
           "resource" : null,
           "formula" : null,
           "category" : null,
@@ -364,13 +341,43 @@
         "usage" : null,
         "resourceInteraction" : null
       },
-      "Studied Attacks" : {
+      "Reliable Talent" : {
+        "name" : "Reliable Talent",
+        "level" : 7,
+        "levels" : null,
+        "levelScaling" : null,
+        "effects" : [ {
+          "type" : "minimum_d20_roll",
+          "resource" : null,
+          "formula" : null,
+          "category" : null,
+          "amount" : null,
+          "trigger" : null,
+          "sense" : null,
+          "resultHP" : 0,
+          "activation" : null,
+          "action" : null,
+          "condition" : "proficient_skill_or_tool_check",
+          "range" : 0,
+          "unit" : null,
+          "distance" : null,
+          "noOpportunityAttacks" : null,
+          "bonus" : null,
+          "duration" : null,
+          "choice" : null
+        } ],
+        "activation" : null,
+        "trigger" : null,
+        "usage" : null,
+        "resourceInteraction" : null
+      },
+      "Improved Cunning Strike" : {
         "name" : null,
-        "level" : 13,
+        "level" : 11,
         "levels" : null,
         "levelScaling" : null,
         "effects" : [ {
-          "type" : "gain_advantage_on_miss",
+          "type" : "use_multiple_cunning_strikes_simultaneously",
           "resource" : null,
           "formula" : null,
           "category" : null,
@@ -386,7 +393,97 @@
           "distance" : null,
           "noOpportunityAttacks" : null,
           "bonus" : null,
-          "duration" : "next_turn",
+          "duration" : null,
+          "choice" : null
+        } ],
+        "activation" : null,
+        "trigger" : null,
+        "usage" : null,
+        "resourceInteraction" : null
+      },
+      "Blindsight" : {
+        "name" : null,
+        "level" : 14,
+        "levels" : null,
+        "levelScaling" : null,
+        "effects" : [ {
+          "type" : "sense",
+          "resource" : null,
+          "formula" : null,
+          "category" : null,
+          "amount" : null,
+          "trigger" : null,
+          "sense" : "blindsight",
+          "resultHP" : 0,
+          "activation" : null,
+          "action" : null,
+          "condition" : null,
+          "range" : 10,
+          "unit" : "feet",
+          "distance" : null,
+          "noOpportunityAttacks" : null,
+          "bonus" : null,
+          "duration" : null,
+          "choice" : null
+        } ],
+        "activation" : null,
+        "trigger" : null,
+        "usage" : null,
+        "resourceInteraction" : null
+      },
+      "Slippery Mind" : {
+        "name" : null,
+        "level" : 15,
+        "levels" : null,
+        "levelScaling" : null,
+        "effects" : [ {
+          "type" : "gain_proficiency",
+          "resource" : null,
+          "formula" : null,
+          "category" : null,
+          "amount" : null,
+          "trigger" : null,
+          "sense" : null,
+          "resultHP" : 0,
+          "activation" : null,
+          "action" : null,
+          "condition" : null,
+          "range" : 0,
+          "unit" : null,
+          "distance" : null,
+          "noOpportunityAttacks" : null,
+          "bonus" : null,
+          "duration" : null,
+          "choice" : null
+        } ],
+        "activation" : null,
+        "trigger" : null,
+        "usage" : null,
+        "resourceInteraction" : null
+      },
+      "Elusive" : {
+        "name" : null,
+        "level" : 18,
+        "levels" : null,
+        "levelScaling" : null,
+        "effects" : [ {
+          "type" : "negate_advantage_on_attacks_against_you",
+          "resource" : null,
+          "formula" : null,
+          "category" : null,
+          "amount" : null,
+          "trigger" : null,
+          "sense" : null,
+          "resultHP" : 0,
+          "activation" : null,
+          "action" : null,
+          "condition" : "not_incapacitated",
+          "range" : 0,
+          "unit" : null,
+          "distance" : null,
+          "noOpportunityAttacks" : null,
+          "bonus" : null,
+          "duration" : null,
           "choice" : null
         } ],
         "activation" : null,
@@ -423,16 +520,52 @@
         "trigger" : null,
         "usage" : null,
         "resourceInteraction" : null
+      },
+      "Stroke of Luck" : {
+        "name" : null,
+        "level" : 20,
+        "levels" : null,
+        "levelScaling" : null,
+        "effects" : [ {
+          "type" : "turn_miss_into_hit",
+          "resource" : null,
+          "formula" : null,
+          "category" : null,
+          "amount" : null,
+          "trigger" : null,
+          "sense" : null,
+          "resultHP" : 0,
+          "activation" : null,
+          "action" : null,
+          "condition" : null,
+          "range" : 0,
+          "unit" : null,
+          "distance" : null,
+          "noOpportunityAttacks" : null,
+          "bonus" : null,
+          "duration" : null,
+          "choice" : null
+        } ],
+        "activation" : null,
+        "trigger" : null,
+        "usage" : {
+          "uses" : "1",
+          "usesByLevel" : null,
+          "recharge" : [ "shortRest", "longRest" ]
+        },
+        "resourceInteraction" : null
       }
     }
   },
   "species" : {
-    "id" : "orc",
-    "name" : "Orc",
+    "id" : "aasimar",
+    "name" : "Aasimar",
     "creatureType" : "Humanoid",
     "size" : {
       "options" : [ {
         "category" : "Medium"
+      }, {
+        "category" : "Small"
       } ],
       "selection_rule" : null
     },
@@ -441,12 +574,12 @@
       "unit" : "feet"
     },
     "traits" : [ {
-      "name" : "Adrenaline Rush",
+      "name" : "Celestial Resistance",
       "level" : null,
       "levels" : null,
       "levelScaling" : null,
       "effects" : [ {
-        "type" : "grant_action",
+        "type" : "resistance",
         "resource" : null,
         "formula" : null,
         "category" : null,
@@ -454,8 +587,8 @@
         "trigger" : null,
         "sense" : null,
         "resultHP" : 0,
-        "activation" : "bonus_action",
-        "action" : "Dash",
+        "activation" : null,
+        "action" : null,
         "condition" : null,
         "range" : 0,
         "unit" : null,
@@ -465,9 +598,9 @@
         "duration" : null,
         "choice" : null
       }, {
-        "type" : "gain_temporary_hp",
+        "type" : "resistance",
         "resource" : null,
-        "formula" : "proficiency_bonus",
+        "formula" : null,
         "category" : null,
         "amount" : null,
         "trigger" : null,
@@ -486,11 +619,7 @@
       } ],
       "activation" : null,
       "trigger" : null,
-      "usage" : {
-        "uses" : "proficiency_bonus",
-        "usesByLevel" : null,
-        "recharge" : [ "short_rest", "long_rest" ]
-      },
+      "usage" : null,
       "resourceInteraction" : null
     }, {
       "name" : "Darkvision",
@@ -509,7 +638,7 @@
         "activation" : null,
         "action" : null,
         "condition" : null,
-        "range" : 120,
+        "range" : 60,
         "unit" : "feet",
         "distance" : null,
         "noOpportunityAttacks" : null,
@@ -522,22 +651,22 @@
       "usage" : null,
       "resourceInteraction" : null
     }, {
-      "name" : "Relentless Endurance",
+      "name" : "Healing Hands",
       "level" : null,
       "levels" : null,
       "levelScaling" : null,
       "effects" : [ {
-        "type" : "survive_drop_to_zero",
+        "type" : "heal_target",
         "resource" : null,
-        "formula" : null,
+        "formula" : "proficiency_bonus_d4",
         "category" : null,
         "amount" : null,
         "trigger" : null,
         "sense" : null,
-        "resultHP" : 1,
+        "resultHP" : 0,
         "activation" : null,
         "action" : null,
-        "condition" : "not_killed_outright",
+        "condition" : null,
         "range" : 0,
         "unit" : null,
         "distance" : null,
@@ -554,21 +683,83 @@
         "recharge" : [ "long_rest" ]
       },
       "resourceInteraction" : null
+    }, {
+      "name" : "Light Bearer",
+      "level" : null,
+      "levels" : null,
+      "levelScaling" : null,
+      "effects" : [ {
+        "type" : "learn_cantrip",
+        "resource" : null,
+        "formula" : null,
+        "category" : null,
+        "amount" : null,
+        "trigger" : null,
+        "sense" : null,
+        "resultHP" : 0,
+        "activation" : null,
+        "action" : null,
+        "condition" : null,
+        "range" : 0,
+        "unit" : null,
+        "distance" : null,
+        "noOpportunityAttacks" : null,
+        "bonus" : null,
+        "duration" : null,
+        "choice" : null
+      } ],
+      "activation" : null,
+      "trigger" : null,
+      "usage" : null,
+      "resourceInteraction" : null
+    }, {
+      "name" : "Celestial Revelation",
+      "level" : null,
+      "levels" : null,
+      "levelScaling" : null,
+      "effects" : [ {
+        "type" : "transformation_bonus_action",
+        "resource" : null,
+        "formula" : null,
+        "category" : null,
+        "amount" : null,
+        "trigger" : null,
+        "sense" : null,
+        "resultHP" : 0,
+        "activation" : null,
+        "action" : null,
+        "condition" : null,
+        "range" : 0,
+        "unit" : null,
+        "distance" : null,
+        "noOpportunityAttacks" : null,
+        "bonus" : null,
+        "duration" : "1 minute",
+        "choice" : null
+      } ],
+      "activation" : null,
+      "trigger" : null,
+      "usage" : {
+        "uses" : "1",
+        "usesByLevel" : null,
+        "recharge" : [ "long_rest" ]
+      },
+      "resourceInteraction" : null
     } ]
   },
   "background" : {
-    "id" : "acolyte",
-    "name" : "Acolyte",
-    "description" : "You devoted yourself to service in a temple, either nestled in a town or secluded in a sacred grove. There you performed rites in honor of a god or pantheon. You served under a priest and studied religion. Thanks to your priest's instruction and your own devotion, you also learned how to channel a modicum of divine power in service to your place of worship and the people who prayed there.",
-    "primaryAbilities" : [ "Intelligence", "Wisdom", "Charisma" ],
-    "feat" : "Magic Initiate (Cleric)",
-    "skillProficiencies" : [ "Insight", "Religion" ],
-    "toolProficiencies" : [ "Calligrapher's Supplies" ],
+    "id" : "artisan",
+    "name" : "Artisan",
+    "description" : "You began mopping floors and scrubbing counters in an artisan's workshop for a few coppers per day as soon as you were strong enough to carry a bucket. When you were old enough to apprentice, you learned to create basic crafts of your own, as well as how to sweet-talk the occasional demanding customer. Your trade has also given you a keen eye for detail.",
+    "primaryAbilities" : [ "Strength", "Dexterity", "Intelligence" ],
+    "feat" : "Crafter",
+    "skillProficiencies" : [ "Investigation", "Persuasion" ],
+    "toolProficiencies" : [ "Artisan's Tools" ],
     "startingEquipment" : {
       "options" : [ {
         "id" : "A",
-        "items" : [ "Calligrapher's Supplies", "Book (prayers)", "Holy Symbol", "10 sheets of Parchment", "Robe", {
-          "gold" : 8
+        "items" : [ "Artisan's Tools", "2 Pouches", "Traveler's Clothes", {
+          "gold" : 32
         } ]
       }, {
         "id" : "B",
@@ -578,8 +769,8 @@
       } ]
     }
   },
-  "maxHp" : 64,
-  "currentHp" : 48,
+  "maxHp" : 73,
+  "currentHp" : 53,
   "armorClass" : 10,
   "temporaryHp" : 0,
   "notes" : "",
@@ -587,16 +778,45 @@
   "armorBase" : 10,
   "shieldBonus" : 0,
   "features" : [ {
-    "name" : "Fighting Style",
+    "name" : "Sneak Attack",
     "level" : 1,
     "levels" : null,
     "levelScaling" : null,
     "effects" : [ {
-      "type" : "gainFeatChoice",
+      "type" : "extra_damage",
       "resource" : null,
       "formula" : null,
-      "category" : "fightingStyle",
-      "amount" : 1,
+      "category" : null,
+      "amount" : null,
+      "trigger" : null,
+      "sense" : null,
+      "resultHP" : 0,
+      "activation" : null,
+      "action" : null,
+      "condition" : "finesse_or_ranged_weapon_with_advantage_or_adjacent_ally",
+      "range" : 0,
+      "unit" : null,
+      "distance" : null,
+      "noOpportunityAttacks" : null,
+      "bonus" : null,
+      "duration" : null,
+      "choice" : null
+    } ],
+    "activation" : null,
+    "trigger" : null,
+    "usage" : null,
+    "resourceInteraction" : null
+  }, {
+    "name" : "Thieves' Cant",
+    "level" : 1,
+    "levels" : null,
+    "levelScaling" : null,
+    "effects" : [ {
+      "type" : "learn_language",
+      "resource" : null,
+      "formula" : null,
+      "category" : null,
+      "amount" : null,
       "trigger" : null,
       "sense" : null,
       "resultHP" : 0,
@@ -614,39 +834,6 @@
     "activation" : null,
     "trigger" : null,
     "usage" : null,
-    "resourceInteraction" : null
-  }, {
-    "name" : "Second Wind",
-    "level" : 1,
-    "levels" : null,
-    "levelScaling" : null,
-    "effects" : [ {
-      "type" : "heal",
-      "resource" : null,
-      "formula" : "1d10 + fighterLevel",
-      "category" : null,
-      "amount" : null,
-      "trigger" : null,
-      "sense" : null,
-      "resultHP" : 0,
-      "activation" : null,
-      "action" : null,
-      "condition" : null,
-      "range" : 0,
-      "unit" : null,
-      "distance" : null,
-      "noOpportunityAttacks" : null,
-      "bonus" : null,
-      "duration" : null,
-      "choice" : null
-    } ],
-    "activation" : "bonusAction",
-    "trigger" : null,
-    "usage" : {
-      "uses" : "2",
-      "usesByLevel" : null,
-      "recharge" : [ "shortRest", "longRest" ]
-    },
     "resourceInteraction" : null
   }, {
     "name" : "Weapon Mastery",
@@ -678,12 +865,12 @@
     "usage" : null,
     "resourceInteraction" : null
   }, {
-    "name" : "Action Surge",
+    "name" : "Cunning Action",
     "level" : 2,
     "levels" : null,
     "levelScaling" : null,
     "effects" : [ {
-      "type" : "grantAction",
+      "type" : "grant_action",
       "resource" : null,
       "formula" : null,
       "category" : null,
@@ -691,8 +878,8 @@
       "trigger" : null,
       "sense" : null,
       "resultHP" : 0,
-      "activation" : null,
-      "action" : "extraAction",
+      "activation" : "bonusAction",
+      "action" : null,
       "condition" : null,
       "range" : 0,
       "unit" : null,
@@ -704,24 +891,17 @@
     } ],
     "activation" : null,
     "trigger" : null,
-    "usage" : {
-      "uses" : null,
-      "usesByLevel" : {
-        "2-16" : 1,
-        "17-20" : 2
-      },
-      "recharge" : [ "short_rest" ]
-    },
+    "usage" : null,
     "resourceInteraction" : null
   }, {
-    "name" : "Tactical Mind",
-    "level" : 2,
+    "name" : "Steady Aim",
+    "level" : 3,
     "levels" : null,
     "levelScaling" : null,
     "effects" : [ {
-      "type" : "skill_check_bonus",
+      "type" : "gain_advantage_on_next_attack",
       "resource" : null,
-      "formula" : "1d10",
+      "formula" : null,
       "category" : null,
       "amount" : null,
       "trigger" : null,
@@ -729,7 +909,36 @@
       "resultHP" : 0,
       "activation" : null,
       "action" : null,
-      "condition" : "after_failure",
+      "condition" : null,
+      "range" : 0,
+      "unit" : null,
+      "distance" : null,
+      "noOpportunityAttacks" : null,
+      "bonus" : null,
+      "duration" : null,
+      "choice" : null
+    } ],
+    "activation" : "bonusAction",
+    "trigger" : null,
+    "usage" : null,
+    "resourceInteraction" : null
+  }, {
+    "name" : "Ability Score Improvement",
+    "level" : null,
+    "levels" : [ 4, 8, 10, 12, 16 ],
+    "levelScaling" : null,
+    "effects" : [ {
+      "type" : "ability_score_improvement",
+      "resource" : null,
+      "formula" : null,
+      "category" : null,
+      "amount" : null,
+      "trigger" : null,
+      "sense" : null,
+      "resultHP" : 0,
+      "activation" : null,
+      "action" : null,
+      "condition" : null,
       "range" : 0,
       "unit" : null,
       "distance" : null,
@@ -741,43 +950,72 @@
     "activation" : null,
     "trigger" : null,
     "usage" : null,
-    "resourceInteraction" : "second_wind"
+    "resourceInteraction" : null
   }, {
-    "name" : "Tactical Shift",
+    "name" : "Cunning Strike",
+    "level" : 5,
+    "levels" : null,
+    "levelScaling" : null,
+    "effects" : [ {
+      "type" : "trade_sneak_attack_damage_for_effect",
+      "resource" : null,
+      "formula" : null,
+      "category" : null,
+      "amount" : null,
+      "trigger" : null,
+      "sense" : null,
+      "resultHP" : 0,
+      "activation" : null,
+      "action" : null,
+      "condition" : null,
+      "range" : 0,
+      "unit" : null,
+      "distance" : null,
+      "noOpportunityAttacks" : null,
+      "bonus" : null,
+      "duration" : null,
+      "choice" : null
+    } ],
+    "activation" : null,
+    "trigger" : null,
+    "usage" : null,
+    "resourceInteraction" : null
+  }, {
+    "name" : "Uncanny Dodge",
+    "level" : 5,
+    "levels" : null,
+    "levelScaling" : null,
+    "effects" : [ {
+      "type" : "halve_attacker_damage",
+      "resource" : null,
+      "formula" : null,
+      "category" : null,
+      "amount" : null,
+      "trigger" : null,
+      "sense" : null,
+      "resultHP" : 0,
+      "activation" : null,
+      "action" : null,
+      "condition" : null,
+      "range" : 0,
+      "unit" : null,
+      "distance" : null,
+      "noOpportunityAttacks" : null,
+      "bonus" : null,
+      "duration" : null,
+      "choice" : null
+    } ],
+    "activation" : "reaction",
+    "trigger" : "hit_by_attack_from_visible_attacker",
+    "usage" : null,
+    "resourceInteraction" : null
+  }, {
+    "name" : "Evasion",
     "level" : 7,
     "levels" : null,
     "levelScaling" : null,
     "effects" : [ {
-      "type" : "movement",
-      "resource" : null,
-      "formula" : null,
-      "category" : null,
-      "amount" : null,
-      "trigger" : null,
-      "sense" : null,
-      "resultHP" : 0,
-      "activation" : null,
-      "action" : null,
-      "condition" : null,
-      "range" : 0,
-      "unit" : null,
-      "distance" : "half_speed",
-      "noOpportunityAttacks" : true,
-      "bonus" : null,
-      "duration" : null,
-      "choice" : null
-    } ],
-    "activation" : null,
-    "trigger" : "second_wind",
-    "usage" : null,
-    "resourceInteraction" : null
-  }, {
-    "name" : "Indomitable",
-    "level" : 9,
-    "levels" : null,
-    "levelScaling" : null,
-    "effects" : [ {
-      "type" : "reroll_save",
+      "type" : "modify_dexterity_save_damage",
       "resource" : null,
       "formula" : null,
       "category" : null,
@@ -792,29 +1030,21 @@
       "unit" : null,
       "distance" : null,
       "noOpportunityAttacks" : null,
-      "bonus" : "fighter_level",
+      "bonus" : null,
       "duration" : null,
       "choice" : null
     } ],
     "activation" : null,
     "trigger" : null,
-    "usage" : {
-      "uses" : null,
-      "usesByLevel" : {
-        "9-12" : 1,
-        "13-16" : 2,
-        "17-20" : 3
-      },
-      "recharge" : [ "long_rest" ]
-    },
+    "usage" : null,
     "resourceInteraction" : null
   }, {
-    "name" : "Tactical Master",
-    "level" : 9,
+    "name" : "Reliable Talent",
+    "level" : 7,
     "levels" : null,
     "levelScaling" : null,
     "effects" : [ {
-      "type" : "weapon_mastery_replace_property",
+      "type" : "minimum_d20_roll",
       "resource" : null,
       "formula" : null,
       "category" : null,
@@ -824,7 +1054,7 @@
       "resultHP" : 0,
       "activation" : null,
       "action" : null,
-      "condition" : null,
+      "condition" : "proficient_skill_or_tool_check",
       "range" : 0,
       "unit" : null,
       "distance" : null,
@@ -838,7 +1068,7 @@
     "usage" : null,
     "resourceInteraction" : null
   } ],
-  "updatedAt" : [ 2026, 9, 19, 14, 23, 46, 810813300 ],
+  "updatedAt" : [ 2026, 9, 19, 14, 26, 9, 745848900 ],
   "activeEffects" : "Nenhum efeito ativo",
   "lifeStateName" : "Normal"
 }
