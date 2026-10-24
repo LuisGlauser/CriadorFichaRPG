@@ -11,6 +11,13 @@
 
     <h1>📋 Revisão Final</h1>
 
+    <div th:if="${error}" class="error-message" role="alert"
+         style="background:#fdecea; color:#b71c1c; border:1px solid #f5c6cb;
+                border-radius:6px; padding:0.8rem 1rem; margin-bottom:1rem;">
+        <strong>Não foi possível criar o personagem:</strong>
+        <span th:text="${error}">mensagem de erro</span>
+    </div>
+
     <div class="sheet-meta" style="margin-bottom:1.2rem;">
         <div class="sheet-meta-item">
             <span class="meta-label">Nome</span>

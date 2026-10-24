@@ -1,6 +1,8 @@
 package com.glauser.rpg.CriadorFichaRPG.model.character;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.glauser.rpg.CriadorFichaRPG.chain.damage.DamageChainFactory;
+import com.glauser.rpg.CriadorFichaRPG.chain.damage.DamageContext;
 import com.glauser.rpg.CriadorFichaRPG.model.content.Backgrounds;
 import com.glauser.rpg.CriadorFichaRPG.model.content.CharacterClass;
 import com.glauser.rpg.CriadorFichaRPG.model.content.Species;
@@ -232,19 +234,12 @@ public class CharacterSheet implements CharacterComponent, CharacterSubject {
     @Override
     public void takeDamage(int dmg) {
 
-        if (temporaryHp > 0) {
-            int absorbed =
-                    Math.min(temporaryHp, Math.max(0, dmg));
-
-            temporaryHp -= absorbed;
-            dmg -= absorbed;
-        }
-
-        currentHp =
-                Math.max(0, currentHp - Math.max(0, dmg));
-
-        updateLifeState();
-        changed();
+        // Chain of Responsibility: HP temporário -> HP atual.
+        // updateBatch garante uma única notificação aos observers.
+        updateBatch(() -> {
+            DamageContext context = new DamageContext(this, dmg);
+            DamageChainFactory.createDefault().handle(context);
+        });
     }
 
     @Override

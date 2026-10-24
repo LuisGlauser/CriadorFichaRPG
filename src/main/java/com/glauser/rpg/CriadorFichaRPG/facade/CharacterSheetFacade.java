@@ -1,6 +1,7 @@
 package com.glauser.rpg.CriadorFichaRPG.facade;
 
 import com.glauser.rpg.CriadorFichaRPG.builder.CharacterBuilder;
+import com.glauser.rpg.CriadorFichaRPG.chain.validation.ValidationChainFactory;
 import com.glauser.rpg.CriadorFichaRPG.dto.CharacterCreationDTO;
 import com.glauser.rpg.CriadorFichaRPG.model.character.Attributes;
 import com.glauser.rpg.CriadorFichaRPG.model.character.CharacterSheet;
@@ -23,18 +24,29 @@ public class CharacterSheetFacade {
     private final ClassRegistry classRegistry;
     private final SpeciesRegistry speciesRegistry;
     private final BackgroundRegistry backgroundRegistry;
+    private final ValidationChainFactory validationChainFactory;
 
     public CharacterSheetFacade(CharacterService characterService,
                                 ClassRegistry classRegistry,
                                 SpeciesRegistry speciesRegistry,
-                                BackgroundRegistry backgroundRegistry) {
+                                BackgroundRegistry backgroundRegistry,
+                                ValidationChainFactory validationChainFactory) {
         this.characterService = characterService;
         this.classRegistry = classRegistry;
         this.speciesRegistry = speciesRegistry;
         this.backgroundRegistry = backgroundRegistry;
+        this.validationChainFactory = validationChainFactory;
     }
 
+    /**
+     * Valida o DTO pela cadeia de validação (Chain of Responsibility)
+     * e só então constrói e salva a ficha.
+     *
+     * @throws com.glauser.rpg.CriadorFichaRPG.chain.validation.ValidationException
+     *         se algum elo da cadeia rejeitar os dados
+     */
     public CharacterSheet buildAndSave(CharacterCreationDTO dto) {
+        validationChainFactory.create().validate(dto);
         return characterService.create(dto);
     }
 
