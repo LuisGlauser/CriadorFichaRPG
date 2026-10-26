@@ -407,6 +407,87 @@
             background: var(--parchment-dark);
         }
 
+        /* ── Descanso (Memento) ── */
+        .rest-hit-dice {
+            display: block;
+            margin-bottom: .5rem;
+            color: var(--ink-mid);
+            font-size: .72rem;
+        }
+
+        .rest-group .btn-action + .btn-action {
+            margin-top: .4rem;
+        }
+
+        .btn-rest {
+            background: linear-gradient(135deg, var(--gold), var(--gold-light));
+            color: var(--ink);
+        }
+
+        .btn-rest:hover {
+            filter: brightness(1.08);
+        }
+
+        .btn-action:disabled {
+            opacity: .5;
+            cursor: not-allowed;
+        }
+
+        .rest-message {
+            display: block;
+            margin-top: .5rem;
+            min-height: 1em;
+            color: var(--ink-mid);
+            font-size: .68rem;
+            font-style: italic;
+        }
+
+        .feature-uses {
+            list-style: none;
+            margin: .7rem 0 0;
+            padding: 0;
+        }
+
+        .feature-uses li {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: .4rem;
+            padding: .3rem 0;
+            border-top: 1px dotted var(--parchment-dark);
+            font-size: .74rem;
+        }
+
+        .feature-uses .uses-name small {
+            display: block;
+            color: var(--ink-mid);
+            font-size: .62rem;
+        }
+
+        .feature-uses .pips {
+            letter-spacing: .15em;
+            color: var(--gold);
+            white-space: nowrap;
+        }
+
+        .btn-use {
+            padding: .15rem .5rem;
+            font-family: var(--font-label);
+            font-size: .62rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            border: 1px solid var(--gold);
+            border-radius: 3px;
+            background: transparent;
+            color: var(--ink);
+            cursor: pointer;
+        }
+
+        .btn-use:disabled {
+            opacity: .4;
+            cursor: not-allowed;
+        }
+
         @media (max-width: 900px) {
             .combat-actions-panel {
                 width: 100%;
@@ -457,6 +538,34 @@
         <button id="btn-undo" class="btn-action btn-undo" type="button">
             ↺ Desfazer última ação
         </button>
+    </div>
+
+    <!-- DESCANSO (Memento) -->
+    <div class="action-group rest-group">
+        <label for="field-rest-hit-dice">Descanso</label>
+
+        <span class="rest-hit-dice" id="rest-hit-dice">Dados de vida: —</span>
+
+        <input
+            id="field-rest-hit-dice"
+            type="number"
+            min="0"
+            placeholder="Dados de vida a gastar (curto)"
+        >
+
+        <button id="btn-short-rest" class="btn-action btn-rest" type="button">
+            ☀ Descanso curto
+        </button>
+        <button id="btn-long-rest" class="btn-action btn-rest" type="button">
+            ☾ Descanso longo
+        </button>
+        <button id="btn-interrupt-rest" class="btn-action btn-undo" type="button" disabled>
+            ⛺ Interromper descanso
+        </button>
+
+        <small class="rest-message" id="rest-message"></small>
+
+        <ul class="feature-uses" id="rest-features"></ul>
     </div>
 
 </aside>
