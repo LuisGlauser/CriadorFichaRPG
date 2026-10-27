@@ -1,0 +1,632 @@
+{
+  "id" : "5a05d722-70da-435f-8156-4c354c3fa290",
+  "name" : "caio",
+  "attributes" : {
+    "strength" : 10,
+    "dexterity" : 10,
+    "constitution" : 10,
+    "intelligence" : 10,
+    "wisdom" : 20,
+    "charisma" : 10,
+    "conModifier" : 0
+  },
+  "level" : 10,
+  "characterClass" : {
+    "id" : null,
+    "name" : "Cleric",
+    "hitDie" : 8,
+    "savingThrowProficiencies" : [ "Wisdom", "Charisma" ],
+    "skillProficiencies" : {
+      "choose" : 2,
+      "options" : [ "History", "Insight", "Medicine", "Persuasion", "Religion" ]
+    },
+    "weaponProficiencies" : [ "Simple" ],
+    "armorTraining" : [ "Light", "Medium", "Shields" ],
+    "startingEquipment" : {
+      "options" : [ {
+        "id" : "A",
+        "items" : [ "Chain Shirt", "Mace", "Holy Symbol" ]
+      }, {
+        "id" : "B",
+        "items" : [ "Leather Armor", "Light Crossbow", "20 Bolts", "Holy Symbol" ]
+      }, {
+        "id" : "C",
+        "items" : [ {
+          "gold" : 115
+        } ]
+      } ]
+    },
+    "features" : {
+      "Channel Divinity" : {
+        "name" : "Channel Divinity",
+        "level" : 1,
+        "levels" : null,
+        "levelScaling" : null,
+        "effects" : [ {
+          "type" : "channel_divinity_access",
+          "resource" : null,
+          "formula" : null,
+          "category" : null,
+          "amount" : null,
+          "trigger" : null,
+          "sense" : null,
+          "resultHP" : 0,
+          "activation" : null,
+          "action" : null,
+          "condition" : null,
+          "range" : 0,
+          "unit" : null,
+          "distance" : null,
+          "noOpportunityAttacks" : null,
+          "bonus" : null,
+          "duration" : null,
+          "choice" : null
+        } ],
+        "activation" : null,
+        "trigger" : null,
+        "usage" : {
+          "uses" : null,
+          "usesByLevel" : {
+            "1-5" : 2,
+            "6-17" : 3,
+            "18-20" : 4
+          },
+          "recharge" : [ "shortRest", "longRest" ]
+        },
+        "resourceInteraction" : null
+      },
+      "Spellcasting" : {
+        "name" : "Spellcasting",
+        "level" : 1,
+        "levels" : null,
+        "levelScaling" : null,
+        "effects" : [ {
+          "type" : "cast_spells",
+          "resource" : null,
+          "formula" : null,
+          "category" : null,
+          "amount" : null,
+          "trigger" : null,
+          "sense" : null,
+          "resultHP" : 0,
+          "activation" : null,
+          "action" : null,
+          "condition" : null,
+          "range" : 0,
+          "unit" : null,
+          "distance" : null,
+          "noOpportunityAttacks" : null,
+          "bonus" : null,
+          "duration" : null,
+          "choice" : null
+        } ],
+        "activation" : null,
+        "trigger" : null,
+        "usage" : null,
+        "resourceInteraction" : null
+      },
+      "Divine Order" : {
+        "name" : "Divine Order",
+        "level" : 1,
+        "levels" : null,
+        "levelScaling" : null,
+        "effects" : [ {
+          "type" : "choose_holy_order",
+          "resource" : null,
+          "formula" : null,
+          "category" : null,
+          "amount" : null,
+          "trigger" : null,
+          "sense" : null,
+          "resultHP" : 0,
+          "activation" : null,
+          "action" : null,
+          "condition" : null,
+          "range" : 0,
+          "unit" : null,
+          "distance" : null,
+          "noOpportunityAttacks" : null,
+          "bonus" : null,
+          "duration" : null,
+          "choice" : null
+        } ],
+        "activation" : null,
+        "trigger" : null,
+        "usage" : null,
+        "resourceInteraction" : null
+      },
+      "Ability Score Improvement" : {
+        "name" : null,
+        "level" : null,
+        "levels" : [ 4, 8, 12, 16 ],
+        "levelScaling" : null,
+        "effects" : [ {
+          "type" : "ability_score_improvement",
+          "resource" : null,
+          "formula" : null,
+          "category" : null,
+          "amount" : null,
+          "trigger" : null,
+          "sense" : null,
+          "resultHP" : 0,
+          "activation" : null,
+          "action" : null,
+          "condition" : null,
+          "range" : 0,
+          "unit" : null,
+          "distance" : null,
+          "noOpportunityAttacks" : null,
+          "bonus" : null,
+          "duration" : null,
+          "choice" : null
+        } ],
+        "activation" : null,
+        "trigger" : null,
+        "usage" : null,
+        "resourceInteraction" : null
+      },
+      "Sear Undead" : {
+        "name" : "Sear Undead",
+        "level" : 5,
+        "levels" : null,
+        "levelScaling" : null,
+        "effects" : [ {
+          "type" : "modify_feature",
+          "resource" : null,
+          "formula" : "roll_d8_count_equal_to_proficiency_bonus",
+          "category" : null,
+          "amount" : null,
+          "trigger" : null,
+          "sense" : null,
+          "resultHP" : 0,
+          "activation" : null,
+          "action" : null,
+          "condition" : null,
+          "range" : 0,
+          "unit" : null,
+          "distance" : null,
+          "noOpportunityAttacks" : null,
+          "bonus" : null,
+          "duration" : null,
+          "choice" : null
+        } ],
+        "activation" : null,
+        "trigger" : null,
+        "usage" : null,
+        "resourceInteraction" : null
+      },
+      "Blessed Strikes" : {
+        "name" : "Blessed Strikes",
+        "level" : 7,
+        "levels" : null,
+        "levelScaling" : null,
+        "effects" : [ {
+          "type" : "choose_combat_enhancement",
+          "resource" : null,
+          "formula" : null,
+          "category" : null,
+          "amount" : null,
+          "trigger" : null,
+          "sense" : null,
+          "resultHP" : 0,
+          "activation" : null,
+          "action" : null,
+          "condition" : null,
+          "range" : 0,
+          "unit" : null,
+          "distance" : null,
+          "noOpportunityAttacks" : null,
+          "bonus" : null,
+          "duration" : null,
+          "choice" : null
+        } ],
+        "activation" : null,
+        "trigger" : null,
+        "usage" : null,
+        "resourceInteraction" : null
+      },
+      "Divine Intervention" : {
+        "name" : "Divine Intervention",
+        "level" : 10,
+        "levels" : null,
+        "levelScaling" : null,
+        "effects" : [ {
+          "type" : "request_deity_assistance",
+          "resource" : null,
+          "formula" : null,
+          "category" : null,
+          "amount" : null,
+          "trigger" : null,
+          "sense" : null,
+          "resultHP" : 0,
+          "activation" : "magicAction",
+          "action" : null,
+          "condition" : null,
+          "range" : 0,
+          "unit" : null,
+          "distance" : null,
+          "noOpportunityAttacks" : null,
+          "bonus" : null,
+          "duration" : null,
+          "choice" : null
+        } ],
+        "activation" : null,
+        "trigger" : null,
+        "usage" : {
+          "uses" : "1",
+          "usesByLevel" : null,
+          "recharge" : [ "longRest" ]
+        },
+        "resourceInteraction" : null
+      },
+      "Epic Boon" : {
+        "name" : null,
+        "level" : 19,
+        "levels" : null,
+        "levelScaling" : null,
+        "effects" : [ {
+          "type" : "gain_feat",
+          "resource" : null,
+          "formula" : null,
+          "category" : "epic_boon",
+          "amount" : null,
+          "trigger" : null,
+          "sense" : null,
+          "resultHP" : 0,
+          "activation" : null,
+          "action" : null,
+          "condition" : null,
+          "range" : 0,
+          "unit" : null,
+          "distance" : null,
+          "noOpportunityAttacks" : null,
+          "bonus" : null,
+          "duration" : null,
+          "choice" : null
+        } ],
+        "activation" : null,
+        "trigger" : null,
+        "usage" : null,
+        "resourceInteraction" : null
+      },
+      "Greater Divine Intervention" : {
+        "name" : null,
+        "level" : 20,
+        "levels" : null,
+        "levelScaling" : null,
+        "effects" : [ {
+          "type" : "modify_feature",
+          "resource" : null,
+          "formula" : null,
+          "category" : null,
+          "amount" : null,
+          "trigger" : null,
+          "sense" : null,
+          "resultHP" : 0,
+          "activation" : null,
+          "action" : null,
+          "condition" : null,
+          "range" : 0,
+          "unit" : null,
+          "distance" : null,
+          "noOpportunityAttacks" : null,
+          "bonus" : null,
+          "duration" : null,
+          "choice" : null
+        } ],
+        "activation" : null,
+        "trigger" : null,
+        "usage" : null,
+        "resourceInteraction" : null
+      }
+    }
+  },
+  "species" : {
+    "id" : "goliath",
+    "name" : "Goliath",
+    "creatureType" : "Humanoid",
+    "size" : {
+      "options" : [ {
+        "category" : "Medium"
+      } ],
+      "selection_rule" : null
+    },
+    "speed" : {
+      "walk" : 35,
+      "unit" : "feet"
+    },
+    "traits" : [ {
+      "name" : "Giant Ancestry",
+      "level" : null,
+      "levels" : null,
+      "levelScaling" : null,
+      "effects" : null,
+      "activation" : null,
+      "trigger" : null,
+      "usage" : null,
+      "resourceInteraction" : null
+    }, {
+      "name" : "Large Form",
+      "level" : null,
+      "levels" : null,
+      "levelScaling" : null,
+      "effects" : [ {
+        "type" : "change_size",
+        "resource" : null,
+        "formula" : null,
+        "category" : null,
+        "amount" : null,
+        "trigger" : null,
+        "sense" : null,
+        "resultHP" : 0,
+        "activation" : "bonus_action",
+        "action" : null,
+        "condition" : null,
+        "range" : 0,
+        "unit" : null,
+        "distance" : null,
+        "noOpportunityAttacks" : null,
+        "bonus" : null,
+        "duration" : "10 minutes",
+        "choice" : null
+      } ],
+      "activation" : null,
+      "trigger" : null,
+      "usage" : {
+        "uses" : "1",
+        "usesByLevel" : null,
+        "recharge" : [ "long_rest" ]
+      },
+      "resourceInteraction" : null
+    }, {
+      "name" : "Powerful Build",
+      "level" : null,
+      "levels" : null,
+      "levelScaling" : null,
+      "effects" : [ {
+        "type" : "count_as_one_size_larger",
+        "resource" : null,
+        "formula" : null,
+        "category" : null,
+        "amount" : null,
+        "trigger" : null,
+        "sense" : null,
+        "resultHP" : 0,
+        "activation" : null,
+        "action" : null,
+        "condition" : null,
+        "range" : 0,
+        "unit" : null,
+        "distance" : null,
+        "noOpportunityAttacks" : null,
+        "bonus" : null,
+        "duration" : null,
+        "choice" : null
+      } ],
+      "activation" : null,
+      "trigger" : null,
+      "usage" : null,
+      "resourceInteraction" : null
+    } ]
+  },
+  "background" : {
+    "id" : "entertainer",
+    "name" : "Entertainer",
+    "description" : "You spent much of your youth following roving fairs and carnivals, performing odd jobs for musicians and acrobats in exchange for lessons. You may have learned how to walk a tightrope, how to play a lute in a distinct style, or how to recite poetry with impeccable diction. To this day, you thrive on applause and long for the stage.",
+    "primaryAbilities" : [ "Strength", "Dexterity", "Charisma" ],
+    "feat" : "Musician",
+    "skillProficiencies" : [ "Acrobatics", "Performance" ],
+    "toolProficiencies" : [ "Musical Instrument" ],
+    "startingEquipment" : {
+      "options" : [ {
+        "id" : "A",
+        "items" : [ "Musical Instrument", "2 Costumes", "Mirror", "Perfume", "Traveler's Clothes", {
+          "gold" : 11
+        } ]
+      }, {
+        "id" : "B",
+        "items" : [ {
+          "gold" : 50
+        } ]
+      } ]
+    }
+  },
+  "maxHp" : 53,
+  "currentHp" : 53,
+  "armorClass" : 10,
+  "temporaryHp" : 0,
+  "notes" : "",
+  "armorType" : "UNARMORED",
+  "armorBase" : 10,
+  "shieldBonus" : 0,
+  "features" : [ {
+    "name" : "Channel Divinity",
+    "level" : 1,
+    "levels" : null,
+    "levelScaling" : null,
+    "effects" : [ {
+      "type" : "channel_divinity_access",
+      "resource" : null,
+      "formula" : null,
+      "category" : null,
+      "amount" : null,
+      "trigger" : null,
+      "sense" : null,
+      "resultHP" : 0,
+      "activation" : null,
+      "action" : null,
+      "condition" : null,
+      "range" : 0,
+      "unit" : null,
+      "distance" : null,
+      "noOpportunityAttacks" : null,
+      "bonus" : null,
+      "duration" : null,
+      "choice" : null
+    } ],
+    "activation" : null,
+    "trigger" : null,
+    "usage" : {
+      "uses" : null,
+      "usesByLevel" : {
+        "1-5" : 2,
+        "6-17" : 3,
+        "18-20" : 4
+      },
+      "recharge" : [ "shortRest", "longRest" ]
+    },
+    "resourceInteraction" : null
+  }, {
+    "name" : "Spellcasting",
+    "level" : 1,
+    "levels" : null,
+    "levelScaling" : null,
+    "effects" : [ {
+      "type" : "cast_spells",
+      "resource" : null,
+      "formula" : null,
+      "category" : null,
+      "amount" : null,
+      "trigger" : null,
+      "sense" : null,
+      "resultHP" : 0,
+      "activation" : null,
+      "action" : null,
+      "condition" : null,
+      "range" : 0,
+      "unit" : null,
+      "distance" : null,
+      "noOpportunityAttacks" : null,
+      "bonus" : null,
+      "duration" : null,
+      "choice" : null
+    } ],
+    "activation" : null,
+    "trigger" : null,
+    "usage" : null,
+    "resourceInteraction" : null
+  }, {
+    "name" : "Divine Order",
+    "level" : 1,
+    "levels" : null,
+    "levelScaling" : null,
+    "effects" : [ {
+      "type" : "choose_holy_order",
+      "resource" : null,
+      "formula" : null,
+      "category" : null,
+      "amount" : null,
+      "trigger" : null,
+      "sense" : null,
+      "resultHP" : 0,
+      "activation" : null,
+      "action" : null,
+      "condition" : null,
+      "range" : 0,
+      "unit" : null,
+      "distance" : null,
+      "noOpportunityAttacks" : null,
+      "bonus" : null,
+      "duration" : null,
+      "choice" : null
+    } ],
+    "activation" : null,
+    "trigger" : null,
+    "usage" : null,
+    "resourceInteraction" : null
+  }, {
+    "name" : "Sear Undead",
+    "level" : 5,
+    "levels" : null,
+    "levelScaling" : null,
+    "effects" : [ {
+      "type" : "modify_feature",
+      "resource" : null,
+      "formula" : "roll_d8_count_equal_to_proficiency_bonus",
+      "category" : null,
+      "amount" : null,
+      "trigger" : null,
+      "sense" : null,
+      "resultHP" : 0,
+      "activation" : null,
+      "action" : null,
+      "condition" : null,
+      "range" : 0,
+      "unit" : null,
+      "distance" : null,
+      "noOpportunityAttacks" : null,
+      "bonus" : null,
+      "duration" : null,
+      "choice" : null
+    } ],
+    "activation" : null,
+    "trigger" : null,
+    "usage" : null,
+    "resourceInteraction" : null
+  }, {
+    "name" : "Blessed Strikes",
+    "level" : 7,
+    "levels" : null,
+    "levelScaling" : null,
+    "effects" : [ {
+      "type" : "choose_combat_enhancement",
+      "resource" : null,
+      "formula" : null,
+      "category" : null,
+      "amount" : null,
+      "trigger" : null,
+      "sense" : null,
+      "resultHP" : 0,
+      "activation" : null,
+      "action" : null,
+      "condition" : null,
+      "range" : 0,
+      "unit" : null,
+      "distance" : null,
+      "noOpportunityAttacks" : null,
+      "bonus" : null,
+      "duration" : null,
+      "choice" : null
+    } ],
+    "activation" : null,
+    "trigger" : null,
+    "usage" : null,
+    "resourceInteraction" : null
+  }, {
+    "name" : "Divine Intervention",
+    "level" : 10,
+    "levels" : null,
+    "levelScaling" : null,
+    "effects" : [ {
+      "type" : "request_deity_assistance",
+      "resource" : null,
+      "formula" : null,
+      "category" : null,
+      "amount" : null,
+      "trigger" : null,
+      "sense" : null,
+      "resultHP" : 0,
+      "activation" : "magicAction",
+      "action" : null,
+      "condition" : null,
+      "range" : 0,
+      "unit" : null,
+      "distance" : null,
+      "noOpportunityAttacks" : null,
+      "bonus" : null,
+      "duration" : null,
+      "choice" : null
+    } ],
+    "activation" : null,
+    "trigger" : null,
+    "usage" : {
+      "uses" : "1",
+      "usesByLevel" : null,
+      "recharge" : [ "longRest" ]
+    },
+    "resourceInteraction" : null
+  } ],
+  "updatedAt" : [ 2026, 9, 19, 17, 51, 53, 112424600 ],
+  "lifeStateName" : "Normal",
+  "activeEffects" : "Nenhum efeito ativo"
+}

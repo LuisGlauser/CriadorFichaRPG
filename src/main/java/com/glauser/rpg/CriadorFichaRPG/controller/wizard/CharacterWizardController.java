@@ -1,5 +1,6 @@
 package com.glauser.rpg.CriadorFichaRPG.controller.wizard;
 
+import com.glauser.rpg.CriadorFichaRPG.chain.validation.ValidationException;
 import com.glauser.rpg.CriadorFichaRPG.dto.CharacterCreationDTO;
 import com.glauser.rpg.CriadorFichaRPG.facade.CharacterSheetFacade;
 import com.glauser.rpg.CriadorFichaRPG.model.character.Attributes;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/character/create")
@@ -127,8 +129,16 @@ public class CharacterWizardController {
 
     @PostMapping("/finish")
     public String finish(@ModelAttribute("character") CharacterCreationDTO dto,
-                         SessionStatus status) {
-        facade.buildAndSave(dto);
+                         SessionStatus status,
+                         RedirectAttributes redirectAttributes) {
+        try {
+            facade.buildAndSave(dto);
+        } catch (ValidationException e) {
+            // mantém o wizard na sessão e volta para a revisão com a mensagem
+            redirectAttributes.addFlashAttribute("error", e.getMessage());
+            return "redirect:/character/create/review";
+        }
+
         status.setComplete();
         return "redirect:/character/view";
     }

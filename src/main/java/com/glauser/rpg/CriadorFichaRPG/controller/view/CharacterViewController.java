@@ -9,77 +9,41 @@ import com.glauser.rpg.CriadorFichaRPG.service.CharacterService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class CharacterViewController {
-
     private final CharacterService characterService;
+    public CharacterViewController(CharacterService characterService) { this.characterService = characterService; }
 
-    public CharacterViewController(CharacterService characterService) {
-        this.characterService = characterService;
+    @GetMapping("/character/view")
+    public String viewLastCharacter() {
+        CharacterSheet character = characterService.getLastCharacter();
+        return character == null ? "redirect:/" : "redirect:/character/view/" + character.getId();
     }
 
-    // ── GET /character/view ──────────────────────────────────────────────────
-    @GetMapping("/character/view")
-    public String viewCharacter(HttpSession session, Model model) {
+    @GetMapping("/character/view/{id}")
+    public String viewCharacter(@PathVariable String id, Model model, HttpSession session) {
+        CharacterSheet baseCharacter = characterService.getById(id);
+        if (baseCharacter == null) return "redirect:/";
 
-        CharacterSheet sheet = characterService.getLastCharacter();
-        if (sheet == null) {
-            model.addAttribute("character", null);
-            return "character/view";
-        }
+        EffectsState effects = (EffectsState) session.getAttribute("effects-" + id);
+        if (effects == null) { effects = new EffectsState(); session.setAttribute("effects-" + id, effects); }
 
-        // Recupera (ou cria) o estado de efeitos da sessão
-        EffectsState state = getOrCreateState(session);
-
-        // Monta a cadeia de decorators conforme o estado ativo
-        CharacterComponent character = sheet;
-
-        if (state.isGlovesEquipped()) {
-            character = new ItemBoostDecorator(character,
-                    "Gauntlets of Ogre Power", "strength", 19);
-        }
-        if (state.getTemporaryHp() > 0) {
-            character = new TemporaryHpDecorator(character, state.getTemporaryHp());
-        }
+        CharacterComponent character = baseCharacter;
+        if (effects.isGlovesEquipped()) character = new ItemBoostDecorator(character, "Gauntlets of Ogre Power", "strength", 19);
+        if (effects.getTemporaryHp() > 0) character = new TemporaryHpDecorator(character, effects.getTemporaryHp());
 
         model.addAttribute("character", character);
-        model.addAttribute("effects",   state);          // para os checkboxes/inputs
+        model.addAttribute("effects", effects);
         model.addAttribute("activeEffects", character.getActiveEffects());
         return "character/view";
     }
 
-    // ── POST /character/effects — aplica/remove efeitos ─────────────────────
-    @PostMapping("/character/effects")
-    public String applyEffects(
-            @RequestParam(required = false) String action,
-            @RequestParam(required = false, defaultValue = "0") int tempHp,
-            HttpSession session) {
-
-        EffectsState state = getOrCreateState(session);
-
-        switch (action != null ? action : "") {
-            case "equip_gloves"   -> state.setGlovesEquipped(true);
-            case "unequip_gloves" -> state.setGlovesEquipped(false);
-            case "set_temp_hp"    -> state.setTemporaryHp(tempHp);
-            case "clear_temp_hp"  -> state.setTemporaryHp(0);
-            case "clear_all"      -> state.removeAllEffects();
-        }
-
-        session.setAttribute("effectsState", state);
-        return "redirect:/character/view";
-    }
-
-    // ── helper ───────────────────────────────────────────────────────────────
-    private EffectsState getOrCreateState(HttpSession session) {
-        EffectsState state = (EffectsState) session.getAttribute("effectsState");
-        if (state == null) {
-            state = new EffectsState();
-            session.setAttribute("effectsState", state);
-        }
-        return state;
+    @PostMapping("/character/save/{id}")
+    public String saveCharacter(@PathVariable String id) {
+        CharacterSheet character = characterService.getById(id);
+        if (character != null) characterService.save(character);
+        return "redirect:/character/view/" + id;
     }
 }

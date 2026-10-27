@@ -22,6 +22,7 @@ public abstract class CharacterSheetDecorator implements CharacterComponent {
         this.wrapped = wrapped;
     }
 
+    @Override public String getId()                     {return wrapped.getId(); }
     @Override public String getName()                   { return wrapped.getName(); }
     @Override public Attributes getAttributes()         { return wrapped.getAttributes(); }
     @Override public int getLevel()                     { return wrapped.getLevel(); }
