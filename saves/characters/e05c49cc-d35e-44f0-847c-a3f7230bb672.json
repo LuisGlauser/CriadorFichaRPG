@@ -772,7 +772,7 @@
   "maxHp" : 73,
   "currentHp" : 53,
   "armorClass" : 10,
-  "temporaryHp" : 0,
+  "temporaryHp" : 6,
   "notes" : "",
   "armorType" : "UNARMORED",
   "armorBase" : 10,
@@ -1068,7 +1068,7 @@
     "usage" : null,
     "resourceInteraction" : null
   } ],
-  "updatedAt" : [ 2026, 9, 19, 14, 26, 9, 745848900 ],
+  "updatedAt" : [ 2026, 11, 1, 18, 12, 52, 444930500 ],
   "activeEffects" : "Nenhum efeito ativo",
   "lifeStateName" : "Normal"
 }

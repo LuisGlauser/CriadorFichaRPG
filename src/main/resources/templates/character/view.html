@@ -429,12 +429,24 @@
 
     <div class="action-group">
         <label for="field-temporary-hp">HP Temporário</label>
-        <input
-            id="field-temporary-hp"
-            type="number"
-            min="0"
-            th:value="${character.temporaryHp}"
+        <form
+            th:action="@{/character/effects/{id}(id=${character.id})}"
+            method="post"
+            style="display:flex;gap:.4rem;flex-direction:column;align-items:flex-start;"
         >
+            <input type="hidden" name="action" value="set_temp_hp">
+            <input
+                id="field-temporary-hp"
+                name="tempHp"
+                type="number"
+                min="0"
+                th:value="${character.temporaryHp}"
+            >
+            
+            <button class="btn-action btn-damage" type="submit">
+                Aplicar
+            </button>
+        </form>
     </div>
 
     <div class="action-group">
@@ -585,9 +597,29 @@
     </div>
 
 
-    <!-- EFEITOS -->
+    <!-- EFEITOS: as solicitações passam pelo CharacterMediator -->
+    <section class="effects-panel">
+        <h2>Equipamentos e efeitos</h2>
 
+        <p class="effects-summary" th:if="${activeEffects != null and !#strings.isEmpty(activeEffects)}"
+           th:text="${activeEffects}">Nenhum efeito ativo</p>
 
+        <div class="effects-actions" style="display:flex;flex-wrap:wrap;gap:.75rem;align-items:end;">
+            <form th:action="@{/character/effects/{id}(id=${character.id})}" method="post">
+                <input type="hidden" name="action"
+                       th:value="${effects.glovesEquipped ? 'unequip_gloves' : 'equip_gloves'}">
+                <button class="btn-effect btn-equip" type="submit"
+                        th:text="${effects.glovesEquipped ? 'Desequipar Manoplas' : 'Equipar Manoplas da Força do Ogro'}">
+                    Equipar Manoplas da Força do Ogro
+                </button>
+            </form>
+
+            <form th:action="@{/character/effects/{id}(id=${character.id})}" method="post">
+                <input type="hidden" name="action" value="clear_all">
+                <button class="btn-effect btn-undo" type="submit">Remover todos os efeitos</button>
+            </form>
+        </div>
+    </section>
 
     <!-- CORPO -->
 

@@ -201,23 +201,7 @@
 
             <!-- ÚLTIMA ALTERAÇÃO -->
 
-            <p>
-                <strong>Última alteração:</strong>
-
-                <span
-                        th:if="${saved.updatedAt != null}"
-                        th:text="${#temporals.format(
-                            saved.updatedAt,
-                            'dd/MM/yyyy HH:mm'
-                        )}">
-                    data
-                </span>
-
-                <span
-                        th:unless="${saved.updatedAt != null}">
-                    Não disponível
-                </span>
-            </p>
+            
 
 
             <!-- AÇÕES -->

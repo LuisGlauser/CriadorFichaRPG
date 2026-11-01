@@ -10,6 +10,8 @@ import java.nio.file.*;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Service
 public class CharacterPersistenceService {
@@ -18,6 +20,9 @@ public class CharacterPersistenceService {
             Paths.get("saves", "characters");
 
     private final ObjectMapper objectMapper;
+
+    private static final Logger log =
+        LoggerFactory.getLogger(CharacterPersistenceService.class);
 
     public CharacterPersistenceService(ObjectMapper objectMapper) {
         this.objectMapper = objectMapper;
@@ -99,13 +104,19 @@ public class CharacterPersistenceService {
      * Lê uma ficha pelo ID.
      */
     public CharacterSheet findById(String id) {
-
         try {
             ensureDirectory();
 
             Path file = getFile(id);
 
+            log.info("BUSCA DE PERSONAGEM:");
+            log.info("ID recebido: {}", id);
+            log.info("Arquivo procurado: {}", file.toAbsolutePath());
+            log.info("Arquivo existe: {}", Files.exists(file));
+
             if (!Files.exists(file)) {
+                log.error("Ficha não encontrada para o ID: {}", id);
+
                 return null;
             }
 
@@ -115,14 +126,23 @@ public class CharacterPersistenceService {
                             CharacterSheet.class
                     );
 
-            /*
-             * O State é reconstruído após o JSON ser carregado.
-             */
+            log.info(
+                    "Ficha carregada: {} | ID interno: {}",
+                    character.getName(),
+                    character.getId()
+            );
+
             character.updateLifeState();
 
             return character;
 
         } catch (Exception e) {
+
+            log.error(
+                    "Erro ao recuperar personagem com ID: {}",
+                    id,
+                    e
+            );
 
             throw new IllegalStateException(
                     "Não foi possível ler a ficha " + id,
@@ -136,58 +156,62 @@ public class CharacterPersistenceService {
      */
     public List<CharacterSheet> findAll() {
 
-        try {
-            ensureDirectory();
+    try {
+        ensureDirectory();
 
-            List<CharacterSheet> characters =
-                    new ArrayList<>();
+        List<CharacterSheet> characters = new ArrayList<>();
 
-            try (DirectoryStream<Path> stream =
-                         Files.newDirectoryStream(
-                                 SAVE_DIRECTORY,
-                                 "*.json"
-                         )) {
+        try (DirectoryStream<Path> stream =
+                     Files.newDirectoryStream(SAVE_DIRECTORY, "*.json")) {
 
-                for (Path file : stream) {
+            for (Path file : stream) {
 
-                    try {
+                try {
+                    CharacterSheet character =
+                            objectMapper.readValue(
+                                    file.toFile(),
+                                    CharacterSheet.class
+                            );
 
-                        CharacterSheet character =
-                                objectMapper.readValue(
-                                        file.toFile(),
-                                        CharacterSheet.class
-                                );
-
+                    if (character != null) {
                         character.updateLifeState();
-
                         characters.add(character);
-
-                    } catch (Exception ignored) {
-                        /*
-                         * Um JSON inválido não impede que
-                         * as demais fichas sejam carregadas.
-                         */
                     }
+
+                } catch (Exception e) {
+                    log.error(
+                            "Erro ao carregar a ficha JSON: {}",
+                            file.toAbsolutePath(),
+                            e
+                    );
                 }
             }
-
-            characters.sort(
-                    Comparator.comparing(
-                            CharacterSheet::getName,
-                            Comparator.nullsLast(
-                                    String.CASE_INSENSITIVE_ORDER
-                            )
-                    )
-            );
-
-            return characters;
-
-        } catch (Exception e) {
-
-            throw new IllegalStateException(
-                    "Não foi possível listar as fichas salvas.",
-                    e
-            );
         }
+
+        characters.sort(
+                Comparator.comparing(
+                        CharacterSheet::getName,
+                        Comparator.nullsLast(
+                                String.CASE_INSENSITIVE_ORDER
+                        )
+                )
+        );
+
+        log.info(
+                "Foram carregadas {} fichas de personagens.",
+                characters.size()
+        );
+
+        return characters;
+
+    } catch (Exception e) {
+
+        log.error("Erro ao listar personagens salvos.", e);
+
+        throw new IllegalStateException(
+                "Não foi possível listar as fichas salvas.",
+                e
+        );
     }
+}
 }
