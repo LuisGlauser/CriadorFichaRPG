@@ -36,4 +36,20 @@ public abstract class CharacterSheetDecorator implements CharacterComponent {
     @Override public String getActiveEffects()          { return wrapped.getActiveEffects(); }
     @Override public void takeDamage(int dmg)           { wrapped.takeDamage(dmg); }
     @Override public void heal(int value)               { wrapped.heal(value); }
+    @Override public int getArmorClass()                {return wrapped.getArmorClass();}
+    @Override public String getArmorType()              {return wrapped.getArmorType();}
+    @Override public int getArmorBase()                 {return wrapped.getArmorBase();}
+    @Override public int getShieldBonus()               {
+        return wrapped.getShieldBonus();
+    }
+
+    @Override
+    public String getNotes() {
+        return wrapped.getNotes();
+    }
+
+    @Override
+    public String getLifeStateName() {
+        return wrapped.getLifeStateName();
+    }
 }

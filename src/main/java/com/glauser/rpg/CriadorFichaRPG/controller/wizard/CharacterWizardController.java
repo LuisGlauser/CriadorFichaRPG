@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import com.glauser.rpg.CriadorFichaRPG.model.character.CharacterSheet;
 
 @Controller
 @RequestMapping("/character/create")
@@ -128,18 +129,27 @@ public class CharacterWizardController {
 
 
     @PostMapping("/finish")
-    public String finish(@ModelAttribute("character") CharacterCreationDTO dto,
-                         SessionStatus status,
-                         RedirectAttributes redirectAttributes) {
+    public String finish(
+            @ModelAttribute("character") CharacterCreationDTO dto,
+            SessionStatus status,
+            RedirectAttributes redirectAttributes) {
+
         try {
-            facade.buildAndSave(dto);
+
+            CharacterSheet created = facade.buildAndSave(dto);
+
+            status.setComplete();
+
+            return "redirect:/character/view/" + created.getId();
+
         } catch (ValidationException e) {
-            // mantém o wizard na sessão e volta para a revisão com a mensagem
-            redirectAttributes.addFlashAttribute("error", e.getMessage());
+
+            redirectAttributes.addFlashAttribute(
+                    "error",
+                    e.getMessage()
+            );
+
             return "redirect:/character/create/review";
         }
-
-        status.setComplete();
-        return "redirect:/character/view";
     }
 }

@@ -26,6 +26,18 @@ public interface CharacterComponent {
 
     int getCurrentHp();
 
+    int getArmorClass();
+
+    String getArmorType();
+
+    int getArmorBase();
+
+    int getShieldBonus();
+
+    String getNotes();
+
+    String getLifeStateName();
+
     int getTemporaryHp();
 
     List<Features> getFeatures();
