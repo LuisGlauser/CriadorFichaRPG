@@ -5,6 +5,7 @@ import com.glauser.rpg.CriadorFichaRPG.chain.damage.DamageChainFactory;
 import com.glauser.rpg.CriadorFichaRPG.chain.damage.DamageContext;
 import com.glauser.rpg.CriadorFichaRPG.model.content.Backgrounds;
 import com.glauser.rpg.CriadorFichaRPG.model.content.CharacterClass;
+import com.glauser.rpg.CriadorFichaRPG.memento.RestMemento;
 import com.glauser.rpg.CriadorFichaRPG.model.content.Species;
 import com.glauser.rpg.CriadorFichaRPG.observer.CharacterObserver;
 import com.glauser.rpg.CriadorFichaRPG.observer.CharacterSubject;
@@ -15,7 +16,9 @@ import com.glauser.rpg.CriadorFichaRPG.state.UnconsciousState;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 @Data
@@ -43,6 +46,14 @@ public class CharacterSheet implements CharacterComponent, CharacterSubject {
     private int shieldBonus = 0;
 
     private List<Features> features;
+
+    /**
+     * Estado de descanso (persistido no JSON da ficha):
+     *  - dados de vida já gastos (o total é o nível do personagem);
+     *  - usos já gastos por feature, indexados pelo nome da feature.
+     */
+    private int hitDiceSpent = 0;
+    private Map<String, Integer> featureUsesSpent = new HashMap<>();
 
     private LocalDateTime updatedAt;
 
@@ -224,6 +235,78 @@ public class CharacterSheet implements CharacterComponent, CharacterSubject {
     public void setFeatures(List<Features> features) {
         this.features = features;
         changed();
+    }
+
+    public void setHitDiceSpent(int hitDiceSpent) {
+        this.hitDiceSpent = Math.max(0, hitDiceSpent);
+        changed();
+    }
+
+    public void setFeatureUsesSpent(Map<String, Integer> featureUsesSpent) {
+        this.featureUsesSpent = featureUsesSpent == null
+                ? new HashMap<>()
+                : new HashMap<>(featureUsesSpent);
+        changed();
+    }
+
+    // ------------------------------------------------------------------
+    // MEMENTO (Originator)
+    // ------------------------------------------------------------------
+
+    /**
+     * Tira um snapshot do estado que um descanso pode alterar.
+     * Só a própria ficha sabe o que há dentro do memento devolvido.
+     */
+    public RestMemento createMemento(String label) {
+        return new SheetMemento(
+                label,
+                LocalDateTime.now(),
+                currentHp,
+                temporaryHp,
+                hitDiceSpent,
+                featureUsesSpent
+        );
+    }
+
+    /**
+     * Devolve a ficha ao estado do snapshot, com uma única notificação
+     * aos observers (e portanto um único auto-save).
+     */
+    public void restore(RestMemento memento) {
+
+        if (!(memento instanceof SheetMemento snapshot)) {
+            throw new IllegalArgumentException(
+                    "Memento não foi criado por uma CharacterSheet."
+            );
+        }
+
+        updateBatch(() -> {
+            setCurrentHp(snapshot.currentHp());
+            setTemporaryHp(snapshot.temporaryHp());
+            setHitDiceSpent(snapshot.hitDiceSpent());
+            setFeatureUsesSpent(snapshot.featureUsesSpent());
+        });
+    }
+
+    /**
+     * Implementação privada do memento: imutável e invisível fora
+     * da ficha. O Caretaker só enxerga {@link RestMemento}.
+     */
+    private record SheetMemento(
+            String label,
+            LocalDateTime createdAt,
+            int currentHp,
+            int temporaryHp,
+            int hitDiceSpent,
+            Map<String, Integer> featureUsesSpent
+    ) implements RestMemento {
+
+        private SheetMemento {
+            // cópia defensiva: o mapa da ficha continua mudando depois
+            featureUsesSpent = featureUsesSpent == null
+                    ? Map.of()
+                    : Map.copyOf(featureUsesSpent);
+        }
     }
 
     @Override

@@ -494,6 +494,167 @@
         );
     }
 
+    /*
+     * Descanso (Memento).
+     *
+     * O front-end só pede "descanso curto", "descanso longo" ou
+     * "interromper"; o snapshot e a restauração acontecem no back-end
+     * (CharacterSheet = Originator, RestHistory = Caretaker).
+     */
+    const restEls = {
+        hitDice: document.querySelector("#rest-hit-dice"),
+        input: document.querySelector("#field-rest-hit-dice"),
+        shortBtn: document.querySelector("#btn-short-rest"),
+        longBtn: document.querySelector("#btn-long-rest"),
+        interruptBtn: document.querySelector("#btn-interrupt-rest"),
+        message: document.querySelector("#rest-message"),
+        features: document.querySelector("#rest-features")
+    };
+
+    function renderRest(data) {
+
+        if (!restEls.hitDice) {
+            return;
+        }
+
+        restEls.hitDice.textContent =
+            `Dados de vida: ${data.hitDiceRemaining}/${data.hitDiceTotal}` +
+            (data.hitDie ? ` (d${data.hitDie})` : "");
+
+        if (restEls.input) {
+            restEls.input.max = data.hitDiceRemaining;
+        }
+
+        if (restEls.interruptBtn) {
+            restEls.interruptBtn.disabled = !data.canInterrupt;
+            restEls.interruptBtn.title = data.lastRestLabel
+                ? `Restaura: ${data.lastRestLabel}`
+                : "Nenhum descanso para interromper";
+        }
+
+        if (restEls.message && data.message) {
+            restEls.message.textContent = data.message;
+        }
+
+        if (!restEls.features) {
+            return;
+        }
+
+        restEls.features.replaceChildren();
+
+        data.features.forEach(feature => {
+
+            const li = document.createElement("li");
+
+            const name = document.createElement("span");
+            name.className = "uses-name";
+            name.textContent = feature.name;
+
+            const recharge = document.createElement("small");
+            recharge.textContent = feature.recharge;
+            name.appendChild(recharge);
+
+            const pips = document.createElement("span");
+            pips.className = "pips";
+            pips.title = `${feature.remaining}/${feature.max} usos`;
+            pips.textContent =
+                "●".repeat(feature.remaining) +
+                "○".repeat(feature.spent);
+
+            const use = document.createElement("button");
+            use.type = "button";
+            use.className = "btn-use";
+            use.textContent = "Usar";
+            use.disabled = feature.remaining <= 0;
+            use.addEventListener(
+                "click",
+                () => restAction(
+                    `features/use?name=${encodeURIComponent(feature.name)}`,
+                    "Usando..."
+                )
+            );
+
+            li.append(name, pips, use);
+            restEls.features.appendChild(li);
+        });
+    }
+
+    async function restAction(path, pendingText) {
+
+        if (!id) {
+            return;
+        }
+
+        if (pendingText) {
+            status.textContent = pendingText;
+            status.dataset.state = "saving";
+        }
+
+        try {
+
+            const response =
+                await fetch(
+                    `/api/characters/${encodeURIComponent(id)}/${path}`,
+                    {
+                        method: path === "rest" ? "GET" : "POST",
+                        headers: { "Accept": "application/json" }
+                    }
+                );
+
+            if (response.status === 409) {
+                status.textContent = "Nada a fazer";
+                status.dataset.state = "error";
+                return;
+            }
+
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}`);
+            }
+
+            const data = await response.json();
+
+            updateDerived(data.sheet);
+            updateTemporaryHp(data.sheet);
+            renderRest(data);
+
+            if (path !== "rest") {
+                status.textContent = "Pronto ✓";
+                status.dataset.state = "saved";
+            }
+
+        } catch (error) {
+
+            console.error(error);
+
+            status.textContent = "Erro no descanso";
+            status.dataset.state = "error";
+        }
+    }
+
+    if (restEls.shortBtn) {
+        restEls.shortBtn.addEventListener("click", () => {
+            const dice = Math.max(0, Number(restEls.input?.value || 0));
+            restAction(`rest/short?hitDice=${dice}`, "Descansando...");
+        });
+    }
+
+    if (restEls.longBtn) {
+        restEls.longBtn.addEventListener(
+            "click",
+            () => restAction("rest/long", "Descansando...")
+        );
+    }
+
+    if (restEls.interruptBtn) {
+        restEls.interruptBtn.addEventListener(
+            "click",
+            () => restAction("rest/interrupt", "Restaurando...")
+        );
+    }
+
+    // Estado inicial do painel de descanso
+    restAction("rest", "");
+
     Object.entries(fields).forEach(
         ([field, selector]) => {
 
